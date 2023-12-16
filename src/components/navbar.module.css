@@ -9,6 +9,28 @@
   left: 0;
 }
 
-.dropdown {
+.dropdownToggle {
   margin-right: 1rem;
+  border: none;
+  background-color: white;
+  position: relative;
+  display: inline-block;
+}
+
+.dropdownMenu {
+  position: absolute;
+  background-color: white;
+  width: fit-content;
+  right: 0;
+  z-index: 1;
+}
+
+.dropdownLink {
+  color: rgba(8, 49, 196, 1);
+  text-decoration: none;
+  padding: 0.2rem 1rem;
+}
+
+.dropdownMenu hr {
+  color: black;
 }
