@@ -17,7 +17,7 @@ const Navbar = () => {
         <div className="col-auto">
           <div className={styles.dropdown}>
             <button
-              className={`dropdownToggle ${styles.dropdownToggle}`}
+              className={`dropdownToggle text-secondary ${styles.dropdownToggle}`}
               onClick={() => setShow(!show)}
             >
               <GiHamburgerMenu size={29} />
