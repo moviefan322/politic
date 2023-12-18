@@ -2,6 +2,7 @@ body {
   box-sizing: border-box;
   background-color: rgba(238, 238, 253, 1);
   overflow: hidden;
+  font-family: Poppins;
 }
 
 body,

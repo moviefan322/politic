@@ -1,0 +1,50 @@
+.params {
+  position: relative;
+  top: 160px;
+  left: 100px;
+  width: 90%;
+}
+
+.box {
+  border-radius: 9.88px;
+  box-shadow: 2px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  background-color: #ffffff;
+  padding: 1rem;
+}
+
+.boxHeader {
+  font-family: Poppins;
+  font-size: 26px;
+  font-weight: 400;
+  line-height: 39px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+
+.boxSelected {
+  font-family: Poppins;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 45px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+
+.boxIcon {
+  float: right;
+  border: none;
+  background-color: transparent;
+  color: var(--bs-secondary);
+}
+
+.runAnal {
+  border: none;
+  background-color: var(--bs-secondary);
+  color: white;
+  border-radius: 2rem;
+  padding: 0.3rem 1rem;
+  float: right;
+  margin-right: 1rem;
+  margin-top: 1rem;
+}
+
