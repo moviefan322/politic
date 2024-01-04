@@ -2,3 +2,9 @@
   margin-right: 0;
   width: 100%;
 }
+
+.candidates {
+  padding-top: 9rem;
+  display: flex;
+  justify-content: center;
+}

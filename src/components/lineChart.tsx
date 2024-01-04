@@ -48,7 +48,7 @@ const Candidates = () => {
     useState<TweetsByDate>();
   const [allTweets, setAllTweets] = useState<TweetsByDate>();
   const svgRef = useRef<SVGSVGElement>(null);
-  const svgWidth = 800;
+  const svgWidth = 1000;
   const svgHeight = 600;
 
   // Load and organize data

@@ -5,7 +5,7 @@ import Debug from "@/components/debug";
 const test = () => {
   return (
     <div>
-      <Debug />
+      {/* <Debug /> */}
       <Candidates />
     </div>
   );
