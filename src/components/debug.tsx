@@ -40,7 +40,7 @@ interface LineFunction {
   (data: { date: Date; count: number }[]): string | null;
 }
 
-const Candidates = () => {
+const Debug = () => {
   const [data, setData] = useState<TweetData[]>();
   const [negativeTweets, setNegativeTweets] = useState<TweetsByDate>();
   const [likedTweets, setLikedTweets] = useState<TweetsByDate>();
@@ -53,8 +53,8 @@ const Candidates = () => {
 
   // Load and organize data
   useEffect(() => {
-    d3.csv("data/eric_adams_twitter_data.csv").then((d) => {
-      console.log(d)
+    d3.csv("data/d_k_shivakumar_twitter_data.csv").then((d) => {
+      console.log(d);
       const modifiedData: TweetData[] = d
         .map((tweet) => {
           if (tweet.date) {
@@ -88,6 +88,7 @@ const Candidates = () => {
       setData(modifiedData);
     });
   }, []);
+
 
   // Organize data by date and sentiment
   useEffect(() => {
@@ -359,4 +360,4 @@ const Candidates = () => {
   );
 };
 
-export default Candidates;
+export default Debug;
