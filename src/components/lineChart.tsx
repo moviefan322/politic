@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import * as d3 from "d3";
-import { all } from "axios";
+import styles from "./lineChart.module.css";
 
 interface TweetData {
   content: string;
@@ -145,7 +145,7 @@ const Candidates = () => {
   // Create the chart
   const svg = d3.select(svgRef.current);
 
-  const MARGIN = { LEFT: 80, RIGHT: 20, TOP: 50, BOTTOM: 100 };
+  const MARGIN = { LEFT: 80, RIGHT: 20, TOP: 150, BOTTOM: 100 };
   const WIDTH = svgWidth - MARGIN.LEFT - MARGIN.RIGHT;
   const HEIGHT = svgHeight - MARGIN.TOP - MARGIN.BOTTOM;
 
@@ -155,6 +155,81 @@ const Candidates = () => {
 
   const x = d3.scaleTime().range([0, WIDTH]);
   const y = d3.scaleLinear().range([HEIGHT, 0]);
+
+  g.append("text")
+    .text("Post Analysis")
+    .attr("text-anchor", "start")
+    .attr("x", -35)
+    .attr("y", -50)
+    .style("font-size", "25px")
+    .attr("fill", "blue");
+
+  g.append("line")
+    .attr("x1", 160)
+    .attr("y1", -80)
+    .attr("x2", 190)
+    .attr("y2", -80)
+    .attr("stroke", "black")
+    .attr("stroke-width", 2);
+
+  g.append("text")
+    .text("Total Posts")
+    .attr("text-anchor", "start")
+    .attr("x", 195)
+    .attr("y", -77)
+    .style("font-size", "12px")
+    .attr("fill", "blue");
+
+    g.append("line")
+    .attr("x1", 160)
+    .attr("y1", -60)
+    .attr("x2", 190)
+    .attr("y2", -60)
+    .attr("stroke", "red")
+    .attr("stroke-width", 2)
+    .attr("stroke-dasharray", "8,8")
+
+  g.append("text")
+    .text("Negative Posts")
+    .attr("text-anchor", "start")
+    .attr("x", 195)
+    .attr("y", -57)
+    .style("font-size", "12px")
+    .attr("fill", "blue");
+
+    g.append("line")
+    .attr("x1", 290)
+    .attr("y1", -80)
+    .attr("x2", 320)
+    .attr("y2", -80)
+    .attr("stroke", "green")
+    .attr("stroke-dasharray", "5,5")
+    .attr("stroke-width", 2);
+
+  g.append("text")
+    .text("Liked Posts")
+    .attr("text-anchor", "start")
+    .attr("x", 325)
+    .attr("y", -77)
+    .style("font-size", "12px")
+    .attr("fill", "blue");
+
+    g.append("line")
+    .attr("x1", 290)
+    .attr("y1", -60)
+    .attr("x2", 320)
+    .attr("y2", -60)
+    .attr("stroke", "blue")
+    .attr("stroke-width", 2)
+    .attr("stroke-dasharray", "3,3")
+
+  g.append("text")
+    .text("Negative Liked Posts")
+    .attr("text-anchor", "start")
+    .attr("x", 325)
+    .attr("y", -57)
+    .style("font-size", "12px")
+    .attr("fill", "blue");
 
   // Set up the chart
   const setUpChart = () => {
