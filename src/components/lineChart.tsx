@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import * as d3 from "d3";
+import { all } from "axios";
 
 interface TweetData {
   content: string;
@@ -39,6 +40,9 @@ const Candidates = () => {
   const [data, setData] = useState<TweetData[]>();
   const [negativeTweets, setNegativeTweets] = useState<TweetsByDate>();
   const [likedTweets, setLikedTweets] = useState<TweetsByDate>();
+  const [likedNegativeTweets, setLikedNegativeTweets] =
+    useState<TweetsByDate>();
+  const [allTweets, setAllTweets] = useState<TweetsByDate>();
   const svgRef = useRef<SVGSVGElement>(null);
   const svgWidth = 800;
   const svgHeight = 600;
@@ -75,9 +79,34 @@ const Candidates = () => {
     if (data) {
       const negativeTweetsByDate: TweetsByDate = {};
       const likedTweetsByDate: TweetsByDate = {};
+      const likedNegativeTweetsByDate: TweetsByDate = {};
+      const allTweetsByDate: TweetsByDate = {};
 
       data.forEach((tweet) => {
-        if (tweet.negativeSentiment > 62) {
+        const tweetDate = tweet.date.toISOString().slice(0, 10);
+        if (!allTweetsByDate[tweetDate]) {
+          allTweetsByDate[tweetDate] = {
+            date: new Date(tweetDate),
+            tweets: [],
+            count: 0,
+          };
+        }
+        allTweetsByDate[tweetDate].tweets.push(tweet);
+        allTweetsByDate[tweetDate].count =
+          allTweetsByDate[tweetDate].tweets.length;
+
+        if (tweet.negativeSentiment > 62 && tweet.likes > 0) {
+          if (!likedNegativeTweetsByDate[tweetDate]) {
+            likedNegativeTweetsByDate[tweetDate] = {
+              date: new Date(tweetDate),
+              tweets: [],
+              count: 0,
+            };
+          }
+          likedNegativeTweetsByDate[tweetDate].tweets.push(tweet);
+          likedNegativeTweetsByDate[tweetDate].count =
+            likedNegativeTweetsByDate[tweetDate].tweets.length;
+        } else if (tweet.negativeSentiment > 62) {
           const tweetDate = tweet.date.toISOString().slice(0, 10);
           if (!negativeTweetsByDate[tweetDate]) {
             negativeTweetsByDate[tweetDate] = {
@@ -106,6 +135,8 @@ const Candidates = () => {
 
       setNegativeTweets(negativeTweetsByDate);
       setLikedTweets(likedTweetsByDate);
+      setLikedNegativeTweets(likedNegativeTweetsByDate);
+      setAllTweets(allTweetsByDate);
     }
   }, [data]);
 
@@ -122,10 +153,13 @@ const Candidates = () => {
   const x = d3.scaleTime().range([0, WIDTH]);
   const y = d3.scaleLinear().range([HEIGHT, 0]);
 
-  const setUpChart = (max: number) => {
+  const setUpChart = () => {
     if (data) {
+      const maxCount =
+        d3.max(Object.values(allTweets || {}), (d) => d.count) || 0;
+      const maxY = Math.max(maxCount);
       x.domain(d3.extent(data!, (d) => d.date) as unknown as Date[]);
-      y.domain([0, max]);
+      y.domain([0, maxY]);
     }
 
     const xAxisCall = d3.axisBottom(x);
@@ -151,9 +185,6 @@ const Candidates = () => {
     data: { date: Date; count: number }[],
     color: string
   ) => {
-    const dates = data.map((entry) => entry.date);
-    const count = data.map((entry) => entry.count);
-
     const negativeTweetLine = d3
       .line<{ date: Date; count: number }>()
       .x((d) => x(d.date) ?? 0)
@@ -181,104 +212,54 @@ const Candidates = () => {
   };
 
   useEffect(() => {
-    if (negativeTweets && likedTweets) {
-      // Get the maximum count from negativeTweets
-      const negativeTweetsMaxCount = Object.values(negativeTweets!).reduce(
-        (acc, entry) => {
-          return Math.max(acc, entry.count);
-        },
-        0 // Initialize with 0 to ensure a valid initial value
-      );
+    const drawLine = (data: TweetsByDate, color: string) => {
+      if (data && Object.keys(data).length > 0) {
+        const values = Object.values(data);
 
-      // Get the maximum count from likedTweets
-      const likedTweetsMaxCount = Object.values(likedTweets!).reduce(
-        (acc, entry) => {
-          return Math.max(acc, entry.count);
-        },
-        0 // Initialize with 0 to ensure a valid initial value
-      );
+        const chartData = values.reduce((acc, entry) => {
+          return acc.concat(
+            entry.tweets.map((tweet) => ({
+              date: tweet.date,
+              count: entry.count,
+            }))
+          );
+        }, [] as { date: Date; count: number }[]);
 
-      // Determine the maximum count between negativeTweets and likedTweets
-      const maxCount = Math.max(negativeTweetsMaxCount, likedTweetsMaxCount);
+        chartData.sort((a, b) => a.date.getTime() - b.date.getTime());
 
-      // Set up the chart with the determined maxCount
-      setUpChart(maxCount);
-    }
+        // Create an object to store unique dates and counts
+        const uniqueChartData: {
+          [key: string]: { date: Date; count: number };
+        } = {};
 
-    if (negativeTweets && Object.keys(negativeTweets).length > 0) {
-      const values = Object.values(negativeTweets);
-
-      const chartData = values.reduce((acc, entry) => {
-        return acc.concat(
-          entry.tweets.map((tweet) => ({
-            date: tweet.date,
+        chartData.forEach((entry) => {
+          const dateString = entry.date.toISOString().slice(0, 10);
+          uniqueChartData[dateString] = {
+            date: entry.date,
             count: entry.count,
-          }))
-        );
-      }, [] as { date: Date; count: number }[]);
+          };
+        });
 
-      chartData.sort((a, b) => a.date.getTime() - b.date.getTime());
+        // Convert the object values back to an array
+        const uniqueChartDataArray = Object.values(uniqueChartData);
 
-      // Create an object to store unique dates and counts
-      const uniqueChartData: { [key: string]: { date: Date; count: number } } =
-        {};
+        drawLineChart(uniqueChartDataArray, color);
 
-      chartData.forEach((entry) => {
-        const dateString = entry.date.toISOString().slice(0, 10);
-        uniqueChartData[dateString] = {
-          date: entry.date,
-          count: entry.count,
-        };
-      });
-
-      // Convert the object values back to an array
-      const uniqueChartDataArray = Object.values(uniqueChartData);
-
-      drawLineChart(uniqueChartDataArray, "blue");
-
-      console.log(uniqueChartData);
-    }
-
-    if (likedTweets && Object.keys(likedTweets).length > 0) {
-      const values = Object.values(likedTweets);
-
-      const chartData = values.reduce((acc, entry) => {
-        return acc.concat(
-          entry.tweets.map((tweet) => ({
-            date: tweet.date,
-            count: entry.count,
-          }))
-        );
-      }, [] as { date: Date; count: number }[]);
-
-      chartData.sort((a, b) => a.date.getTime() - b.date.getTime());
-
-      // Create an object to store unique dates and counts
-      const uniqueChartData: { [key: string]: { date: Date; count: number } } =
-        {};
-
-      chartData.forEach((entry) => {
-        const dateString = entry.date.toISOString().slice(0, 10);
-        uniqueChartData[dateString] = {
-          date: entry.date,
-          count: entry.count,
-        };
-      });
-
-      // Convert the object values back to an array
-      const uniqueChartDataArray = Object.values(uniqueChartData);
-
-      drawLineChart(uniqueChartDataArray, "red");
-
-      console.log(uniqueChartData);
-    }
-  }, [likedTweets, negativeTweets]);
+        console.log(uniqueChartData);
+      }
+    };
+    setUpChart();
+    drawLine(allTweets!, "black");
+    drawLine(likedNegativeTweets!, "blue");
+    drawLine(likedTweets!, "green");
+    drawLine(negativeTweets!, "red");
+  }, [likedTweets, negativeTweets, likedNegativeTweets, allTweets]);
 
   if (!data) {
     return <div>Loading...</div>;
   }
 
-  console.log(data);
+  console.log(allTweets);
 
   return (
     <div>
