@@ -47,6 +47,7 @@ const Candidates = () => {
   const svgWidth = 800;
   const svgHeight = 600;
 
+  // Load and organize data
   useEffect(() => {
     d3.csv("data/eric_adams_twitter_data.csv").then((d) => {
       const modifiedData: TweetData[] = d.map((tweet) => ({
@@ -75,6 +76,7 @@ const Candidates = () => {
     });
   }, []);
 
+  // Organize data by date and sentiment
   useEffect(() => {
     if (data) {
       const negativeTweetsByDate: TweetsByDate = {};
@@ -140,6 +142,7 @@ const Candidates = () => {
     }
   }, [data]);
 
+  // Create the chart
   const svg = d3.select(svgRef.current);
 
   const MARGIN = { LEFT: 80, RIGHT: 20, TOP: 50, BOTTOM: 100 };
@@ -153,6 +156,7 @@ const Candidates = () => {
   const x = d3.scaleTime().range([0, WIDTH]);
   const y = d3.scaleLinear().range([HEIGHT, 0]);
 
+  // Set up the chart
   const setUpChart = () => {
     if (data) {
       const maxCount =
@@ -205,6 +209,7 @@ const Candidates = () => {
     drawLine(line, dashed);
   };
 
+  // Draw the lines
   useEffect(() => {
     const drawLine = (data: TweetsByDate, color: string, dashed: string) => {
       if (data && Object.keys(data).length > 0) {
