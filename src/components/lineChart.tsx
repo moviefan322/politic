@@ -183,36 +183,30 @@ const Candidates = () => {
 
   const drawLineChart = (
     data: { date: Date; count: number }[],
-    color: string
+    color: string,
+    dashed: string
   ) => {
-    const negativeTweetLine = d3
+    const line = d3
       .line<{ date: Date; count: number }>()
       .x((d) => x(d.date) ?? 0)
       .y((d) => y(d.count) ?? 0);
 
-    const likedTweetLine = d3
-      .line<{ date: Date; count: number }>()
-      .x((d) => x(d.date) ?? 0)
-      .y((d) => y(d.count) ?? 0);
-
-    console.log(typeof negativeTweetLine);
-
-    const drawLine = (line: LineFunction) => {
+    const drawLine = (line: LineFunction, dash: string) => {
       g.append("path")
         .datum(data)
         .attr("class", "line")
         .attr("fill", "none")
         .attr("stroke", `${color}`)
         .attr("stroke-width", 2)
+        .attr("stroke-dasharray", dashed)
         .attr("d", line);
     };
 
-    drawLine(negativeTweetLine);
-    drawLine(likedTweetLine);
+    drawLine(line, dashed);
   };
 
   useEffect(() => {
-    const drawLine = (data: TweetsByDate, color: string) => {
+    const drawLine = (data: TweetsByDate, color: string, dashed: string) => {
       if (data && Object.keys(data).length > 0) {
         const values = Object.values(data);
 
@@ -243,23 +237,21 @@ const Candidates = () => {
         // Convert the object values back to an array
         const uniqueChartDataArray = Object.values(uniqueChartData);
 
-        drawLineChart(uniqueChartDataArray, color);
+        drawLineChart(uniqueChartDataArray, color, dashed);
 
         console.log(uniqueChartData);
       }
     };
     setUpChart();
-    drawLine(allTweets!, "black");
-    drawLine(likedNegativeTweets!, "blue");
-    drawLine(likedTweets!, "green");
-    drawLine(negativeTweets!, "red");
+    drawLine(allTweets!, "black", "none");
+    drawLine(likedNegativeTweets!, "blue", "3, 3");
+    drawLine(likedTweets!, "green", "5, 5");
+    drawLine(negativeTweets!, "red", "8,8");
   }, [likedTweets, negativeTweets, likedNegativeTweets, allTweets]);
 
   if (!data) {
     return <div>Loading...</div>;
   }
-
-  console.log(allTweets);
 
   return (
     <div>
