@@ -46,6 +46,7 @@ const Candidates = () => {
   const [likedTweets, setLikedTweets] = useState<TweetsByDate>();
   const [likedNegativeTweets, setLikedNegativeTweets] =
     useState<TweetsByDate>();
+  const [dateRange, setDateRange] = useState<Date[]>();
   const [allTweets, setAllTweets] = useState<TweetsByDate>();
   const svgRef = useRef<SVGSVGElement>(null);
   const svgWidth = 1000;
@@ -54,7 +55,7 @@ const Candidates = () => {
   // Load and organize data
   useEffect(() => {
     d3.csv("data/eric_adams_twitter_data.csv").then((d) => {
-      console.log(d)
+      console.log(d);
       const modifiedData: TweetData[] = d
         .map((tweet) => {
           if (tweet.date) {
@@ -244,15 +245,29 @@ const Candidates = () => {
     .style("font-size", "12px")
     .attr("fill", "blue");
 
+  if(dateRange) {
+    g.append("text")
+    .text(`${dateRange[0].toISOString().slice(0, 10)} - ${dateRange[1].toISOString().slice(0, 10)}`)
+    .attr("text-anchor", "start")
+    .attr("x", 675)
+    .attr("y", -57)
+    .style("font-size", "12px")
+    .attr("fill", "blue");
+  }
+
   // Set up the chart
   const setUpChart = () => {
     if (data) {
       const maxCount =
         d3.max(Object.values(allTweets || {}), (d) => d.count) || 0;
       const maxY = Math.max(maxCount);
-      x.domain(d3.extent(data!, (d) => d.date) as unknown as Date[]);
+      const xExtent = d3.extent(data!, (d) => d.date) as unknown as Date[];
+      setDateRange(xExtent);
+      x.domain(xExtent);
       y.domain([0, maxY]);
     }
+
+    console.log(dateRange);
 
     const xAxisCall = d3.axisBottom(x);
     const yAxisCall = d3.axisLeft(y).ticks(6);
