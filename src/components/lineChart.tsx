@@ -1,5 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import * as d3 from "d3";
+import { FaFacebookF } from "react-icons/fa";
+import { FaTwitter } from "react-icons/fa";
+import { FaInstagram } from "react-icons/fa";
+import { FaYoutube } from "react-icons/fa";
 import styles from "./lineChart.module.css";
 
 interface TweetData {
@@ -50,27 +54,35 @@ const Candidates = () => {
   // Load and organize data
   useEffect(() => {
     d3.csv("data/eric_adams_twitter_data.csv").then((d) => {
-      const modifiedData: TweetData[] = d.map((tweet) => ({
-        content: tweet.Content,
-        externalLinkContent: [tweet["External Link Content"]],
-        externalLinks: [tweet["External links"]],
-        mentionedUsers: [tweet["Mentioned Users"]], // Wrap the value in an array
-        translatedContent: tweet["Translated content"],
-        tweetID: tweet["Tweet ID"],
-        likes: +tweet.Likes || 0,
-        negativeSentiment: +tweet["Negative sentiment"] || 0,
-        neutralSentiment: +tweet["Neutral sentiment"] || 0,
-        positiveSentiment: +tweet["Positive sentiment"] || 0,
-        quoteTweets: +tweet["Quote tweets"] || 0,
-        replies: +tweet.Replies || 0,
-        retweets: +tweet.Retweets || 0,
-        views: +tweet.Views || 0,
-        url: tweet.URL,
-        user: tweet.User,
-        verifiedStatus: tweet["Verified status"],
-        date: new Date(Date.parse(tweet.date)),
-        media: tweet.media,
-      }));
+      const modifiedData: TweetData[] = d
+        .map((tweet) => {
+          if (tweet.date) {
+            return {
+              content: tweet.Content,
+              externalLinkContent: [tweet["External Link Content"]],
+              externalLinks: [tweet["External links"]],
+              mentionedUsers: [tweet["Mentioned Users"]], // Wrap the value in an array
+              translatedContent: tweet["Translated content"],
+              tweetID: tweet["Tweet ID"],
+              likes: +tweet.Likes || 0,
+              negativeSentiment: +tweet["Negative sentiment"] || 0,
+              neutralSentiment: +tweet["Neutral sentiment"] || 0,
+              positiveSentiment: +tweet["Positive sentiment"] || 0,
+              quoteTweets: +tweet["Quote tweets"] || 0,
+              replies: +tweet.Replies || 0,
+              retweets: +tweet.Retweets || 0,
+              views: +tweet.Views || 0,
+              url: tweet.URL,
+              user: tweet.User,
+              verifiedStatus: tweet["Verified status"],
+              date: new Date(tweet.date),
+              media: tweet.media,
+            };
+          } else {
+            return null;
+          }
+        })
+        .filter((tweet): tweet is TweetData => tweet !== null);
 
       setData(modifiedData);
     });
@@ -180,14 +192,14 @@ const Candidates = () => {
     .style("font-size", "12px")
     .attr("fill", "blue");
 
-    g.append("line")
+  g.append("line")
     .attr("x1", 160)
     .attr("y1", -60)
     .attr("x2", 190)
     .attr("y2", -60)
     .attr("stroke", "red")
     .attr("stroke-width", 2)
-    .attr("stroke-dasharray", "8,8")
+    .attr("stroke-dasharray", "8,8");
 
   g.append("text")
     .text("Negative Posts")
@@ -197,7 +209,7 @@ const Candidates = () => {
     .style("font-size", "12px")
     .attr("fill", "blue");
 
-    g.append("line")
+  g.append("line")
     .attr("x1", 290)
     .attr("y1", -80)
     .attr("x2", 320)
@@ -214,14 +226,14 @@ const Candidates = () => {
     .style("font-size", "12px")
     .attr("fill", "blue");
 
-    g.append("line")
+  g.append("line")
     .attr("x1", 290)
     .attr("y1", -60)
     .attr("x2", 320)
     .attr("y2", -60)
     .attr("stroke", "blue")
     .attr("stroke-width", 2)
-    .attr("stroke-dasharray", "3,3")
+    .attr("stroke-dasharray", "3,3");
 
   g.append("text")
     .text("Negative Liked Posts")
@@ -336,6 +348,12 @@ const Candidates = () => {
   return (
     <div>
       <svg ref={svgRef} width={svgWidth} height={svgHeight}></svg>
+      <div className={styles.socials}>
+        <FaFacebookF />
+        <FaTwitter className={styles.twitter} />
+        <FaInstagram />
+        <FaYoutube />
+      </div>
     </div>
   );
 };
