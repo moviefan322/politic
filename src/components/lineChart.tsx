@@ -245,14 +245,18 @@ const Candidates = () => {
     .style("font-size", "12px")
     .attr("fill", "blue");
 
-  if(dateRange) {
+  if (dateRange) {
     g.append("text")
-    .text(`${dateRange[0].toISOString().slice(0, 10)} - ${dateRange[1].toISOString().slice(0, 10)}`)
-    .attr("text-anchor", "start")
-    .attr("x", 675)
-    .attr("y", -57)
-    .style("font-size", "12px")
-    .attr("fill", "blue");
+      .text(
+        `${dateRange[0].toISOString().slice(0, 10)} - ${dateRange[1]
+          .toISOString()
+          .slice(0, 10)}`
+      )
+      .attr("text-anchor", "start")
+      .attr("x", 675)
+      .attr("y", -57)
+      .style("font-size", "12px")
+      .attr("fill", "blue");
   }
 
   // Set up the chart
@@ -364,6 +368,7 @@ const Candidates = () => {
   return (
     <div>
       <svg ref={svgRef} width={svgWidth} height={svgHeight}></svg>
+
       <div className={styles.socials}>
         <FaFacebookF />
         <FaTwitter className={styles.twitter} />

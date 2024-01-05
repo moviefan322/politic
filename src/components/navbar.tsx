@@ -11,7 +11,13 @@ const Navbar = () => {
       <div className="row align-items-center justify-content-between">
         <div className="col-auto">
           <div className={styles.logo}>
-            <Image src="/logo.png" alt="site logo" height={60} width={120} />
+            <Image
+              src="/logo.png"
+              alt="site logo"
+              height={60}
+              width={120}
+              priority={true}
+            />
           </div>
         </div>
         <div className="col-auto">

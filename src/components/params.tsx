@@ -2,10 +2,14 @@ import { useState } from "react";
 import styles from "@/components/params.module.css";
 import { FaAngleDown } from "react-icons/fa";
 
-const Params = () => {
+interface ParamsProps {
+  setParams: any;
+}
+
+const Params = ({ setParams }: ParamsProps) => {
   const [keywordChecked, setKeywordChecked] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState("United States");
-  const [selectedCandidate, setSelectedCandidate] = useState("Joe Biden");
+  const [selectedCandidate, setSelectedCandidate] = useState("Eric Adams");
   const [selectedPlatform, setSelectedPlatform] = useState("Twitter");
   const [negTweetCutoffValue, setNegTweetCutoffValue] = useState(50);
   const [posTweetCutoffValue, setPosTweetCutoffValue] = useState(50);
@@ -21,6 +25,18 @@ const Params = () => {
 
   const handlePosTweetCutoffChange = (event: any) => {
     setPosTweetCutoffValue(event.target.value);
+  };
+
+  const handleRunAnalysis = () => {
+    setParams({
+      country: selectedCountry,
+      candidate: selectedCandidate,
+      platform: selectedPlatform,
+      negTweetCutoff: negTweetCutoffValue,
+      posTweetCutoff: posTweetCutoffValue,
+      dateRange: dateRange,
+      showChart: true,
+    });
   };
 
   return (
@@ -118,10 +134,13 @@ const Params = () => {
               type="text"
               placeholder="Date Range"
               value={dateRange}
+              onChange={(event) => setDateRange(event.target.value)}
             />
           </div>
 
-          <button className={styles.runAnal}>Run Analysis</button>
+          <button onClick={handleRunAnalysis} className={styles.runAnal}>
+            Run Analysis
+          </button>
         </div>
       </div>
     </div>
