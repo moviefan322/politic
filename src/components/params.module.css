@@ -48,3 +48,12 @@
   margin-top: 1rem;
 }
 
+.dateInput {
+  width: 200px !important;
+}
+
+.dinputDiv {
+  position: relative;
+  margin-top: 1rem;
+  right: 1rem;
+}

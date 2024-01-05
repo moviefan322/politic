@@ -129,15 +129,15 @@ const Params = ({ setParams }: ParamsProps) => {
           <p className="text-center">% Cutoff of Positive Tweets</p>
         </div>
         <div className="col-3">
-          <div className="mx-auto w-50">
+          <div className={`mx-auto w-50 ${styles.dinputDiv}`}>
             <InputMask
-              className="text-center mx-auto"
+              className={`text-center mx-auto ${styles.dateInput}`}
               type="text"
               placeholder="Date Range"
               value={dateRange}
               onChange={(event: any) => setDateRange(event.target.value)}
               mask="99/99/9999 - 99/99/9999"
-              slotChar="mm/dd/yyyy"
+              slotChar="mm/dd/yyyy - mm/dd/yyyy"
             />
           </div>
 
