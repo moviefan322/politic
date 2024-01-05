@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styles from "@/components/params.module.css";
 import { FaAngleDown } from "react-icons/fa";
+import { InputMask } from "primereact/inputmask";
 
 interface ParamsProps {
   setParams: any;
@@ -129,12 +130,14 @@ const Params = ({ setParams }: ParamsProps) => {
         </div>
         <div className="col-3">
           <div className="mx-auto w-50">
-            <input
+            <InputMask
               className="text-center mx-auto"
               type="text"
               placeholder="Date Range"
               value={dateRange}
-              onChange={(event) => setDateRange(event.target.value)}
+              onChange={(event: any) => setDateRange(event.target.value)}
+              mask="99/99/9999 - 99/99/9999"
+              slotChar="mm/dd/yyyy"
             />
           </div>
 
