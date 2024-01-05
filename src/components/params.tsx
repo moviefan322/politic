@@ -15,6 +15,9 @@ const Params = ({ setParams }: ParamsProps) => {
   const [negTweetCutoffValue, setNegTweetCutoffValue] = useState(50);
   const [posTweetCutoffValue, setPosTweetCutoffValue] = useState(50);
   const [dateRange, setDateRange] = useState("");
+  const [showDropdown1, setShowDropdown1] = useState(false);
+  const [showDropdown2, setShowDropdown2] = useState(false);
+  const [showDropdown3, setShowDropdown3] = useState(false);
 
   const handleKeywordCheckboxChange = () => {
     setKeywordChecked(!keywordChecked);
@@ -40,6 +43,35 @@ const Params = ({ setParams }: ParamsProps) => {
     });
   };
 
+  const handleCountrySelectArrow = () => {
+    setShowDropdown1(!showDropdown1);
+  };
+
+  const handleCandidateSelectArrow = () => {
+    setShowDropdown2(!showDropdown2);
+  }
+
+
+  const handlePlatformSelectArrow = () => {
+    setShowDropdown3(!showDropdown3);
+  }
+
+  const handleSelectCountry = (country: string) => {
+    setSelectedCountry(country);
+    setShowDropdown1(false);
+  };
+
+  const handleSelectCandidate = (candidate: string) => {
+    setSelectedCandidate(candidate);
+    setShowDropdown2(false);
+  }
+
+  const handleSelectPlatform = (platform: string) => {
+    setSelectedPlatform(platform);
+    setShowDropdown3(false);
+  }
+
+
   return (
     <div className={styles.params}>
       <div className="row">
@@ -47,27 +79,135 @@ const Params = ({ setParams }: ParamsProps) => {
           <div className={styles.box}>
             <p className={styles.boxHeader}>Country</p>
             <p className={styles.boxSelected}>{selectedCountry}</p>
-            <button className={styles.boxIcon}>
-              <FaAngleDown />
-            </button>
+            <div className={styles.dropDownContainer}>
+              {" "}
+              <button
+                onClick={handleCountrySelectArrow}
+                className={styles.boxIcon}
+              >
+                <FaAngleDown />
+              </button>
+              {showDropdown1 && (
+                <div className={styles.dropDown}>
+                  <p
+                    onClick={() => handleSelectCountry("United States")}
+                    className={styles.dropDownItem}
+                  >
+                    United States
+                  </p>
+                  <p
+                    onClick={() => handleSelectCountry("United Kingdom")}
+                    className={styles.dropDownItem}
+                  >
+                    United Kingdom
+                  </p>
+                  <p
+                    onClick={() => handleSelectCountry("Canada")}
+                    className={styles.dropDownItem}
+                  >
+                    Canada
+                  </p>
+                  <p
+                    onClick={() => handleSelectCountry("Australia")}
+                    className={styles.dropDownItem}
+                  >
+                    Australia
+                  </p>
+                </div>
+              )}
+            </div>
           </div>
         </div>
         <div className="col-3 d-flex flex-column text-secondary">
           <div className={styles.box}>
             <p className={styles.boxHeader}>Candidate</p>
             <p className={styles.boxSelected}>{selectedCandidate}</p>
-            <button className={styles.boxIcon}>
+            <button onClick={handleCandidateSelectArrow} className={styles.boxIcon}>
               <FaAngleDown />
             </button>
+            {showDropdown2 && (
+              <div className={styles.dropDown}>
+                <p
+                  onClick={() => handleSelectCandidate("Eric Adams")}
+                  className={styles.dropDownItem}
+                >
+                  Eric Adams
+                </p>
+                <p
+                  onClick={() => handleSelectCandidate("Shaun Donovan")}
+                  className={styles.dropDownItem}
+                >
+                  Shaun Donovan
+                </p>
+                <p
+                  onClick={() => handleSelectCandidate("Kathryn Garcia")}
+                  className={styles.dropDownItem}
+                >
+                  Kathryn Garcia
+                </p>
+                <p
+                  onClick={() => handleSelectCandidate("Raymond McGuire")}
+                  className={styles.dropDownItem}
+                >
+                  Raymond McGuire
+                </p>
+                <p
+                  onClick={() => handleSelectCandidate("Dianne Morales")}
+                  className={styles.dropDownItem}
+                >
+                  Dianne Morales
+                </p>
+                <p
+                  onClick={() => handleSelectCandidate("Scott Stringer")}
+                  className={styles.dropDownItem}
+                >
+                  Scott Stringer
+                </p>
+                <p
+                  onClick={() => handleSelectCandidate("Maya Wiley")}
+                  className={styles.dropDownItem}
+                >
+                  Maya Wiley
+                </p>
+              </div> 
+            )}
           </div>
         </div>
         <div className="col-3 d-flex flex-column text-secondary">
           <div className={styles.box}>
             <p className={styles.boxHeader}>Platform</p>
             <p className={styles.boxSelected}>{selectedPlatform}</p>
-            <button className={styles.boxIcon}>
+            <button onClick={handlePlatformSelectArrow} className={styles.boxIcon}>
               <FaAngleDown />
             </button>
+            {showDropdown3 && (
+              <div className={styles.dropDown}>
+                <p
+                  onClick={() => handleSelectPlatform("Twitter")}
+                  className={styles.dropDownItem}
+                >
+                  Twitter
+                </p>
+                <p
+                  onClick={() => handleSelectPlatform("Youtube")}
+                  className={styles.dropDownItem}
+                >
+                  Youtube
+                </p>
+                <p
+                  onClick={() => handleSelectPlatform("Facebook")}
+                  className={styles.dropDownItem}
+                >
+                  Facebook
+                </p>
+                <p
+                  onClick={() => handleSelectPlatform("Instagram")}
+                  className={styles.dropDownItem}
+                >
+                  Instagram
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </div>

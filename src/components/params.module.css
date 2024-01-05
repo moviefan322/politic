@@ -57,3 +57,21 @@
   margin-top: 1rem;
   right: 1rem;
 }
+
+.dropdownContainer {
+  position: relative;
+}
+
+.dropDown {
+  position: absolute;
+  top: 200px;
+  z-index: 1; /* Ensure the dropdown appears on top */
+  display: block;
+  background-color: rgb(209, 133, 209);
+  width: 180px;
+  
+}
+
+.dropDown p {
+  cursor: pointer;
+}
