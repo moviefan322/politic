@@ -14,10 +14,22 @@ const Params = ({ setParams }: ParamsProps) => {
   const [selectedPlatform, setSelectedPlatform] = useState("Twitter");
   const [negTweetCutoffValue, setNegTweetCutoffValue] = useState(50);
   const [posTweetCutoffValue, setPosTweetCutoffValue] = useState(50);
-  const [dateRange, setDateRange] = useState("");
+  const [dateRange, setDateRange] = useState(null);
+  const [keywords, setKeywords] = useState("");
   const [showDropdown1, setShowDropdown1] = useState(false);
   const [showDropdown2, setShowDropdown2] = useState(false);
   const [showDropdown3, setShowDropdown3] = useState(false);
+  const candidates = [
+    "Eric Adams",
+    "Shaun Donovan",
+    "Kathryn Garcia",
+    "Raymond McGuire",
+    "Dianne Morales",
+    "Scott Stringer",
+    "Maya Wiley",
+  ];
+  const countries = ["United States", "United Kingdom", "Canada", "Australia"];
+  const platforms = ["Twitter", "Youtube", "Facebook", "Instagram"];
 
   const handleKeywordCheckboxChange = () => {
     setKeywordChecked(!keywordChecked);
@@ -31,6 +43,10 @@ const Params = ({ setParams }: ParamsProps) => {
     setPosTweetCutoffValue(event.target.value);
   };
 
+  const handleKeywordChange = (event: any) => {
+    setKeywords(event.target.value);
+  };
+
   const handleRunAnalysis = () => {
     setParams({
       country: selectedCountry,
@@ -39,6 +55,7 @@ const Params = ({ setParams }: ParamsProps) => {
       negTweetCutoff: negTweetCutoffValue,
       posTweetCutoff: posTweetCutoffValue,
       dateRange: dateRange,
+      keywords: keywords.split(",").map((keyword) => keyword.trim()),
       showChart: true,
     });
   };
@@ -49,12 +66,11 @@ const Params = ({ setParams }: ParamsProps) => {
 
   const handleCandidateSelectArrow = () => {
     setShowDropdown2(!showDropdown2);
-  }
-
+  };
 
   const handlePlatformSelectArrow = () => {
     setShowDropdown3(!showDropdown3);
-  }
+  };
 
   const handleSelectCountry = (country: string) => {
     setSelectedCountry(country);
@@ -64,13 +80,12 @@ const Params = ({ setParams }: ParamsProps) => {
   const handleSelectCandidate = (candidate: string) => {
     setSelectedCandidate(candidate);
     setShowDropdown2(false);
-  }
+  };
 
   const handleSelectPlatform = (platform: string) => {
     setSelectedPlatform(platform);
     setShowDropdown3(false);
-  }
-
+  };
 
   return (
     <div className={styles.params}>
@@ -89,30 +104,15 @@ const Params = ({ setParams }: ParamsProps) => {
               </button>
               {showDropdown1 && (
                 <div className={styles.dropDown}>
-                  <p
-                    onClick={() => handleSelectCountry("United States")}
-                    className={styles.dropDownItem}
-                  >
-                    United States
-                  </p>
-                  <p
-                    onClick={() => handleSelectCountry("United Kingdom")}
-                    className={styles.dropDownItem}
-                  >
-                    United Kingdom
-                  </p>
-                  <p
-                    onClick={() => handleSelectCountry("Canada")}
-                    className={styles.dropDownItem}
-                  >
-                    Canada
-                  </p>
-                  <p
-                    onClick={() => handleSelectCountry("Australia")}
-                    className={styles.dropDownItem}
-                  >
-                    Australia
-                  </p>
+                  {countries.map((country) => (
+                    <p
+                      key={country}
+                      onClick={() => handleSelectCountry(country)}
+                      className={styles.dropDownItem}
+                    >
+                      {country}
+                    </p>
+                  ))}
                 </div>
               )}
             </div>
@@ -122,54 +122,24 @@ const Params = ({ setParams }: ParamsProps) => {
           <div className={styles.box}>
             <p className={styles.boxHeader}>Candidate</p>
             <p className={styles.boxSelected}>{selectedCandidate}</p>
-            <button onClick={handleCandidateSelectArrow} className={styles.boxIcon}>
+            <button
+              onClick={handleCandidateSelectArrow}
+              className={styles.boxIcon}
+            >
               <FaAngleDown />
             </button>
             {showDropdown2 && (
               <div className={styles.dropDown}>
-                <p
-                  onClick={() => handleSelectCandidate("Eric Adams")}
-                  className={styles.dropDownItem}
-                >
-                  Eric Adams
-                </p>
-                <p
-                  onClick={() => handleSelectCandidate("Shaun Donovan")}
-                  className={styles.dropDownItem}
-                >
-                  Shaun Donovan
-                </p>
-                <p
-                  onClick={() => handleSelectCandidate("Kathryn Garcia")}
-                  className={styles.dropDownItem}
-                >
-                  Kathryn Garcia
-                </p>
-                <p
-                  onClick={() => handleSelectCandidate("Raymond McGuire")}
-                  className={styles.dropDownItem}
-                >
-                  Raymond McGuire
-                </p>
-                <p
-                  onClick={() => handleSelectCandidate("Dianne Morales")}
-                  className={styles.dropDownItem}
-                >
-                  Dianne Morales
-                </p>
-                <p
-                  onClick={() => handleSelectCandidate("Scott Stringer")}
-                  className={styles.dropDownItem}
-                >
-                  Scott Stringer
-                </p>
-                <p
-                  onClick={() => handleSelectCandidate("Maya Wiley")}
-                  className={styles.dropDownItem}
-                >
-                  Maya Wiley
-                </p>
-              </div> 
+                {candidates.map((candidate) => (
+                  <p
+                    key={candidate}
+                    onClick={() => handleSelectCandidate(candidate)}
+                    className={styles.dropDownItem}
+                  >
+                    {candidate}
+                  </p>
+                ))}
+              </div>
             )}
           </div>
         </div>
@@ -177,35 +147,23 @@ const Params = ({ setParams }: ParamsProps) => {
           <div className={styles.box}>
             <p className={styles.boxHeader}>Platform</p>
             <p className={styles.boxSelected}>{selectedPlatform}</p>
-            <button onClick={handlePlatformSelectArrow} className={styles.boxIcon}>
+            <button
+              onClick={handlePlatformSelectArrow}
+              className={styles.boxIcon}
+            >
               <FaAngleDown />
             </button>
             {showDropdown3 && (
               <div className={styles.dropDown}>
-                <p
-                  onClick={() => handleSelectPlatform("Twitter")}
-                  className={styles.dropDownItem}
-                >
-                  Twitter
-                </p>
-                <p
-                  onClick={() => handleSelectPlatform("Youtube")}
-                  className={styles.dropDownItem}
-                >
-                  Youtube
-                </p>
-                <p
-                  onClick={() => handleSelectPlatform("Facebook")}
-                  className={styles.dropDownItem}
-                >
-                  Facebook
-                </p>
-                <p
-                  onClick={() => handleSelectPlatform("Instagram")}
-                  className={styles.dropDownItem}
-                >
-                  Instagram
-                </p>
+                {platforms.map((platform) => (
+                  <p
+                    key={platform}
+                    onClick={() => handleSelectPlatform(platform)}
+                    className={styles.dropDownItem}
+                  >
+                    {platform}
+                  </p>
+                ))}
               </div>
             )}
           </div>
@@ -230,6 +188,8 @@ const Params = ({ setParams }: ParamsProps) => {
             name="keywordInput"
             placeholder="Negative, Tweets"
             style={!keywordChecked ? { display: "none" } : {}}
+            value={keywords}
+            onChange={handleKeywordChange}
           />
         </div>
         <div className="col-3">
@@ -274,7 +234,7 @@ const Params = ({ setParams }: ParamsProps) => {
               className={`text-center mx-auto ${styles.dateInput}`}
               type="text"
               placeholder="Date Range"
-              value={dateRange}
+              value={dateRange || ""}
               onChange={(event: any) => setDateRange(event.target.value)}
               mask="99/99/9999 - 99/99/9999"
               slotChar="mm/dd/yyyy - mm/dd/yyyy"
