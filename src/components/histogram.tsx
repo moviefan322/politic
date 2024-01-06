@@ -137,7 +137,7 @@ const HistogramChart = () => {
     .attr("width", 20)
     .attr("height", 10)
     .attr("fill", "gray")
-    .attr("stroke-width", 2)
+    .attr("stroke-width", 2);
 
   g.append("text")
     .text("Neutral Sentiment")
@@ -179,7 +179,7 @@ const HistogramChart = () => {
 
   const setUpChart = () => {
     // determine domain
-    if(data) {
+    if (data) {
       const maxNegative = Math.max(...sentimentData.negative);
       const maxPositive = Math.max(...sentimentData.positive);
       const maxNeutral = Math.max(...sentimentData.neutral);
@@ -190,11 +190,11 @@ const HistogramChart = () => {
     }
     x.domain([0, 99]);
 
-    const xAxisCall = d3.axisBottom(x)
+    const xAxisCall = d3.axisBottom(x);
     g.append("g")
-    .attr("class", "x axis")
-    .attr("transform", `translate(0, ${HEIGHT})`)
-    .call(xAxisCall.scale(x));
+      .attr("class", "x axis")
+      .attr("transform", `translate(0, ${HEIGHT})`)
+      .call(xAxisCall.scale(x));
     // X axis
     g.append("g")
       .attr("transform", `translate(0, ${HEIGHT})`)
@@ -223,17 +223,63 @@ const HistogramChart = () => {
       .attr("transform", "rotate(-90)")
       .text("Frequency of Sentiment")
       .style("fill", "blue");
-  }
+  };
+
+  const drawRectangles = (data: number[], color: string, className: string) => {
+    // Create a pattern for stripes
+    svg
+      .append("pattern")
+      .attr("id", `${className}_pattern`)
+      .attr("width", 5)
+      .attr("height", 5)
+      .attr("patternUnits", "userSpaceOnUse")
+      .attr("patternTransform", "rotate(45)");
+
+    // Add stripes to the pattern
+    d3.select(`#${className}_pattern`)
+      .append("line")
+      .attr("x1", 0)
+      .attr("y1", 0)
+      .attr("x2", 0)
+      .attr("y2", 5)
+      .attr("stroke", "white")
+      .attr("stroke-width", 2);
+
+    const bars = g
+      .selectAll(`.${className}`)
+      .data(data)
+      .enter()
+      .append("rect")
+      .attr("class", className)
+      .attr("x", (d, i) => x(i))
+      .attr("y", (d) => y(d))
+      .attr("width", x(1) - x(0))
+      .attr("height", (d) => HEIGHT - y(d))
+      .style("fill", `${color}`)
+      .style("opacity", 0.7);
+
+    bars.on("mouseover", function () {
+      d3.select(this).style("opacity", 1.0);
+    });
+
+    bars.on("mouseout", function () {
+      d3.select(this).style("opacity", 0.7);
+    });
+  };
 
   // Generate the chart
   useEffect(() => {
     setUpChart();
+    // Call the drawRectangles function for each sentiment type
+    drawRectangles(sentimentData.positive, "green", "positive");
+    drawRectangles(sentimentData.neutral, "gray", "neutral");
+    drawRectangles(sentimentData.negative, "red", "negative");
   }, [sentimentData]);
 
   if (!data) return <p>Loading...</p>;
 
   console.log(sentimentData);
-  console.log(totalTweets)
+  console.log(totalTweets);
   return (
     <div>
       <svg ref={svgRef} width={svgWidth} height={svgHeight}></svg>
