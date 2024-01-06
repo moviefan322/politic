@@ -104,7 +104,7 @@ const HistogramChart = () => {
     .append("g")
     .attr("transform", `translate(${MARGIN.LEFT}, ${MARGIN.TOP})`);
 
-  const x = d3.scaleTime().range([0, WIDTH]);
+  const x = d3.scaleLinear().range([0, WIDTH]);
   const y = d3.scaleLinear().range([HEIGHT, 0]);
 
   g.append("text")
@@ -115,12 +115,12 @@ const HistogramChart = () => {
     .style("font-size", "25px")
     .attr("fill", "blue");
 
-  g.append("line")
-    .attr("x1", 160)
-    .attr("y1", -80)
-    .attr("x2", 190)
-    .attr("y2", -80)
-    .attr("stroke", "black")
+  g.append("rect")
+    .attr("x", 165)
+    .attr("y", -85)
+    .attr("width", 20)
+    .attr("height", 10)
+    .attr("fill", "green")
     .attr("stroke-width", 2);
 
   g.append("text")
@@ -131,14 +131,13 @@ const HistogramChart = () => {
     .style("font-size", "12px")
     .attr("fill", "blue");
 
-  g.append("line")
-    .attr("x1", 160)
-    .attr("y1", -60)
-    .attr("x2", 190)
-    .attr("y2", -60)
-    .attr("stroke", "red")
+  g.append("rect")
+    .attr("x", 165)
+    .attr("y", -65)
+    .attr("width", 20)
+    .attr("height", 10)
+    .attr("fill", "gray")
     .attr("stroke-width", 2)
-    .attr("stroke-dasharray", "8,8");
 
   g.append("text")
     .text("Neutral Sentiment")
@@ -148,13 +147,12 @@ const HistogramChart = () => {
     .style("font-size", "12px")
     .attr("fill", "blue");
 
-  g.append("line")
-    .attr("x1", 300)
-    .attr("y1", -80)
-    .attr("x2", 330)
-    .attr("y2", -80)
-    .attr("stroke", "green")
-    .attr("stroke-dasharray", "5,5")
+  g.append("rect")
+    .attr("x", 305)
+    .attr("y", -85)
+    .attr("width", 20)
+    .attr("height", 10)
+    .attr("fill", "red")
     .attr("stroke-width", 2);
 
   g.append("text")
@@ -178,6 +176,59 @@ const HistogramChart = () => {
       .style("font-size", "12px")
       .attr("fill", "blue");
   }
+
+  const setUpChart = () => {
+    // determine domain
+    if(data) {
+      const maxNegative = Math.max(...sentimentData.negative);
+      const maxPositive = Math.max(...sentimentData.positive);
+      const maxNeutral = Math.max(...sentimentData.neutral);
+      const max = Math.max(maxNegative, maxPositive, maxNeutral);
+      y.domain([0, max]);
+      const yAxisCall = d3.axisLeft(y).ticks(6);
+      g.append("g").attr("class", "y axis").call(yAxisCall.scale(y));
+    }
+    x.domain([0, 99]);
+
+    const xAxisCall = d3.axisBottom(x)
+    g.append("g")
+    .attr("class", "x axis")
+    .attr("transform", `translate(0, ${HEIGHT})`)
+    .call(xAxisCall.scale(x));
+    // X axis
+    g.append("g")
+      .attr("transform", `translate(0, ${HEIGHT})`)
+      .attr("class", "x-axis");
+
+    // Y axis
+    g.append("g").attr("class", "y-axis");
+
+    // X axis label
+    g.append("text")
+      .attr("class", "x axis-label")
+      .attr("x", WIDTH / 2)
+      .attr("y", HEIGHT + 60)
+      .attr("font-size", "20px")
+      .attr("text-anchor", "middle")
+      .text("Sentiment Score")
+      .style("fill", "blue");
+
+    // Y axis label
+    g.append("text")
+      .attr("class", "y axis-label")
+      .attr("x", -(HEIGHT / 2))
+      .attr("y", -60)
+      .attr("font-size", "20px")
+      .attr("text-anchor", "middle")
+      .attr("transform", "rotate(-90)")
+      .text("Frequency of Sentiment")
+      .style("fill", "blue");
+  }
+
+  // Generate the chart
+  useEffect(() => {
+    setUpChart();
+  }, [sentimentData]);
 
   if (!data) return <p>Loading...</p>;
 
