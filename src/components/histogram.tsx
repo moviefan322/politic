@@ -6,8 +6,13 @@ import { FaYoutube } from "react-icons/fa";
 import styles from "./histogram.module.css";
 import { TweetData, TweetsByDate } from "../types/TweetData";
 import * as d3 from "d3";
+import IParams from "@/types/Params";
 
-const HistogramChart = () => {
+interface HistogramChartProps {
+  params: IParams;
+}
+
+const HistogramChart = ({ params }: HistogramChartProps) => {
   const [data, setData] = useState<TweetData[]>();
   const [dateRange, setDateRange] = useState<[Date, Date]>();
   const [totalTweets, setTotalTweets] = useState<number>(0);
@@ -26,7 +31,7 @@ const HistogramChart = () => {
   const svgHeight = 600;
 
   useEffect(() => {
-    d3.csv("data/eric_adams_twitter_data.csv").then((d) => {
+    d3.csv(`data/${params.candidate}_twitter_data.csv`).then((d) => {
       const modifiedData: TweetData[] = d
         .map((tweet) => {
           if (tweet.date) {
@@ -60,7 +65,7 @@ const HistogramChart = () => {
       setData(modifiedData);
       setTotalTweets(modifiedData.length);
     });
-  }, []);
+  }, [params]);
 
   // Organize data by sentiment
   useEffect(() => {
@@ -91,7 +96,7 @@ const HistogramChart = () => {
 
       setSentimentData(sentimentCounts);
     }
-  }, [data]);
+  }, [data, totalTweets]);
 
   // Create the chart
   const svg = d3.select(svgRef.current);
@@ -107,75 +112,77 @@ const HistogramChart = () => {
   const x = d3.scaleLinear().range([0, WIDTH]);
   const y = d3.scaleLinear().range([HEIGHT, 0]);
 
-  g.append("text")
-    .text("Post Analysis")
-    .attr("text-anchor", "start")
-    .attr("x", -35)
-    .attr("y", -50)
-    .style("font-size", "25px")
-    .attr("fill", "blue");
-
-  g.append("rect")
-    .attr("x", 165)
-    .attr("y", -85)
-    .attr("width", 20)
-    .attr("height", 10)
-    .attr("fill", "green")
-    .attr("stroke-width", 2);
-
-  g.append("text")
-    .text("Positive Sentiment")
-    .attr("text-anchor", "start")
-    .attr("x", 195)
-    .attr("y", -77)
-    .style("font-size", "12px")
-    .attr("fill", "blue");
-
-  g.append("rect")
-    .attr("x", 165)
-    .attr("y", -65)
-    .attr("width", 20)
-    .attr("height", 10)
-    .attr("fill", "gray")
-    .attr("stroke-width", 2);
-
-  g.append("text")
-    .text("Neutral Sentiment")
-    .attr("text-anchor", "start")
-    .attr("x", 195)
-    .attr("y", -57)
-    .style("font-size", "12px")
-    .attr("fill", "blue");
-
-  g.append("rect")
-    .attr("x", 305)
-    .attr("y", -85)
-    .attr("width", 20)
-    .attr("height", 10)
-    .attr("fill", "red")
-    .attr("stroke-width", 2);
-
-  g.append("text")
-    .text("Negative Sentiment")
-    .attr("text-anchor", "start")
-    .attr("x", 335)
-    .attr("y", -77)
-    .style("font-size", "12px")
-    .attr("fill", "blue");
-
-  if (dateRange) {
+  const writeLegend = () => {
     g.append("text")
-      .text(
-        `${dateRange[0].toISOString().slice(0, 10)} - ${dateRange[1]
-          .toISOString()
-          .slice(0, 10)}`
-      )
+      .text("Post Analysis")
       .attr("text-anchor", "start")
-      .attr("x", 675)
+      .attr("x", -35)
+      .attr("y", -50)
+      .style("font-size", "25px")
+      .attr("fill", "blue");
+
+    g.append("rect")
+      .attr("x", 165)
+      .attr("y", -85)
+      .attr("width", 20)
+      .attr("height", 10)
+      .attr("fill", "green")
+      .attr("stroke-width", 2);
+
+    g.append("text")
+      .text("Positive Sentiment")
+      .attr("text-anchor", "start")
+      .attr("x", 195)
+      .attr("y", -77)
+      .style("font-size", "12px")
+      .attr("fill", "blue");
+
+    g.append("rect")
+      .attr("x", 165)
+      .attr("y", -65)
+      .attr("width", 20)
+      .attr("height", 10)
+      .attr("fill", "gray")
+      .attr("stroke-width", 2);
+
+    g.append("text")
+      .text("Neutral Sentiment")
+      .attr("text-anchor", "start")
+      .attr("x", 195)
       .attr("y", -57)
       .style("font-size", "12px")
       .attr("fill", "blue");
-  }
+
+    g.append("rect")
+      .attr("x", 305)
+      .attr("y", -85)
+      .attr("width", 20)
+      .attr("height", 10)
+      .attr("fill", "red")
+      .attr("stroke-width", 2);
+
+    g.append("text")
+      .text("Negative Sentiment")
+      .attr("text-anchor", "start")
+      .attr("x", 335)
+      .attr("y", -77)
+      .style("font-size", "12px")
+      .attr("fill", "blue");
+
+    if (dateRange) {
+      g.append("text")
+        .text(
+          `${dateRange[0].toISOString().slice(0, 10)} - ${dateRange[1]
+            .toISOString()
+            .slice(0, 10)}`
+        )
+        .attr("text-anchor", "start")
+        .attr("x", 675)
+        .attr("y", -57)
+        .style("font-size", "12px")
+        .attr("fill", "blue");
+    }
+  };
 
   const setUpChart = () => {
     // determine domain
@@ -267,9 +274,21 @@ const HistogramChart = () => {
     });
   };
 
+  const clearChart = () => {
+    svg.selectAll(".positive").remove(); // Use the same class name here
+    svg.selectAll(".neutral").remove(); // Use the same class name here
+    svg.selectAll(".negative").remove(); // Use the same class name here
+    svg.selectAll(".axis").remove();
+    svg.selectAll(".axis-label").remove();
+    svg.selectAll("text").remove();
+    svg.selectAll("pattern").remove(); // Also remove patterns
+  };
+
   // Generate the chart
   useEffect(() => {
+    clearChart();
     setUpChart();
+    writeLegend();
     // Call the drawRectangles function for each sentiment type
     drawRectangles(sentimentData.positive, "green", "positive");
     drawRectangles(sentimentData.neutral, "gray", "neutral");
@@ -278,8 +297,6 @@ const HistogramChart = () => {
 
   if (!data) return <p>Loading...</p>;
 
-  console.log(sentimentData);
-  console.log(totalTweets);
   return (
     <div>
       <svg ref={svgRef} width={svgWidth} height={svgHeight}></svg>

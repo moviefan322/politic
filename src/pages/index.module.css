@@ -4,7 +4,20 @@
 }
 
 .candidates {
-  padding-top: 9rem;
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
+  overflow: scroll;
+}
+
+.analysis {
+  height: 55vh;
+  overflow: scroll;
+}
+
+.top {
+  background-color: var(--color-primary);
+  border-bottom: gray 1px solid;
+  height: 45vh;
 }

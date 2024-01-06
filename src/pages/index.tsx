@@ -4,33 +4,38 @@ import Sidebar from "@/components/sidebar";
 import styles from "@/pages/index.module.css";
 import Params from "@/components/params";
 import Candidates from "@/components/lineChart";
+import HistogramChart from "@/components/histogram";
+import IParams from "@/types/Params";
 
 const Index = () => {
-  const [params, setParams] = useState({
+  const [params, setParams] = useState<IParams>({
     country: "",
     candidate: "",
     platform: "",
-    negTweetCutoff: "",
-    posTweetCutoff: "",
+    negTweetCutoff: 50,
+    posTweetCutoff: 50,
     dateRange: "",
     showChart: false,
   });
 
-  useEffect(() => {
-    console.log(params);
-  }, [params]);
-
   return (
-    <div className={styles.nav}>
-      <Navbar />
-      <Sidebar />
-      <Params setParams={setParams} />
-      {params.showChart && (
-        <div className={styles.candidates}>
-          <Candidates />
+    <>
+      <div className={styles.top}>
+        <div className={styles.nav}>
+          <Navbar />
+          <Sidebar />
         </div>
-      )}
-    </div>
+        <Params setParams={setParams} params={params} />
+      </div>
+      <div className={styles.analysis}>
+        {params.showChart && (
+          <div className={styles.candidates}>
+            <Candidates params={params} />
+            <HistogramChart params={params} />
+          </div>
+        )}
+      </div>
+    </>
   );
 };
 

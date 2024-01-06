@@ -6,12 +6,17 @@ import { FaInstagram } from "react-icons/fa";
 import { FaYoutube } from "react-icons/fa";
 import styles from "./lineChart.module.css";
 import { TweetData, TweetsByDate } from "../types/TweetData";
+import IParams from "@/types/Params";
 
 interface LineFunction {
   (data: { date: Date; count: number }[]): string | null;
 }
 
-const Candidates = () => {
+interface LineChartProps {
+  params: IParams;
+}
+
+const Candidates = ({ params }: LineChartProps) => {
   const [data, setData] = useState<TweetData[]>();
   const [negativeTweets, setNegativeTweets] = useState<TweetsByDate>();
   const [likedTweets, setLikedTweets] = useState<TweetsByDate>();
@@ -25,8 +30,7 @@ const Candidates = () => {
 
   // Load and organize data
   useEffect(() => {
-    d3.csv("data/eric_adams_twitter_data.csv").then((d) => {
-      console.log(d);
+    d3.csv(`data/${params.candidate}_${params.platform}_data.csv`).then((d) => {
       const modifiedData: TweetData[] = d
         .map((tweet) => {
           if (tweet.date) {
@@ -59,7 +63,7 @@ const Candidates = () => {
 
       setData(modifiedData);
     });
-  }, []);
+  }, [params]);
 
   // Organize data by date and sentiment
   useEffect(() => {
@@ -82,7 +86,10 @@ const Candidates = () => {
         allTweetsByDate[tweetDate].count =
           allTweetsByDate[tweetDate].tweets.length;
 
-        if (tweet.negativeSentiment > 62 && tweet.likes > 0) {
+        if (
+          tweet.negativeSentiment > params.negTweetCutoff &&
+          tweet.likes > 0
+        ) {
           if (!likedNegativeTweetsByDate[tweetDate]) {
             likedNegativeTweetsByDate[tweetDate] = {
               date: new Date(tweetDate),
@@ -93,7 +100,7 @@ const Candidates = () => {
           likedNegativeTweetsByDate[tweetDate].tweets.push(tweet);
           likedNegativeTweetsByDate[tweetDate].count =
             likedNegativeTweetsByDate[tweetDate].tweets.length;
-        } else if (tweet.negativeSentiment > 62) {
+        } else if (tweet.negativeSentiment > params.negTweetCutoff) {
           const tweetDate = tweet.date.toISOString().slice(0, 10);
           if (!negativeTweetsByDate[tweetDate]) {
             negativeTweetsByDate[tweetDate] = {
@@ -125,7 +132,7 @@ const Candidates = () => {
       setLikedNegativeTweets(likedNegativeTweetsByDate);
       setAllTweets(allTweetsByDate);
     }
-  }, [data]);
+  }, [data, params]);
 
   // Create the chart
   const svg = d3.select(svgRef.current);
@@ -141,6 +148,7 @@ const Candidates = () => {
   const x = d3.scaleTime().range([0, WIDTH]);
   const y = d3.scaleLinear().range([HEIGHT, 0]);
 
+  const writeLegend = () => {
   g.append("text")
     .text("Post Analysis")
     .attr("text-anchor", "start")
@@ -229,6 +237,7 @@ const Candidates = () => {
       .style("font-size", "12px")
       .attr("fill", "blue");
   }
+}
 
   // Set up the chart
   const setUpChart = () => {
@@ -241,8 +250,6 @@ const Candidates = () => {
       x.domain(xExtent);
       y.domain([0, maxY]);
     }
-
-    console.log(dateRange);
 
     const xAxisCall = d3.axisBottom(x);
     const yAxisCall = d3.axisLeft(y).ticks(6);
@@ -260,7 +267,8 @@ const Candidates = () => {
       .attr("font-size", "20px")
       .attr("text-anchor", "middle")
       .attr("transform", "rotate(-90)")
-      .text("# of tweets");
+      .text("# of tweets")
+      .style("fill", "blue");
   };
 
   const drawLineChart = (
@@ -287,6 +295,12 @@ const Candidates = () => {
     drawLine(line, dashed);
   };
 
+  const clearChart = () => {
+    svg.selectAll(".line").remove();
+    svg.selectAll(".axis").remove();
+    svg.selectAll(".axis-label").remove();
+    svg.selectAll("text").remove();
+  };
   // Draw the lines
   useEffect(() => {
     const drawLine = (data: TweetsByDate, color: string, dashed: string) => {
@@ -321,11 +335,12 @@ const Candidates = () => {
         const uniqueChartDataArray = Object.values(uniqueChartData);
 
         drawLineChart(uniqueChartDataArray, color, dashed);
-
-        console.log(uniqueChartData);
       }
     };
+    // clear the axis
+    clearChart();
     setUpChart();
+    writeLegend();
     drawLine(allTweets!, "black", "none");
     drawLine(likedNegativeTweets!, "blue", "3, 3");
     drawLine(likedTweets!, "green", "5, 5");
@@ -335,6 +350,8 @@ const Candidates = () => {
   if (!data) {
     return <div>Loading...</div>;
   }
+
+  console.log(params);
 
   return (
     <div>

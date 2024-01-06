@@ -5,9 +5,10 @@ import { InputMask } from "primereact/inputmask";
 
 interface ParamsProps {
   setParams: any;
+  params: any;
 }
 
-const Params = ({ setParams }: ParamsProps) => {
+const Params = ({ setParams, params }: ParamsProps) => {
   const [keywordChecked, setKeywordChecked] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState("United States");
   const [selectedCandidate, setSelectedCandidate] = useState("Eric Adams");
@@ -27,8 +28,15 @@ const Params = ({ setParams }: ParamsProps) => {
     "Dianne Morales",
     "Scott Stringer",
     "Maya Wiley",
+    "D. K. Shivakumar",
   ];
-  const countries = ["United States", "India", "United Kingdom", "Canada", "Australia"];
+  const countries = [
+    "United States",
+    "India",
+    "United Kingdom",
+    "Canada",
+    "Australia",
+  ];
   const platforms = ["Twitter", "Youtube", "Facebook", "Instagram"];
 
   const handleKeywordCheckboxChange = () => {
@@ -48,16 +56,25 @@ const Params = ({ setParams }: ParamsProps) => {
   };
 
   const handleRunAnalysis = () => {
+    console.log("Before update:", params);
+
     setParams({
       country: selectedCountry,
-      candidate: selectedCandidate,
-      platform: selectedPlatform,
-      negTweetCutoff: negTweetCutoffValue,
-      posTweetCutoff: posTweetCutoffValue,
+      candidate: selectedCandidate
+        .toLowerCase()
+        .replace(/[^a-z_:\s]/g, "")
+        .split(" ")
+        .join("_"),
+      platform: selectedPlatform.toLowerCase(),
+      negTweetCutoff: +negTweetCutoffValue,
+      posTweetCutoff: +posTweetCutoffValue,
       dateRange: dateRange,
       keywords: keywords.split(",").map((keyword) => keyword.trim()),
       showChart: true,
     });
+
+    // Debugging: Log the params after updating state
+    console.log("After update:", params);
   };
 
   const handleCountrySelectArrow = () => {
