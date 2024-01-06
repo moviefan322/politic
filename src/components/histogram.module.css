@@ -1,0 +1,18 @@
+.socials {
+  position: relative;
+  top: -535px;
+  left: 550px;
+  z-index: 100;
+}
+
+.socials svg {
+  width: 30px;
+  height: 30px;
+  margin: 0 10px;
+  cursor: pointer;
+  color: rgb(134, 134, 245);
+}
+
+.twitter {
+  color: rgb(0, 0, 222) !important;
+}

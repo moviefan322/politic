@@ -9,6 +9,8 @@ import * as d3 from "d3";
 
 const HistogramChart = () => {
   const [data, setData] = useState<TweetData[]>();
+  const [dateRange, setDateRange] = useState<[Date, Date]>();
+  const [totalTweets, setTotalTweets] = useState<number>(0);
   const [sentimentData, setSentimentData] = useState<{
     positive: number[];
     negative: number[];
@@ -56,6 +58,7 @@ const HistogramChart = () => {
         .filter((tweet): tweet is TweetData => tweet !== null);
 
       setData(modifiedData);
+      setTotalTweets(modifiedData.length);
     });
   }, []);
 
@@ -75,13 +78,111 @@ const HistogramChart = () => {
         sentimentCounts.neutral[Math.floor(tweet.neutralSentiment)] += 1;
       });
 
+      // replace tweet count with % of total tweets
+      sentimentCounts.positive = sentimentCounts.positive.map(
+        (count) => count / totalTweets
+      );
+      sentimentCounts.negative = sentimentCounts.negative.map(
+        (count) => count / totalTweets
+      );
+      sentimentCounts.neutral = sentimentCounts.neutral.map(
+        (count) => count / totalTweets
+      );
+
       setSentimentData(sentimentCounts);
     }
   }, [data]);
 
+  // Create the chart
+  const svg = d3.select(svgRef.current);
+
+  const MARGIN = { LEFT: 80, RIGHT: 20, TOP: 150, BOTTOM: 100 };
+  const WIDTH = svgWidth - MARGIN.LEFT - MARGIN.RIGHT;
+  const HEIGHT = svgHeight - MARGIN.TOP - MARGIN.BOTTOM;
+
+  const g = svg
+    .append("g")
+    .attr("transform", `translate(${MARGIN.LEFT}, ${MARGIN.TOP})`);
+
+  const x = d3.scaleTime().range([0, WIDTH]);
+  const y = d3.scaleLinear().range([HEIGHT, 0]);
+
+  g.append("text")
+    .text("Post Analysis")
+    .attr("text-anchor", "start")
+    .attr("x", -35)
+    .attr("y", -50)
+    .style("font-size", "25px")
+    .attr("fill", "blue");
+
+  g.append("line")
+    .attr("x1", 160)
+    .attr("y1", -80)
+    .attr("x2", 190)
+    .attr("y2", -80)
+    .attr("stroke", "black")
+    .attr("stroke-width", 2);
+
+  g.append("text")
+    .text("Positive Sentiment")
+    .attr("text-anchor", "start")
+    .attr("x", 195)
+    .attr("y", -77)
+    .style("font-size", "12px")
+    .attr("fill", "blue");
+
+  g.append("line")
+    .attr("x1", 160)
+    .attr("y1", -60)
+    .attr("x2", 190)
+    .attr("y2", -60)
+    .attr("stroke", "red")
+    .attr("stroke-width", 2)
+    .attr("stroke-dasharray", "8,8");
+
+  g.append("text")
+    .text("Neutral Sentiment")
+    .attr("text-anchor", "start")
+    .attr("x", 195)
+    .attr("y", -57)
+    .style("font-size", "12px")
+    .attr("fill", "blue");
+
+  g.append("line")
+    .attr("x1", 300)
+    .attr("y1", -80)
+    .attr("x2", 330)
+    .attr("y2", -80)
+    .attr("stroke", "green")
+    .attr("stroke-dasharray", "5,5")
+    .attr("stroke-width", 2);
+
+  g.append("text")
+    .text("Negative Sentiment")
+    .attr("text-anchor", "start")
+    .attr("x", 335)
+    .attr("y", -77)
+    .style("font-size", "12px")
+    .attr("fill", "blue");
+
+  if (dateRange) {
+    g.append("text")
+      .text(
+        `${dateRange[0].toISOString().slice(0, 10)} - ${dateRange[1]
+          .toISOString()
+          .slice(0, 10)}`
+      )
+      .attr("text-anchor", "start")
+      .attr("x", 675)
+      .attr("y", -57)
+      .style("font-size", "12px")
+      .attr("fill", "blue");
+  }
+
   if (!data) return <p>Loading...</p>;
 
   console.log(sentimentData);
+  console.log(totalTweets)
   return (
     <div>
       <svg ref={svgRef} width={svgWidth} height={svgHeight}></svg>
