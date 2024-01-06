@@ -1,12 +1,9 @@
-import React from "react";
-import Candidates from "@/components/lineChart";
-import Debug from "@/components/debug";
+import HistogramChart from "@/components/histogram";
 
 const test = () => {
   return (
     <div>
-      {/* <Debug /> */}
-      <Candidates />
+      <HistogramChart />
     </div>
   );
 };
