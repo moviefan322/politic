@@ -28,7 +28,7 @@ const Params = ({ setParams }: ParamsProps) => {
     "Scott Stringer",
     "Maya Wiley",
   ];
-  const countries = ["United States", "United Kingdom", "Canada", "Australia"];
+  const countries = ["United States", "India", "United Kingdom", "Canada", "Australia"];
   const platforms = ["Twitter", "Youtube", "Facebook", "Instagram"];
 
   const handleKeywordCheckboxChange = () => {
