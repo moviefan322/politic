@@ -5,36 +5,7 @@ import { FaTwitter } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
 import { FaYoutube } from "react-icons/fa";
 import styles from "./lineChart.module.css";
-
-interface TweetData {
-  content: string;
-  externalLinkContent: string[];
-  externalLinks: string[];
-  likes: number;
-  mentionedUsers: string[];
-  negativeSentiment: number;
-  neutralSentiment: number;
-  positiveSentiment: number;
-  quoteTweets: number;
-  replies: number;
-  retweets: number;
-  translatedContent: string;
-  tweetID: string;
-  url: string;
-  user: string;
-  verifiedStatus: string;
-  views: number;
-  date: Date;
-  media: string;
-}
-
-interface TweetsByDate {
-  [key: string]: {
-    date: Date;
-    tweets: TweetData[];
-    count: number;
-  };
-}
+import { TweetData, TweetsByDate } from "../types/TweetData";
 
 interface LineFunction {
   (data: { date: Date; count: number }[]): string | null;
