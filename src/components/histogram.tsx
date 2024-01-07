@@ -114,7 +114,7 @@ const HistogramChart = ({ params }: HistogramChartProps) => {
   // Create the chart
   const svg = d3.select(svgRef.current);
 
-  const MARGIN = { LEFT: 80, RIGHT: 20, TOP: 150, BOTTOM: 100 };
+  const MARGIN = { LEFT: 80, RIGHT: 20, TOP: 150, BOTTOM: 30 };
   const WIDTH = svgWidth - MARGIN.LEFT - MARGIN.RIGHT;
   const HEIGHT = svgHeight - MARGIN.TOP - MARGIN.BOTTOM;
 
@@ -317,7 +317,7 @@ const HistogramChart = ({ params }: HistogramChartProps) => {
   console.log(data);
 
   return (
-    <div>
+    <div className="chart">
       <svg ref={svgRef} width={svgWidth} height={svgHeight}></svg>
 
       <div className={styles.socials}>
