@@ -7,7 +7,6 @@ import styles from "./histogram.module.css";
 import { TweetData, TweetsByDate } from "../types/TweetData";
 import * as d3 from "d3";
 import IParams from "@/types/Params";
-import { FadeLoader } from "react-spinners";
 import Loading from "./loading";
 
 interface HistogramChartProps {
@@ -37,7 +36,15 @@ const HistogramChart = ({ params }: HistogramChartProps) => {
   useEffect(() => {
     setLoading(true);
     d3.csv(`data/${params.candidate}_twitter_data.csv`).then((d) => {
-      const modifiedData: TweetData[] = d
+      let typedData: d3.DSVRowString<string>[] = d;
+
+      if (params.keywords.length > 0) {
+        typedData = typedData.filter((tweet) =>
+          params.keywords.some((keyword) => tweet.Content.includes(keyword))
+        );
+      }
+
+      const modifiedData: TweetData[] = typedData
         .map((tweet) => {
           if (tweet.date) {
             return {
@@ -306,6 +313,8 @@ const HistogramChart = ({ params }: HistogramChartProps) => {
   if (loading || !isChartReady) {
     return <Loading />;
   }
+
+  console.log(data);
 
   return (
     <div>

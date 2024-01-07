@@ -35,7 +35,13 @@ const Candidates = ({ params }: LineChartProps) => {
   useEffect(() => {
     setLoading(true);
     d3.csv(`data/${params.candidate}_${params.platform}_data.csv`).then((d) => {
-      const modifiedData: TweetData[] = d
+      let typedData: d3.DSVRowString<string>[] = d;
+      if (params.keywords.length > 0) {
+        typedData = typedData.filter((tweet) =>
+          params.keywords.some((keyword) => tweet.Content.includes(keyword))
+        );
+      }
+      const modifiedData: TweetData[] = typedData
         .map((tweet) => {
           if (tweet.date) {
             return {

@@ -25,6 +25,8 @@ const Index = () => {
     showChart: false,
   });
 
+  console.log(params);
+
   return (
     <>
       <div className={styles.top}>

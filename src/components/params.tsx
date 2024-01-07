@@ -72,8 +72,6 @@ const Params = ({ setParams, params }: ParamsProps) => {
       keywords: keywords.split(",").map((keyword) => keyword.trim()),
       showChart: true,
     });
-
-    console.log("params:", params);
   };
 
   const handleCountrySelectArrow = () => {
