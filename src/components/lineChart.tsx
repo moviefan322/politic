@@ -7,6 +7,7 @@ import { FaYoutube } from "react-icons/fa";
 import styles from "./lineChart.module.css";
 import { TweetData, TweetsByDate } from "../types/TweetData";
 import IParams from "@/types/Params";
+import Loading from "./loading";
 
 interface LineFunction {
   (data: { date: Date; count: number }[]): string | null;
@@ -18,6 +19,8 @@ interface LineChartProps {
 
 const Candidates = ({ params }: LineChartProps) => {
   const [data, setData] = useState<TweetData[]>();
+  const [isChartReady, setIsChartReady] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [negativeTweets, setNegativeTweets] = useState<TweetsByDate>();
   const [likedTweets, setLikedTweets] = useState<TweetsByDate>();
   const [likedNegativeTweets, setLikedNegativeTweets] =
@@ -30,6 +33,7 @@ const Candidates = ({ params }: LineChartProps) => {
 
   // Load and organize data
   useEffect(() => {
+    setLoading(true);
     d3.csv(`data/${params.candidate}_${params.platform}_data.csv`).then((d) => {
       const modifiedData: TweetData[] = d
         .map((tweet) => {
@@ -62,6 +66,7 @@ const Candidates = ({ params }: LineChartProps) => {
         .filter((tweet): tweet is TweetData => tweet !== null);
 
       setData(modifiedData);
+      setLoading(false);
     });
   }, [params]);
 
@@ -149,95 +154,95 @@ const Candidates = ({ params }: LineChartProps) => {
   const y = d3.scaleLinear().range([HEIGHT, 0]);
 
   const writeLegend = () => {
-  g.append("text")
-    .text("Post Analysis")
-    .attr("text-anchor", "start")
-    .attr("x", -35)
-    .attr("y", -50)
-    .style("font-size", "25px")
-    .attr("fill", "blue");
-
-  g.append("line")
-    .attr("x1", 160)
-    .attr("y1", -80)
-    .attr("x2", 190)
-    .attr("y2", -80)
-    .attr("stroke", "black")
-    .attr("stroke-width", 2);
-
-  g.append("text")
-    .text("Total Posts")
-    .attr("text-anchor", "start")
-    .attr("x", 195)
-    .attr("y", -77)
-    .style("font-size", "12px")
-    .attr("fill", "blue");
-
-  g.append("line")
-    .attr("x1", 160)
-    .attr("y1", -60)
-    .attr("x2", 190)
-    .attr("y2", -60)
-    .attr("stroke", "red")
-    .attr("stroke-width", 2)
-    .attr("stroke-dasharray", "8,8");
-
-  g.append("text")
-    .text("Negative Posts")
-    .attr("text-anchor", "start")
-    .attr("x", 195)
-    .attr("y", -57)
-    .style("font-size", "12px")
-    .attr("fill", "blue");
-
-  g.append("line")
-    .attr("x1", 290)
-    .attr("y1", -80)
-    .attr("x2", 320)
-    .attr("y2", -80)
-    .attr("stroke", "green")
-    .attr("stroke-dasharray", "5,5")
-    .attr("stroke-width", 2);
-
-  g.append("text")
-    .text("Liked Posts")
-    .attr("text-anchor", "start")
-    .attr("x", 325)
-    .attr("y", -77)
-    .style("font-size", "12px")
-    .attr("fill", "blue");
-
-  g.append("line")
-    .attr("x1", 290)
-    .attr("y1", -60)
-    .attr("x2", 320)
-    .attr("y2", -60)
-    .attr("stroke", "blue")
-    .attr("stroke-width", 2)
-    .attr("stroke-dasharray", "3,3");
-
-  g.append("text")
-    .text("Negative Liked Posts")
-    .attr("text-anchor", "start")
-    .attr("x", 325)
-    .attr("y", -57)
-    .style("font-size", "12px")
-    .attr("fill", "blue");
-
-  if (dateRange) {
     g.append("text")
-      .text(
-        `${dateRange[0].toISOString().slice(0, 10)} - ${dateRange[1]
-          .toISOString()
-          .slice(0, 10)}`
-      )
+      .text("Post Analysis")
       .attr("text-anchor", "start")
-      .attr("x", 675)
+      .attr("x", -35)
+      .attr("y", -50)
+      .style("font-size", "25px")
+      .attr("fill", "blue");
+
+    g.append("line")
+      .attr("x1", 160)
+      .attr("y1", -80)
+      .attr("x2", 190)
+      .attr("y2", -80)
+      .attr("stroke", "black")
+      .attr("stroke-width", 2);
+
+    g.append("text")
+      .text("Total Posts")
+      .attr("text-anchor", "start")
+      .attr("x", 195)
+      .attr("y", -77)
+      .style("font-size", "12px")
+      .attr("fill", "blue");
+
+    g.append("line")
+      .attr("x1", 160)
+      .attr("y1", -60)
+      .attr("x2", 190)
+      .attr("y2", -60)
+      .attr("stroke", "red")
+      .attr("stroke-width", 2)
+      .attr("stroke-dasharray", "8,8");
+
+    g.append("text")
+      .text("Negative Posts")
+      .attr("text-anchor", "start")
+      .attr("x", 195)
       .attr("y", -57)
       .style("font-size", "12px")
       .attr("fill", "blue");
-  }
-}
+
+    g.append("line")
+      .attr("x1", 290)
+      .attr("y1", -80)
+      .attr("x2", 320)
+      .attr("y2", -80)
+      .attr("stroke", "green")
+      .attr("stroke-dasharray", "5,5")
+      .attr("stroke-width", 2);
+
+    g.append("text")
+      .text("Liked Posts")
+      .attr("text-anchor", "start")
+      .attr("x", 325)
+      .attr("y", -77)
+      .style("font-size", "12px")
+      .attr("fill", "blue");
+
+    g.append("line")
+      .attr("x1", 290)
+      .attr("y1", -60)
+      .attr("x2", 320)
+      .attr("y2", -60)
+      .attr("stroke", "blue")
+      .attr("stroke-width", 2)
+      .attr("stroke-dasharray", "3,3");
+
+    g.append("text")
+      .text("Negative Liked Posts")
+      .attr("text-anchor", "start")
+      .attr("x", 325)
+      .attr("y", -57)
+      .style("font-size", "12px")
+      .attr("fill", "blue");
+
+    if (dateRange) {
+      g.append("text")
+        .text(
+          `${dateRange[0].toISOString().slice(0, 10)} - ${dateRange[1]
+            .toISOString()
+            .slice(0, 10)}`
+        )
+        .attr("text-anchor", "start")
+        .attr("x", 675)
+        .attr("y", -57)
+        .style("font-size", "12px")
+        .attr("fill", "blue");
+    }
+  };
 
   // Set up the chart
   const setUpChart = () => {
@@ -345,13 +350,13 @@ const Candidates = ({ params }: LineChartProps) => {
     drawLine(likedNegativeTweets!, "blue", "3, 3");
     drawLine(likedTweets!, "green", "5, 5");
     drawLine(negativeTweets!, "red", "8,8");
+
+    setIsChartReady(true);
   }, [likedTweets, negativeTweets, likedNegativeTweets, allTweets]);
 
-  if (!data) {
-    return <div>Loading...</div>;
+  if (loading || !isChartReady) {
+    return <Loading />;
   }
-
-  console.log(params);
 
   return (
     <div>

@@ -7,6 +7,8 @@ import styles from "./histogram.module.css";
 import { TweetData, TweetsByDate } from "../types/TweetData";
 import * as d3 from "d3";
 import IParams from "@/types/Params";
+import { FadeLoader } from "react-spinners";
+import Loading from "./loading";
 
 interface HistogramChartProps {
   params: IParams;
@@ -14,6 +16,8 @@ interface HistogramChartProps {
 
 const HistogramChart = ({ params }: HistogramChartProps) => {
   const [data, setData] = useState<TweetData[]>();
+  const [loading, setLoading] = useState<boolean>(true);
+  const [isChartReady, setIsChartReady] = useState<boolean>(false);
   const [dateRange, setDateRange] = useState<[Date, Date]>();
   const [totalTweets, setTotalTweets] = useState<number>(0);
   const [sentimentData, setSentimentData] = useState<{
@@ -31,6 +35,7 @@ const HistogramChart = ({ params }: HistogramChartProps) => {
   const svgHeight = 600;
 
   useEffect(() => {
+    setLoading(true);
     d3.csv(`data/${params.candidate}_twitter_data.csv`).then((d) => {
       const modifiedData: TweetData[] = d
         .map((tweet) => {
@@ -64,6 +69,7 @@ const HistogramChart = ({ params }: HistogramChartProps) => {
 
       setData(modifiedData);
       setTotalTweets(modifiedData.length);
+      setLoading(false);
     });
   }, [params]);
 
@@ -293,9 +299,13 @@ const HistogramChart = ({ params }: HistogramChartProps) => {
     drawRectangles(sentimentData.positive, "green", "positive");
     drawRectangles(sentimentData.neutral, "gray", "neutral");
     drawRectangles(sentimentData.negative, "red", "negative");
+
+    setIsChartReady(true);
   }, [sentimentData]);
 
-  if (!data) return <p>Loading...</p>;
+  if (loading || !isChartReady) {
+    return <Loading />;
+  }
 
   return (
     <div>

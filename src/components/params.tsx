@@ -2,10 +2,12 @@ import { useState } from "react";
 import styles from "@/components/params.module.css";
 import { FaAngleDown } from "react-icons/fa";
 import { InputMask } from "primereact/inputmask";
+import IParams from "@/types/Params";
+import { set } from "mongoose";
 
 interface ParamsProps {
-  setParams: any;
-  params: any;
+  setParams: React.Dispatch<React.SetStateAction<IParams>>;
+  params: IParams;
 }
 
 const Params = ({ setParams, params }: ParamsProps) => {
@@ -15,7 +17,7 @@ const Params = ({ setParams, params }: ParamsProps) => {
   const [selectedPlatform, setSelectedPlatform] = useState("Twitter");
   const [negTweetCutoffValue, setNegTweetCutoffValue] = useState(50);
   const [posTweetCutoffValue, setPosTweetCutoffValue] = useState(50);
-  const [dateRange, setDateRange] = useState(null);
+  const [dateRange, setDateRange] = useState<string>("");
   const [keywords, setKeywords] = useState("");
   const [showDropdown1, setShowDropdown1] = useState(false);
   const [showDropdown2, setShowDropdown2] = useState(false);
@@ -56,8 +58,6 @@ const Params = ({ setParams, params }: ParamsProps) => {
   };
 
   const handleRunAnalysis = () => {
-    console.log("Before update:", params);
-
     setParams({
       country: selectedCountry,
       candidate: selectedCandidate
@@ -73,8 +73,7 @@ const Params = ({ setParams, params }: ParamsProps) => {
       showChart: true,
     });
 
-    // Debugging: Log the params after updating state
-    console.log("After update:", params);
+    console.log("params:", params);
   };
 
   const handleCountrySelectArrow = () => {

@@ -6,15 +6,22 @@ import Params from "@/components/params";
 import Candidates from "@/components/lineChart";
 import HistogramChart from "@/components/histogram";
 import IParams from "@/types/Params";
+import { useLoading } from "../store/loadingContext";
 
 const Index = () => {
+  const { loading: loadingCandidates, setLoading: setLoadingCandidates } =
+    useLoading();
+  const { loading: loadingHistogram, setLoading: setLoadingHistogram } =
+    useLoading();
+  const isLoading = loadingCandidates || loadingHistogram;
   const [params, setParams] = useState<IParams>({
     country: "",
     candidate: "",
     platform: "",
+    keywords: [],
     negTweetCutoff: 50,
     posTweetCutoff: 50,
-    dateRange: "",
+    dateRange: null,
     showChart: false,
   });
 
@@ -30,8 +37,10 @@ const Index = () => {
       <div className={styles.analysis}>
         {params.showChart && (
           <div className={styles.candidates}>
-            <Candidates params={params} />
-            <HistogramChart params={params} />
+            <>
+              <Candidates params={params} />
+              <HistogramChart params={params} />
+            </>
           </div>
         )}
       </div>
