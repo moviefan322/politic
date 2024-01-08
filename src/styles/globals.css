@@ -1,6 +1,6 @@
 body {
   box-sizing: border-box;
-  background-color: rgba(238, 238, 253, 1);
+  background-color: var(--bs-primary);
   overflow: hidden;
   font-family: Poppins;
 }
@@ -12,13 +12,13 @@ html {
 }
 
 .title {
-  color: blue;
+  color: var(--bs-secondary);
   border: 1px solid red;
 }
 
 .chart {
   background-color: white;
-  margin: 2rem 0;
+  margin: 2rem 2rem;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
   border-radius: 30px;
 }

@@ -37,12 +37,12 @@ const Index = () => {
         </div>
         <Params setParams={setParams} params={params} />
       </div>
-      <div className={styles.analysis}>
+      <div className={`my-5 mb-5 ${styles.analysis}`}>
         {params.showChart && (
           <div className={styles.candidates}>
             <>
-              {/* <Candidates params={params} />
-              <HistogramChart params={params} /> */}
+              <Candidates params={params} />
+              <HistogramChart params={params} />
               <TopAccounts params={params} />
             </>
           </div>

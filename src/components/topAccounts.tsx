@@ -2,6 +2,12 @@ import React, { use, useEffect, useState } from "react";
 import * as d3 from "d3";
 import { TweetData } from "../types/TweetData";
 import IParams from "@/types/Params";
+import styles from "./topAccounts.module.css";
+import { FaFacebookF } from "react-icons/fa";
+import { FaTwitter } from "react-icons/fa";
+import { FaInstagram } from "react-icons/fa";
+import { FaYoutube } from "react-icons/fa";
+import Loading from "./loading";
 
 interface TopAccountsProps {
   params: IParams;
@@ -10,6 +16,8 @@ interface TopAccountsProps {
 interface TweetDataByUser {
   numTweets: number;
   avgNegSentiment: number;
+  totalLikes: number;
+  totalViews: number;
   tweets: TweetData[];
 }
 
@@ -17,6 +25,8 @@ interface TopAccounts {
   user: string;
   numTweets: number;
   avgNegSentiment: number;
+  totalLikes: number;
+  totalViews: number;
   tweets: TweetData[];
 }
 
@@ -85,11 +95,15 @@ const TopAccounts = ({ params }: TopAccountsProps) => {
       if (tweetsByUserData[tweet.user]) {
         tweetsByUserData[tweet.user].numTweets++;
         tweetsByUserData[tweet.user].tweets.push(tweet);
+        tweetsByUserData[tweet.user].totalLikes += tweet.likes;
+        tweetsByUserData[tweet.user].totalViews += tweet.views;
       } else {
         tweetsByUserData[tweet.user] = {
           numTweets: 1,
           avgNegSentiment: 0,
           tweets: [tweet],
+          totalLikes: tweet.likes,
+          totalViews: tweet.views,
         };
       }
     });
@@ -129,11 +143,111 @@ const TopAccounts = ({ params }: TopAccountsProps) => {
     setTopAccounts(sortedTweetsByUser.slice(0, 10));
   }, [tweetsByUserWithSentiment]);
 
-  console.log(topAccounts);
+  if (loading) {
+    return <Loading />;
+  }
+
   return (
-    <div>
-      <h1>Shit on my dick</h1>
-    </div>
+    <>
+      <div
+        className={`py-5 w-75 d-flex flex-column align-items-center justify-content-center chart`}
+      >
+        <div className="w-100 row mb-5">
+          <p className="fw-bold text-secondary fs-2 col-5 ms-3">
+            Top 10 Accounts for Negative Posts
+          </p>
+          <div className={`col-3 offset-2 ${styles.socials}`}>
+            <FaFacebookF style={{ width: "50px", height: "50px" }} />
+            <FaTwitter
+              className={styles.twitter}
+              style={{ width: "50px", height: "50px" }}
+            />
+            <FaInstagram style={{ width: "50px", height: "50px" }} />
+            <FaYoutube style={{ width: "50px", height: "50px" }} />
+          </div>
+        </div>
+
+        <div className={styles.chart}>
+          <div className="row w-100 text-center text-secondary d-flex justify-content-center">
+            <div className={`col-3 offset-1 m-1 ${styles.headerContainer}`}>
+              <div className={`${styles.header}`}>
+                <p className="fs-5">Account Name</p>
+              </div>
+              {topAccounts.map((account, i) => (
+                <div
+                  className="col-12 bg-white border border-1 border-secondary"
+                  key={i}
+                >
+                  <p className={`${styles.user}`} style={{ width: "100%" }}>
+                    {account.user}
+                  </p>
+                </div>
+              ))}
+            </div>
+            <div className={`col-2 offset-1 m-1 ${styles.headerContainer}`}>
+              <div className={`${styles.header}`}>
+                <p className="fs-5"># of Tweets</p>
+              </div>
+              {topAccounts.map((account, i) => (
+                <div
+                  className="col-12 bg-white border border-1 border-secondary"
+                  key={i}
+                >
+                  <p className={styles.item} style={{ width: "100%" }}>
+                    {account.numTweets}
+                  </p>
+                </div>
+              ))}
+            </div>
+            <div className={`col-2 offset-1 m-1 ${styles.headerContainer}`}>
+              <div className={`${styles.header}`}>
+                <p className="fs-5">Total Likes</p>
+              </div>
+              {topAccounts.map((account, i) => (
+                <div
+                  className="col-12 bg-white border border-1 border-secondary"
+                  key={i}
+                >
+                  <p className={styles.item} style={{ width: "100%" }}>
+                    {account.totalLikes}
+                  </p>
+                </div>
+              ))}
+            </div>
+            <div className={`col-2 offset-1 m-1 ${styles.headerContainer}`}>
+              <div className={`${styles.header}`}>
+                <p className="fs-5">Total Views</p>
+              </div>
+              {topAccounts.map((account, i) => (
+                <div
+                  className="col-12 bg-white border border-1 border-secondary"
+                  key={i}
+                >
+                  <p className={styles.item} style={{ width: "100%" }}>
+                    {account.totalViews}
+                  </p>
+                </div>
+              ))}
+            </div>
+            <div className={`col-2 offset-1 m-1 ${styles.headerContainer}`}>
+              <div className={`${styles.header}`}>
+                <p className="fs-5">Avg Sentiment</p>
+              </div>
+              {topAccounts.map((account, i) => (
+                <div
+                  className="col-12 bg-white border border-1 border-secondary"
+                  key={i}
+                >
+                  <p className={styles.item} style={{ width: "100%" }}>
+                    {account.avgNegSentiment}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
   );
 };
 
