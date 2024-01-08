@@ -5,6 +5,7 @@ import styles from "@/pages/index.module.css";
 import Params from "@/components/params";
 import Candidates from "@/components/lineChart";
 import HistogramChart from "@/components/histogram";
+import TopAccounts from "@/components/topAccounts";
 import IParams from "@/types/Params";
 import { useLoading } from "../store/loadingContext";
 
@@ -40,8 +41,9 @@ const Index = () => {
         {params.showChart && (
           <div className={styles.candidates}>
             <>
-              <Candidates params={params} />
-              <HistogramChart params={params} />
+              {/* <Candidates params={params} />
+              <HistogramChart params={params} /> */}
+              <TopAccounts params={params} />
             </>
           </div>
         )}
