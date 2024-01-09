@@ -7,14 +7,9 @@ import Candidates from "@/components/lineChart";
 import HistogramChart from "@/components/histogram";
 import TopAccounts from "@/components/topAccounts";
 import IParams from "@/types/Params";
-import { useLoading } from "../store/loadingContext";
+import SelectedPosts from "@/components/selectedPosts";
 
 const Index = () => {
-  const { loading: loadingCandidates, setLoading: setLoadingCandidates } =
-    useLoading();
-  const { loading: loadingHistogram, setLoading: setLoadingHistogram } =
-    useLoading();
-  const isLoading = loadingCandidates || loadingHistogram;
   const [params, setParams] = useState<IParams>({
     country: "",
     candidate: "",
@@ -44,6 +39,7 @@ const Index = () => {
               <Candidates params={params} />
               <HistogramChart params={params} />
               <TopAccounts params={params} />
+              <SelectedPosts params={params} />
             </>
           </div>
         )}

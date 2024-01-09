@@ -314,8 +314,6 @@ const HistogramChart = ({ params }: HistogramChartProps) => {
     return <Loading />;
   }
 
-  console.log(data);
-
   return (
     <div className="chart">
       <svg ref={svgRef} width={svgWidth} height={svgHeight}></svg>
