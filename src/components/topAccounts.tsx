@@ -153,7 +153,7 @@ const TopAccounts = ({ params }: TopAccountsProps) => {
         className={`py-5 w-75 d-flex flex-column align-items-center justify-content-center chart`}
       >
         <div className="w-100 row mb-5">
-          <p className="fw-bold text-secondary fs-2 col-5 ms-3">
+          <p className="fw-bold text-secondary fs-3 col-5 ms-3">
             Top 10 Accounts for Negative Posts
           </p>
           <div className={`col-3 offset-2 ${styles.socials}`}>
@@ -170,8 +170,8 @@ const TopAccounts = ({ params }: TopAccountsProps) => {
         <div className={styles.chart}>
           <div className="row w-100 text-center text-secondary d-flex justify-content-center">
             <div className={`col-3 offset-1 m-1 ${styles.headerContainer}`}>
-              <div className={`${styles.header}`}>
-                <p className="fs-5">Account Name</p>
+              <div className={`${styles.headerBox}`}>
+                <h6>Account Name</h6>
               </div>
               {topAccounts.map((account, i) => (
                 <div
@@ -185,8 +185,8 @@ const TopAccounts = ({ params }: TopAccountsProps) => {
               ))}
             </div>
             <div className={`col-2 offset-1 m-1 ${styles.headerContainer}`}>
-              <div className={`${styles.header}`}>
-                <p className="fs-5"># of Tweets</p>
+              <div className={`${styles.headerBox}`}>
+                <h6># of Tweets</h6>
               </div>
               {topAccounts.map((account, i) => (
                 <div
@@ -200,8 +200,8 @@ const TopAccounts = ({ params }: TopAccountsProps) => {
               ))}
             </div>
             <div className={`col-2 offset-1 m-1 ${styles.headerContainer}`}>
-              <div className={`${styles.header}`}>
-                <p className="fs-5">Total Likes</p>
+              <div className={`${styles.headerBox}`}>
+                <h6 >Total Likes</h6>
               </div>
               {topAccounts.map((account, i) => (
                 <div
@@ -215,8 +215,8 @@ const TopAccounts = ({ params }: TopAccountsProps) => {
               ))}
             </div>
             <div className={`col-2 offset-1 m-1 ${styles.headerContainer}`}>
-              <div className={`${styles.header}`}>
-                <p className="fs-5">Total Views</p>
+              <div className={`${styles.headerBox}`}>
+                <h6>Total Views</h6>
               </div>
               {topAccounts.map((account, i) => (
                 <div
@@ -230,8 +230,8 @@ const TopAccounts = ({ params }: TopAccountsProps) => {
               ))}
             </div>
             <div className={`col-2 offset-1 m-1 ${styles.headerContainer}`}>
-              <div className={`${styles.header}`}>
-                <p className="fs-5">Avg Sentiment</p>
+              <div className={`${styles.headerBox}`}>
+                <h6>Avg Sentiment</h6>
               </div>
               {topAccounts.map((account, i) => (
                 <div

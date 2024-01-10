@@ -7,7 +7,7 @@ html {
 body {
   box-sizing: border-box;
   background-color: var(--bs-primary);
-  font-family: Poppins;
+  font-family: Poppins, sans-serif;
 }
 
 .title {

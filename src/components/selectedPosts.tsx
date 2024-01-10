@@ -181,6 +181,8 @@ const SelectedPosts = ({ params }: SelectedPostsProps) => {
     return <Loading />;
   }
 
+  console.log(selectedTweets);
+
   return (
     <>
       <div
@@ -202,18 +204,24 @@ const SelectedPosts = ({ params }: SelectedPostsProps) => {
         </div>
 
         <div className={`${styles.chart}`}>
-          <div className={styles.buttGroup}>
-            <div className={styles.filler}></div>
-            {selectedTweets.map((tweet, i) => (
-              <div key={i} className={`${styles.buttonsDiv}`}>
-                <button className={styles.butt}>Reply</button>
-              </div>
-            ))}
-          </div>
-          <div className="d-flex overflow-x-auto">
-            <div className="col">
+          {/* Start of page 1 */}
+          <div className="row d-flex ">
+            <div className={`${styles.buttGroup} col-1`}>
+              <div className={`${styles.headerBox} ${styles.filler} `}></div>
+              {selectedTweets.map((tweet, i) => (
+                <div key={i} className={`${styles.buttonsDiv}`}>
+                  <button className={styles.butt}>Reply</button>
+                </div>
+              ))}
+            </div>
+
+            <div className="col-1">
               <div className={`${styles.headerBox}`}>
-                <h5>Date/Time</h5>
+                <h6>
+                  Date/
+                  <br />
+                  Time
+                </h6>
               </div>
               {selectedTweets.map((tweet, i) => (
                 <div key={i} className={`${styles.box}`}>
@@ -222,117 +230,132 @@ const SelectedPosts = ({ params }: SelectedPostsProps) => {
               ))}
             </div>
 
-            <div className="col">
-              <div className={`${styles.headerBox2}`}>
-                <h5>URL</h5>
+            <div className="col-2">
+              <div className={`${styles.headerBox}`}>
+                <h6>URL</h6>
               </div>
               {selectedTweets.map((tweet, i) => (
-                <div key={i} className={`${styles.box2}`}>
+                <div key={i} className={`${styles.box} ${styles.url}`}>
                   {tweet.url}
                 </div>
               ))}
             </div>
-            <div className="col">
-              <div className={`${styles.headerBox2}`}>
-                <h5>Post Content</h5>
+            <div className="col-2">
+              <div className={`${styles.headerBox}`}>
+                <h6>Post Content</h6>
               </div>
               {selectedTweets.map((tweet, i) => (
-                <div key={i} className={`${styles.box2}`}>
+                <div key={i} className={`${styles.box} ${styles.content}`}>
+                  <p> </p>
+                  <p> </p>
                   {tweet.content}
                 </div>
               ))}
             </div>
-            <div className="col">
-              <div className={`${styles.headerBox3}`}>
-                <h5>Positive Sentiment</h5>
+            <div className="col-2">
+              <div className={`${styles.headerBox}`}>
+                <h6>Positive Sentiment</h6>
               </div>
               {selectedTweets.map((tweet, i) => (
-                <div key={i} className={`${styles.box3}`}>
+                <div key={i} className={`${styles.box}`}>
                   {tweet.positiveSentiment.toFixed(2)}
                 </div>
               ))}
             </div>
-            <div className="col">
-              <div className={`${styles.headerBox3}`}>
-                <h5>Netural Sentiment</h5>
+            <div className="col-2">
+              <div className={`${styles.headerBox}`}>
+                <h6>Netural Sentiment</h6>
               </div>
               {selectedTweets.map((tweet, i) => (
-                <div key={i} className={`${styles.box3}`}>
+                <div key={i} className={`${styles.box}`}>
                   {tweet.neutralSentiment.toFixed(2)}
                 </div>
               ))}
             </div>
-            <div className="col">
-              <div className={`${styles.headerBox3}`}>
-                <h5>Negative Sentiment</h5>
+            <div className="col-2">
+              <div className={`${styles.headerBox}`}>
+                <h6>Negative Sentiment</h6>
               </div>
               {selectedTweets.map((tweet, i) => (
-                <div key={i} className={`${styles.box3}`}>
+                <div key={i} className={`${styles.box}`}>
                   {tweet.negativeSentiment.toFixed(2)}
                 </div>
               ))}
             </div>
-            <div className="col">
-              <div className={`${styles.headerBox3}`}>
-                <h5>Total Views</h5>
-              </div>
-              {selectedTweets.map((tweet, i) => (
-                <div key={i} className={`${styles.box3}`}>
-                  {tweet.views}
-                </div>
-              ))}
-            </div>
-            <div className="col">
-              <div className={`${styles.headerBox3}`}>
-                <h5>Total Likes</h5>
-              </div>
-              {selectedTweets.map((tweet, i) => (
-                <div key={i} className={`${styles.box3}`}>
-                  {tweet.likes}
-                </div>
-              ))}
-            </div>
-            <div className="col">
-              <div className={`${styles.headerBox3}`}>
-                <h5>Total Re-Posts</h5>
-              </div>
-              {selectedTweets.map((tweet, i) => (
-                <div key={i} className={`${styles.box3}`}>
-                  {tweet.retweets}
-                </div>
-              ))}
-            </div>
-            <div className="col">
-              <div className={`${styles.headerBox3}`}>
-                <h5>Total Replies</h5>
-              </div>
-              {selectedTweets.map((tweet, i) => (
-                <div key={i} className={`${styles.box3}`}>
-                  {tweet.replies}
-                </div>
-              ))}
-            </div>
-            <div className="col">
-              <div className={`${styles.headerBox3}`}>
-                <h5>Mentioned Users</h5>
-              </div>
-              {selectedTweets.map((tweet, i) => (
-                <div key={i} className={`${styles.box3}`}>
-                  {tweet.mentionedUsers}
-                </div>
-              ))}
-            </div>
-            <div className="col">
-              <div className={`${styles.headerBox3}`}>
-                <h5>Account Name</h5>
-              </div>
-              {selectedTweets.map((tweet, i) => (
-                <div key={i} className={`${styles.box3}`}>
-                  {tweet.user}
-                </div>
-              ))}
-            </div>
           </div>
+
+          {/*  Start of Page 2 */}
+
+          {/* <div className="row">
+              <div className={styles.buttGroup}>
+                <div className={styles.filler}></div>
+                {selectedTweets.map((tweet, i) => (
+                  <div key={i} className={`${styles.buttonsDiv}`}>
+                    <button className={styles.butt}>Reply</button>
+                  </div>
+                ))}
+              </div>
+              <div className="col">
+                <div className={`${styles.headerBox3}`}>
+                  <h6>Total Views</h6>
+                </div>
+                {selectedTweets.map((tweet, i) => (
+                  <div key={i} className={`${styles.box3}`}>
+                    {tweet.views}
+                  </div>
+                ))}
+              </div>
+              <div className="col">
+                <div className={`${styles.headerBox3}`}>
+                  <h6>Total Likes</h6>
+                </div>
+                {selectedTweets.map((tweet, i) => (
+                  <div key={i} className={`${styles.box3}`}>
+                    {tweet.likes}
+                  </div>
+                ))}
+              </div>
+              <div className="col">
+                <div className={`${styles.headerBox3}`}>
+                  <h6>Total Re-Posts</h6>
+                </div>
+                {selectedTweets.map((tweet, i) => (
+                  <div key={i} className={`${styles.box3}`}>
+                    {tweet.retweets}
+                  </div>
+                ))}
+              </div>
+              <div className="col">
+                <div className={`${styles.headerBox3}`}>
+                  <h6>Total Replies</h6>
+                </div>
+                {selectedTweets.map((tweet, i) => (
+                  <div key={i} className={`${styles.box3}`}>
+                    {tweet.replies}
+                  </div>
+                ))}
+              </div>
+              <div className="col">
+                <div className={`${styles.headerBox3}`}>
+                  <h6>Mentioned Users</h6>
+                </div>
+                {selectedTweets.map((tweet, i) => (
+                  <div key={i} className={`${styles.box3}`}>
+                    {tweet.mentionedUsers}
+                  </div>
+                ))}
+              </div>
+              <div className="col">
+                <div className={`${styles.headerBox3}`}>
+                  <h6>Account Name</h6>
+                </div>
+                {selectedTweets.map((tweet, i) => (
+                  <div key={i} className={`${styles.box3}`}>
+                    {tweet.user}
+                  </div>
+                ))}
+              </div>
+            </div> */}
         </div>
       </div>
     </>

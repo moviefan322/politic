@@ -3,7 +3,7 @@
   margin: 2rem 2rem;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
   border-radius: 30px;
-  overflow-x: auto;
+  overflow-x: scroll;
 }
 
 .chartContainer {
@@ -25,6 +25,7 @@
 .chart {
   display: flex;
   flex-direction: row;
+  padding: 2rem;
 }
 
 .socials svg {
@@ -41,49 +42,19 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 75px;
-  width: 125px;
   background-color: var(--bs-primary);
   border: 2px solid var(--bs-secondary);
   margin: auto;
   color: var(--bs-secondary);
   margin-bottom: 4px;
   margin-right: 4px;
+  height: 80px;
+  padding: .5rem;
 }
 
-.headerBox2 {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 75px;
-  width: 375px;
-  background-color: var(--bs-primary);
-  border: 2px solid var(--bs-secondary);
-  margin: auto;
-  color: var(--bs-secondary);
-  margin-bottom: 4px;
-  margin-right: 4px;
-}
-
-.headerBox3 {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 75px;
-  width: 250px;
-  background-color: var(--bs-primary);
-  border: 2px solid var(--bs-secondary);
-  margin: auto;
-  color: var(--bs-secondary);
-  margin-bottom: 4px;
-  margin-right: 4px;
-}
-
-.headerBox h5,
-.headerBox2 h5,
-.headerBox3 h5 {
+.headerBox h6,
+.headerBox2 h6,
+.headerBox3 h6 {
   margin: 0;
 }
 
@@ -94,54 +65,31 @@
   justify-content: center;
   text-align: center;
   border: 1px solid var(--bs-secondary);
-  height: 75px;
-  width: 125px;
   background-color: white;
   color: var(--bs-secondary);
   margin-right: 4px;
+  height: 70px;
+  overflow: scroll;
+  font-size: 12px;
+  padding: .5rem;
 }
 
-.box2 {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  border: 1px solid var(--bs-secondary);
-  height: 75px;
-  width: 375px;
-  background-color: white;
-  color: var(--bs-secondary);
-  overflow-x: auto;
-  margin-right: 4px;
-}
-
-.box3 {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  border: 1px solid var(--bs-secondary);
-  height: 75px;
-  width: 250px;
-  background-color: white;
-  color: var(--bs-secondary);
-  overflow-x: auto;
-}
-
-.buttonsDiv,
 .filler {
-  position: sticky;
-  right: 0;
-  z-index: 10;
-  height: 75px;
-  width: 100px;
+  background-color: white;
+  border: none;
+}
+
+.buttonsDiv {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
+  background-color: white;
+  margin-right: 4px;
+  height: 70px;
+  font-size: 12px;
+  padding: .5rem;
 }
 
 .butt {
@@ -153,4 +101,14 @@
   float: right;
   margin-right: 1rem;
   margin-top: 1rem;
+}
+
+.url {
+  display: flex;
+  flex-direction: row;
+  align-items: left;
+}
+
+.content {
+  padding-top: .5rem;
 }
