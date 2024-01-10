@@ -1,34 +1,17 @@
-.chart {
-  width: 100%;
-  display: flex;
+.container {
+  background-color: white;
+  margin: 2rem 2rem;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 30px;
+  width: fit-content;
+  overflow-x: auto;
 }
 
-.header {
-  background-color: var(--bs-primary);
+.chartContainer {
   display: flex;
-  justify-content: space-between;
+  flex-direction: row;
   align-items: center;
-  border: 1px solid var(--bs-secondary);
-}
-
-.header h5 {
-  margin: auto;
-  padding: 1rem 2rem;
-}
-
-.user {
-  text-align: start;
-}
-
-.headerContainer p {
-  margin: auto;
-  padding: 1rem 2rem;
-}
-
-.item {
-  text-align: center;
-  max-height: 100px;
-  overflow: hidden;
+  justify-content: flex-start;
 }
 
 .socials {
@@ -43,4 +26,97 @@
 
 .twitter {
   color: rgb(0, 0, 222) !important;
+}
+.headerBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 75px;
+  width: 125px;
+  background-color: var(--bs-primary);
+  border: 2px solid var(--bs-secondary);
+  margin: auto;
+  color: var(--bs-secondary);
+  margin-bottom: 4px;
+  margin-right: 4px;
+}
+
+.headerBox2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 75px;
+  width: 375px;
+  background-color: var(--bs-primary);
+  border: 2px solid var(--bs-secondary);
+  margin: auto;
+  color: var(--bs-secondary);
+  margin-bottom: 4px;
+  margin-right: 4px;
+}
+
+.headerBox3 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 75px;
+  width: 250px;
+  background-color: var(--bs-primary);
+  border: 2px solid var(--bs-secondary);
+  margin: auto;
+  color: var(--bs-secondary);
+  margin-bottom: 4px;
+  margin-right: 4px;
+}
+
+.headerBox h5,
+.headerBox2 h5,
+.headerBox3 h5 {
+  margin: 0;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border: 1px solid var(--bs-secondary);
+  height: 75px;
+  width: 125px;
+  background-color: white;
+  color: var(--bs-secondary);
+  margin-right: 4px;
+}
+
+.box2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border: 1px solid var(--bs-secondary);
+  height: 75px;
+  width: 375px;
+  background-color: white;
+  color: var(--bs-secondary);
+  overflow-x: auto;
+  margin-right: 4px;
+}
+
+.box3 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border: 1px solid var(--bs-secondary);
+  height: 75px;
+  width: 250px;
+  background-color: white;
+  color: var(--bs-secondary);
+  overflow-x: auto;
 }

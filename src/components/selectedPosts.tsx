@@ -63,7 +63,11 @@ const SelectedPosts = ({ params }: SelectedPostsProps) => {
               content: tweet.Content,
               externalLinkContent: [tweet["External Link Content"]],
               externalLinks: [tweet["External links"]],
-              mentionedUsers: [tweet["Mentioned Users"]], // Wrap the value in an array
+              mentionedUsers:
+                tweet["Mentioned Users"] !== "[]"
+                  ? [tweet["Mentioned Users"]]
+                  : ["n/a"],
+
               translatedContent: tweet["Translated content"],
               tweetID: tweet["Tweet ID"],
               likes: +tweet.Likes || 0,
@@ -180,7 +184,7 @@ const SelectedPosts = ({ params }: SelectedPostsProps) => {
   return (
     <>
       <div
-        className={`py-5 w-75 d-flex flex-column align-items-center justify-content-center chart`}
+        className={`py-5 w-75 d-flex flex-column align-items-center justify-content-center ${styles.container}`}
       >
         <div className="w-100 row mb-5">
           <p className="fw-bold text-secondary fs-2 col-5 ms-3">
@@ -197,183 +201,126 @@ const SelectedPosts = ({ params }: SelectedPostsProps) => {
           </div>
         </div>
 
-        <div className={styles.chart}>
-          <div className="row w-100 text-center text-secondary d-flex justify-content-center">
-            <div className={`col-1 m-1 ${styles.headerContainer}`}>
-              <div className={`${styles.header}`}>
-                <p className="fs-5">Date/Time</p>
+        <div className={`row ${styles.chart}`}>
+          <div className="d-flex overflow-x-auto">
+            <div className="col">
+              <div className={`${styles.headerBox}`}>
+                <h5>Date/Time</h5>
               </div>
               {selectedTweets.map((tweet, i) => (
-                <div
-                  className="col-12 bg-white border border-1 border-secondary"
-                  key={i}
-                >
-                  <p className={`${styles.user}`} style={{ width: "100%" }}>
-                    {formatDate(tweet.date)}
-                  </p>
+                <div key={i} className={`${styles.box}`}>
+                  {formatDate(tweet.date)}
                 </div>
               ))}
             </div>
-            <div className={`col-1 m-1 ${styles.headerContainer}`}>
-              <div className={`${styles.header}`}>
-                <p className="fs-5">URL</p>
+
+            <div className="col">
+              <div className={`${styles.headerBox2}`}>
+                <h5>URL</h5>
               </div>
               {selectedTweets.map((tweet, i) => (
-                <div
-                  className="col-12 bg-white border border-1 border-secondary"
-                  key={i}
-                >
-                  <p className={styles.item} style={{ width: "100%" }}>
-                    {tweet.url}
-                  </p>
+                <div key={i} className={`${styles.box2}`}>
+                  {tweet.url}
                 </div>
               ))}
             </div>
-            <div className={`col-1 m-1 ${styles.headerContainer}`}>
-              <div className={`${styles.header}`}>
-                <p className="fs-5">Post Content</p>
+            <div className="col">
+              <div className={`${styles.headerBox2}`}>
+                <h5>Post Content</h5>
               </div>
               {selectedTweets.map((tweet, i) => (
-                <div
-                  className="col-12 bg-white border border-1 border-secondary"
-                  key={i}
-                >
-                  <p className={styles.item}>{tweet.content}</p>
+                <div key={i} className={`${styles.box2}`}>
+                  {tweet.content}
                 </div>
               ))}
             </div>
-            <div className={`col-1 m-1 ${styles.headerContainer}`}>
-              <div className={`${styles.header}`}>
-                <p className="fs-5">Postive Sentiment</p>
+            <div className="col">
+              <div className={`${styles.headerBox3}`}>
+                <h5>Positive Sentiment</h5>
               </div>
               {selectedTweets.map((tweet, i) => (
-                <div
-                  className="col-12 bg-white border border-1 border-secondary"
-                  key={i}
-                >
-                  <p className={styles.item} style={{ width: "100%" }}>
-                    {tweet.positiveSentiment.toFixed(2)}
-                  </p>
+                <div key={i} className={`${styles.box3}`}>
+                  {tweet.positiveSentiment.toFixed(2)}
                 </div>
               ))}
             </div>
-            <div className={`col-1 m-1 ${styles.headerContainer}`}>
-              <div className={`${styles.header}`}>
-                <p className="fs-5">Netural Sentiment</p>
+            <div className="col">
+              <div className={`${styles.headerBox3}`}>
+                <h5>Netural Sentiment</h5>
               </div>
               {selectedTweets.map((tweet, i) => (
-                <div
-                  className="col-12 bg-white border border-1 border-secondary"
-                  key={i}
-                >
-                  <p className={styles.item} style={{ width: "100%" }}>
-                    {tweet.neutralSentiment.toFixed(2)}
-                  </p>
+                <div key={i} className={`${styles.box3}`}>
+                  {tweet.neutralSentiment.toFixed(2)}
                 </div>
               ))}
             </div>
-            <div className={`col-1 m-1 ${styles.headerContainer}`}>
-              <div className={`${styles.header}`}>
-                <p className="fs-5">Negative Sentiment</p>
+            <div className="col">
+              <div className={`${styles.headerBox3}`}>
+                <h5>Negative Sentiment</h5>
               </div>
               {selectedTweets.map((tweet, i) => (
-                <div
-                  className="col-12 bg-white border border-1 border-secondary"
-                  key={i}
-                >
-                  <p className={styles.item} style={{ width: "100%" }}>
-                    {tweet.negativeSentiment.toFixed(2)}
-                  </p>
+                <div key={i} className={`${styles.box3}`}>
+                  {tweet.negativeSentiment.toFixed(2)}
                 </div>
               ))}
             </div>
-            <div className={`col-1 m-1 ${styles.headerContainer}`}>
-              <div className={`${styles.header}`}>
-                <p className="fs-5">Total Views</p>
+            <div className="col">
+              <div className={`${styles.headerBox3}`}>
+                <h5>Total Views</h5>
               </div>
               {selectedTweets.map((tweet, i) => (
-                <div
-                  className="col-12 bg-white border border-1 border-secondary"
-                  key={i}
-                >
-                  <p className={styles.item} style={{ width: "100%" }}>
-                    {tweet.views}
-                  </p>
+                <div key={i} className={`${styles.box3}`}>
+                  {tweet.views}
                 </div>
               ))}
             </div>
-            <div className={`col-1 m-1 ${styles.headerContainer}`}>
-              <div className={`${styles.header}`}>
-                <p className="fs-5">Total Likes</p>
+            <div className="col">
+              <div className={`${styles.headerBox3}`}>
+                <h5>Total Likes</h5>
               </div>
               {selectedTweets.map((tweet, i) => (
-                <div
-                  className="col-12 bg-white border border-1 border-secondary"
-                  key={i}
-                >
-                  <p className={styles.item} style={{ width: "100%" }}>
-                    {tweet.likes}
-                  </p>
+                <div key={i} className={`${styles.box3}`}>
+                  {tweet.likes}
                 </div>
               ))}
             </div>
-            <div className={`col-1 m-1 ${styles.headerContainer}`}>
-              <div className={`${styles.header}`}>
-                <p className="fs-5">Total Re-Posts</p>
+            <div className="col">
+              <div className={`${styles.headerBox3}`}>
+                <h5>Total Re-Posts</h5>
               </div>
               {selectedTweets.map((tweet, i) => (
-                <div
-                  className="col-12 bg-white border border-1 border-secondary"
-                  key={i}
-                >
-                  <p className={styles.item} style={{ width: "100%" }}>
-                    {tweet.retweets}
-                  </p>
+                <div key={i} className={`${styles.box3}`}>
+                  {tweet.retweets}
                 </div>
               ))}
             </div>
-            <div className={`col-1 m-1 ${styles.headerContainer}`}>
-              <div className={`${styles.header}`}>
-                <p className="fs-5">Total Replies</p>
+            <div className="col">
+              <div className={`${styles.headerBox3}`}>
+                <h5>Total Replies</h5>
               </div>
               {selectedTweets.map((tweet, i) => (
-                <div
-                  className="col-12 bg-white border border-1 border-secondary"
-                  key={i}
-                >
-                  <p className={styles.item} style={{ width: "100%" }}>
-                    {tweet.replies}
-                  </p>
+                <div key={i} className={`${styles.box3}`}>
+                  {tweet.replies}
                 </div>
               ))}
             </div>
-            <div className={`col-1 m-1 ${styles.headerContainer}`}>
-              <div className={`${styles.header}`}>
-                <p className="fs-5">Mentioned Users</p>
+            <div className="col">
+              <div className={`${styles.headerBox3}`}>
+                <h5>Mentioned Users</h5>
               </div>
               {selectedTweets.map((tweet, i) => (
-                <div
-                  className="col-12 bg-white border border-1 border-secondary"
-                  key={i}
-                >
-                  <p className={styles.item} style={{ width: "100%" }}>
-                    {tweet.mentionedUsers}
-                  </p>
+                <div key={i} className={`${styles.box3}`}>
+                  {tweet.mentionedUsers}
                 </div>
               ))}
             </div>
-            <div className={`col-1 m-1 ${styles.headerContainer}`}>
-              <div className={`${styles.header}`}>
-                <p className="fs-5">Account Name</p>
+            <div className="col">
+              <div className={`${styles.headerBox3}`}>
+                <h5>Account Name</h5>
               </div>
               {selectedTweets.map((tweet, i) => (
-                <div
-                  className="col-12 bg-white border border-1 border-secondary"
-                  key={i}
-                >
-                  <p className={styles.item} style={{ width: "100%" }}>
-                    {tweet.user}
-                  </p>
+                <div key={i} className={`${styles.box3}`}>
+                  {tweet.user}
                 </div>
               ))}
             </div>
