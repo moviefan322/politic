@@ -3,7 +3,6 @@ import styles from "@/components/params.module.css";
 import { FaAngleDown } from "react-icons/fa";
 import { InputMask } from "primereact/inputmask";
 import IParams from "@/types/Params";
-import { set } from "mongoose";
 
 interface ParamsProps {
   setParams: React.Dispatch<React.SetStateAction<IParams>>;

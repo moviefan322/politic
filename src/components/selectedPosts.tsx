@@ -186,8 +186,8 @@ const SelectedPosts = ({ params }: SelectedPostsProps) => {
       <div
         className={`py-5 w-75 d-flex flex-column align-items-center justify-content-center ${styles.container}`}
       >
-        <div className="w-100 row mb-5">
-          <p className="fw-bold text-secondary fs-2 col-5 ms-3">
+        <div className={`w-100 row mb-5 ${styles.chartHead}`}>
+          <p className="fw-bold text-secondary fs-2 col-5 ms-5">
             Individual Posts
           </p>
           <div className={`col-3 offset-2 ${styles.socials}`}>
@@ -201,7 +201,15 @@ const SelectedPosts = ({ params }: SelectedPostsProps) => {
           </div>
         </div>
 
-        <div className={`row ${styles.chart}`}>
+        <div className={`${styles.chart}`}>
+          <div className={styles.buttGroup}>
+            <div className={styles.filler}></div>
+            {selectedTweets.map((tweet, i) => (
+              <div key={i} className={`${styles.buttonsDiv}`}>
+                <button className={styles.butt}>Reply</button>
+              </div>
+            ))}
+          </div>
           <div className="d-flex overflow-x-auto">
             <div className="col">
               <div className={`${styles.headerBox}`}>

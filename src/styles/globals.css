@@ -7,7 +7,6 @@ html {
 body {
   box-sizing: border-box;
   background-color: var(--bs-primary);
-  overflow: hidden;
   font-family: Poppins;
 }
 

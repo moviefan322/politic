@@ -3,7 +3,6 @@
   margin: 2rem 2rem;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
   border-radius: 30px;
-  width: fit-content;
   overflow-x: auto;
 }
 
@@ -14,8 +13,18 @@
   justify-content: flex-start;
 }
 
+.chartHead {
+  position: sticky;
+  left: 0;
+}
+
 .socials {
   display: flex;
+}
+
+.chart {
+  display: flex;
+  flex-direction: row;
 }
 
 .socials svg {
@@ -119,4 +128,29 @@
   background-color: white;
   color: var(--bs-secondary);
   overflow-x: auto;
+}
+
+.buttonsDiv,
+.filler {
+  position: sticky;
+  right: 0;
+  z-index: 10;
+  height: 75px;
+  width: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.butt {
+  border: none;
+  background-color: var(--bs-secondary);
+  color: white;
+  border-radius: 2rem;
+  padding: 0.3rem 1rem;
+  float: right;
+  margin-right: 1rem;
+  margin-top: 1rem;
 }
