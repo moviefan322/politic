@@ -195,7 +195,7 @@ const SelectedPosts = ({ params }: SelectedPostsProps) => {
           <p className="fw-bold text-secondary fs-2 col-5 ms-5">
             Individual Posts
           </p>
-          <div className={`col-3 offset-2 ${styles.socials}`}>
+          <div className={`col-3 offset-1 ${styles.socials}`}>
             <FaFacebookF style={{ width: "50px", height: "50px" }} />
             <FaTwitter
               className={styles.twitter}
@@ -204,7 +204,7 @@ const SelectedPosts = ({ params }: SelectedPostsProps) => {
             <FaInstagram style={{ width: "50px", height: "50px" }} />
             <FaYoutube style={{ width: "50px", height: "50px" }} />
           </div>
-          <div className="col-1 d-flex flex-direction-row">
+          <div className="col-1 offset-1 d-flex flex-direction-row">
             <button
               className={`btn btn-outline-secondary ${styles.pageButton}`}
               onClick={() => setShowPage1(true)}
@@ -303,81 +303,79 @@ const SelectedPosts = ({ params }: SelectedPostsProps) => {
               </div>
             </div>
           ) : (
-            <h1>Page 2</h1>
-          )}
-
-          {/*  Start of Page 2 */}
-
-          {/* <div className="row">
-              <div className={styles.buttGroup}>
-                <div className={styles.filler}></div>
+            <>
+              <div className={`${styles.buttGroup} col-1`}>
+                <div className={`${styles.headerBox} ${styles.filler} `}></div>
                 {selectedTweets.map((tweet, i) => (
                   <div key={i} className={`${styles.buttonsDiv}`}>
                     <button className={styles.butt}>Reply</button>
                   </div>
                 ))}
               </div>
-              <div className="col">
-                <div className={`${styles.headerBox3}`}>
-                  <h6>Total Views</h6>
-                </div>
-                {selectedTweets.map((tweet, i) => (
-                  <div key={i} className={`${styles.box3}`}>
-                    {tweet.views}
+              <div className="row d-flex ">
+                <div className="col-2">
+                  <div className={`${styles.headerBox}`}>
+                    <h6>Total Views</h6>
                   </div>
-                ))}
-              </div>
-              <div className="col">
-                <div className={`${styles.headerBox3}`}>
-                  <h6>Total Likes</h6>
+                  {selectedTweets.map((tweet, i) => (
+                    <div key={i} className={`${styles.box}`}>
+                      {tweet.views}
+                    </div>
+                  ))}
                 </div>
-                {selectedTweets.map((tweet, i) => (
-                  <div key={i} className={`${styles.box3}`}>
-                    {tweet.likes}
+                <div className="col-2">
+                  <div className={`${styles.headerBox}`}>
+                    <h6>Total Likes</h6>
                   </div>
-                ))}
-              </div>
-              <div className="col">
-                <div className={`${styles.headerBox3}`}>
-                  <h6>Total Re-Posts</h6>
+                  {selectedTweets.map((tweet, i) => (
+                    <div key={i} className={`${styles.box}`}>
+                      {tweet.likes}
+                    </div>
+                  ))}
                 </div>
-                {selectedTweets.map((tweet, i) => (
-                  <div key={i} className={`${styles.box3}`}>
-                    {tweet.retweets}
+                <div className="col-2">
+                  <div className={`${styles.headerBox}`}>
+                    <h6>Total Re-Posts</h6>
                   </div>
-                ))}
-              </div>
-              <div className="col">
-                <div className={`${styles.headerBox3}`}>
-                  <h6>Total Replies</h6>
+                  {selectedTweets.map((tweet, i) => (
+                    <div key={i} className={`${styles.box}`}>
+                      {tweet.retweets}
+                    </div>
+                  ))}
                 </div>
-                {selectedTweets.map((tweet, i) => (
-                  <div key={i} className={`${styles.box3}`}>
-                    {tweet.replies}
+                <div className="col-2">
+                  <div className={`${styles.headerBox}`}>
+                    <h6>Total Replies</h6>
                   </div>
-                ))}
-              </div>
-              <div className="col">
-                <div className={`${styles.headerBox3}`}>
-                  <h6>Mentioned Users</h6>
+                  {selectedTweets.map((tweet, i) => (
+                    <div key={i} className={`${styles.box}`}>
+                      {tweet.replies}
+                    </div>
+                  ))}
                 </div>
-                {selectedTweets.map((tweet, i) => (
-                  <div key={i} className={`${styles.box3}`}>
-                    {tweet.mentionedUsers}
+                <div className="col-2">
+                  <div className={`${styles.headerBox}`}>
+                    <h6>Mentioned Users</h6>
                   </div>
-                ))}
-              </div>
-              <div className="col">
-                <div className={`${styles.headerBox3}`}>
-                  <h6>Account Name</h6>
+                  {selectedTweets.map((tweet, i) => (
+                    <div key={i} className={`${styles.box}`}>
+                      {tweet.mentionedUsers}
+                    </div>
+                  ))}
                 </div>
-                {selectedTweets.map((tweet, i) => (
-                  <div key={i} className={`${styles.box3}`}>
-                    {tweet.user}
+                <div className="col-2">
+                  <div className={`${styles.headerBox}`}>
+                    <h6>Account Name</h6>
                   </div>
-                ))}
+                  {selectedTweets.map((tweet, i) => (
+                    <div key={i} className={`${styles.box}`}>
+                      {tweet.user}
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div> */}
+            </>
+          )}
         </div>
       </div>
     </>
