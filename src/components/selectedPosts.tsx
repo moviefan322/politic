@@ -7,6 +7,8 @@ import { FaFacebookF } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
 import { FaYoutube } from "react-icons/fa";
+import { FaChevronCircleLeft } from "react-icons/fa";
+import { FaChevronCircleRight } from "react-icons/fa";
 import Loading from "./loading";
 import { TweetsByDate } from "../types/TweetData";
 
@@ -24,6 +26,7 @@ const SelectedPosts = ({ params }: SelectedPostsProps) => {
   );
   const [allTweets, setAllTweets] = useState<TweetsByDate>({});
   const [selectedTweets, setSelectedTweets] = useState<TweetData[]>([]);
+  const [showPage1, setShowPage1] = useState<boolean>(true);
 
   const formatDate = (date: Date): string => {
     const options: Intl.DateTimeFormatOptions = {
@@ -201,88 +204,107 @@ const SelectedPosts = ({ params }: SelectedPostsProps) => {
             <FaInstagram style={{ width: "50px", height: "50px" }} />
             <FaYoutube style={{ width: "50px", height: "50px" }} />
           </div>
+          <div className="col-1 d-flex flex-direction-row">
+            <button
+              className={`btn btn-outline-secondary ${styles.pageButton}`}
+              onClick={() => setShowPage1(true)}
+              disabled={showPage1}
+            >
+              <FaChevronCircleLeft />
+            </button>
+            <button
+              className={`btn btn-outline-secondary ${styles.pageButton}`}
+              onClick={() => setShowPage1(false)}
+              disabled={!showPage1}
+            >
+              <FaChevronCircleRight />
+            </button>
+          </div>
         </div>
 
         <div className={`${styles.chart}`}>
-          {/* Start of page 1 */}
-          <div className="row d-flex ">
-            <div className={`${styles.buttGroup} col-1`}>
-              <div className={`${styles.headerBox} ${styles.filler} `}></div>
-              {selectedTweets.map((tweet, i) => (
-                <div key={i} className={`${styles.buttonsDiv}`}>
-                  <button className={styles.butt}>Reply</button>
-                </div>
-              ))}
-            </div>
+          {showPage1 ? (
+            <div className="row d-flex ">
+              <div className={`${styles.buttGroup} col-1`}>
+                <div className={`${styles.headerBox} ${styles.filler} `}></div>
+                {selectedTweets.map((tweet, i) => (
+                  <div key={i} className={`${styles.buttonsDiv}`}>
+                    <button className={styles.butt}>Reply</button>
+                  </div>
+                ))}
+              </div>
 
-            <div className="col-1">
-              <div className={`${styles.headerBox}`}>
-                <h6>
-                  Date/
-                  <br />
-                  Time
-                </h6>
-              </div>
-              {selectedTweets.map((tweet, i) => (
-                <div key={i} className={`${styles.box}`}>
-                  {formatDate(tweet.date)}
+              <div className="col-1">
+                <div className={`${styles.headerBox}`}>
+                  <h6>
+                    Date/
+                    <br />
+                    Time
+                  </h6>
                 </div>
-              ))}
-            </div>
+                {selectedTweets.map((tweet, i) => (
+                  <div key={i} className={`${styles.box}`}>
+                    {formatDate(tweet.date)}
+                  </div>
+                ))}
+              </div>
 
-            <div className="col-2">
-              <div className={`${styles.headerBox}`}>
-                <h6>URL</h6>
-              </div>
-              {selectedTweets.map((tweet, i) => (
-                <div key={i} className={`${styles.box} ${styles.url}`}>
-                  {tweet.url}
+              <div className="col-2">
+                <div className={`${styles.headerBox}`}>
+                  <h6>URL</h6>
                 </div>
-              ))}
-            </div>
-            <div className="col-2">
-              <div className={`${styles.headerBox}`}>
-                <h6>Post Content</h6>
+                {selectedTweets.map((tweet, i) => (
+                  <div key={i} className={`${styles.box} ${styles.url}`}>
+                    {tweet.url}
+                  </div>
+                ))}
               </div>
-              {selectedTweets.map((tweet, i) => (
-                <div key={i} className={`${styles.box} ${styles.content}`}>
-                  <p> </p>
-                  <p> </p>
-                  {tweet.content}
+              <div className="col-2">
+                <div className={`${styles.headerBox}`}>
+                  <h6>Post Content</h6>
                 </div>
-              ))}
-            </div>
-            <div className="col-2">
-              <div className={`${styles.headerBox}`}>
-                <h6>Positive Sentiment</h6>
+                {selectedTweets.map((tweet, i) => (
+                  <div key={i} className={`${styles.box} ${styles.content}`}>
+                    <p> </p>
+                    <p> </p>
+                    {tweet.content}
+                  </div>
+                ))}
               </div>
-              {selectedTweets.map((tweet, i) => (
-                <div key={i} className={`${styles.box}`}>
-                  {tweet.positiveSentiment.toFixed(2)}
+              <div className="col-2">
+                <div className={`${styles.headerBox}`}>
+                  <h6>Positive Sentiment</h6>
                 </div>
-              ))}
-            </div>
-            <div className="col-2">
-              <div className={`${styles.headerBox}`}>
-                <h6>Netural Sentiment</h6>
+                {selectedTweets.map((tweet, i) => (
+                  <div key={i} className={`${styles.box}`}>
+                    {tweet.positiveSentiment.toFixed(2)}
+                  </div>
+                ))}
               </div>
-              {selectedTweets.map((tweet, i) => (
-                <div key={i} className={`${styles.box}`}>
-                  {tweet.neutralSentiment.toFixed(2)}
+              <div className="col-2">
+                <div className={`${styles.headerBox}`}>
+                  <h6>Netural Sentiment</h6>
                 </div>
-              ))}
-            </div>
-            <div className="col-2">
-              <div className={`${styles.headerBox}`}>
-                <h6>Negative Sentiment</h6>
+                {selectedTweets.map((tweet, i) => (
+                  <div key={i} className={`${styles.box}`}>
+                    {tweet.neutralSentiment.toFixed(2)}
+                  </div>
+                ))}
               </div>
-              {selectedTweets.map((tweet, i) => (
-                <div key={i} className={`${styles.box}`}>
-                  {tweet.negativeSentiment.toFixed(2)}
+              <div className="col-2">
+                <div className={`${styles.headerBox}`}>
+                  <h6>Negative Sentiment</h6>
                 </div>
-              ))}
+                {selectedTweets.map((tweet, i) => (
+                  <div key={i} className={`${styles.box}`}>
+                    {tweet.negativeSentiment.toFixed(2)}
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
+          ) : (
+            <h1>Page 2</h1>
+          )}
 
           {/*  Start of Page 2 */}
 

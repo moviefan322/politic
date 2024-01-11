@@ -49,7 +49,7 @@
   margin-bottom: 4px;
   margin-right: 4px;
   height: 80px;
-  padding: .5rem;
+  padding: 0.5rem;
 }
 
 .headerBox h6,
@@ -71,7 +71,7 @@
   height: 70px;
   overflow: scroll;
   font-size: 12px;
-  padding: .5rem;
+  padding: 0.5rem;
 }
 
 .filler {
@@ -89,7 +89,7 @@
   margin-right: 4px;
   height: 70px;
   font-size: 12px;
-  padding: .5rem;
+  padding: 0.5rem;
 }
 
 .butt {
@@ -110,5 +110,15 @@
 }
 
 .content {
-  padding-top: .5rem;
+  padding-top: 0.5rem;
+}
+
+.pageButton {
+  border: none;
+  color: var(--bs-secondary);
+  border-radius: 2rem;
+  padding: 0.3rem 1rem;
+  float: right;
+  margin-right: 1rem;
+  font-size: 30px;
 }

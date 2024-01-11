@@ -58,3 +58,9 @@
   height: 80px;
   padding: .5rem;
 }
+
+.headerBox h6,
+.headerBox2 h6,
+.headerBox3 h6 {
+  margin: 0;
+}
