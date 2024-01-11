@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import Navbar from "@/components/navbar";
 import Sidebar from "@/components/sidebar";
 import styles from "@/pages/index.module.css";
@@ -30,7 +30,14 @@ const Index = () => {
     showChart: false,
   });
 
-  console.log(params);
+  const [chartWidth, setChartWidth] = useState<number>(0);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      console.log(window.innerWidth); // Access window here
+      setChartWidth(window.innerWidth * 0.75);
+    }
+  }, []);
 
   return (
     <>
@@ -53,11 +60,13 @@ const Index = () => {
                 params={params}
                 setLoading={setLoading}
                 loading={loading}
+                chartWidth={chartWidth}
               />
               <HistogramChart
                 params={params}
                 setLoading={setLoading}
                 loading={loading}
+                chartWidth={chartWidth}
               />
               <TopAccounts
                 params={params}

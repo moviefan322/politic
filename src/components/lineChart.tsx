@@ -18,9 +18,15 @@ interface LineChartProps {
   params: IParams;
   setLoading: React.Dispatch<SetStateAction<ILoading>>;
   loading: ILoading;
+  chartWidth: number;
 }
 
-const LineChart = ({ params, setLoading, loading }: LineChartProps) => {
+const LineChart = ({
+  params,
+  setLoading,
+  loading,
+  chartWidth,
+}: LineChartProps) => {
   const [data, setData] = useState<TweetData[]>();
   const [isChartReady, setIsChartReady] = useState<boolean>(false);
   const [negativeTweets, setNegativeTweets] = useState<TweetsByDate>();
@@ -30,7 +36,7 @@ const LineChart = ({ params, setLoading, loading }: LineChartProps) => {
   const [dateRange, setDateRange] = useState<Date[]>();
   const [allTweets, setAllTweets] = useState<TweetsByDate>();
   const svgRef = useRef<SVGSVGElement>(null);
-  const svgWidth = 1000;
+  const svgWidth = chartWidth;
   const svgHeight = 600;
 
   // Load and organize data

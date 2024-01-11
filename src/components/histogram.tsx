@@ -14,12 +14,14 @@ interface HistogramChartProps {
   params: IParams;
   setLoading: React.Dispatch<React.SetStateAction<ILoading>>;
   loading: ILoading;
+  chartWidth: number;
 }
 
 const HistogramChart = ({
   params,
   setLoading,
   loading,
+  chartWidth,
 }: HistogramChartProps) => {
   const [data, setData] = useState<TweetData[]>();
   const [isChartReady, setIsChartReady] = useState<boolean>(false);
@@ -36,7 +38,7 @@ const HistogramChart = ({
   });
 
   const svgRef = useRef<SVGSVGElement>(null);
-  const svgWidth = 1000;
+  const svgWidth = chartWidth;
   const svgHeight = 600;
 
   useEffect(() => {
