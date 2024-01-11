@@ -8,6 +8,7 @@ import { FaInstagram } from "react-icons/fa";
 import { FaYoutube } from "react-icons/fa";
 import { FaChevronCircleLeft } from "react-icons/fa";
 import { FaChevronCircleRight } from "react-icons/fa";
+import Response from "./response";
 import IParams from "@/types/Params";
 import ILoading from "@/types/ILoading";
 import { TweetData } from "../types/TweetData";
@@ -29,6 +30,8 @@ const SelectedPosts = ({ params, loading, setLoading }: SelectedPostsProps) => {
   const [allTweets, setAllTweets] = useState<TweetsByDate>({});
   const [selectedTweets, setSelectedTweets] = useState<TweetData[]>([]);
   const [showPage1, setShowPage1] = useState<boolean>(true);
+  const [selectedTweet, setSelectedTweet] = useState<TweetData | null>(null);
+  const [showResponse, setShowResponse] = useState<boolean>(false);
 
   const formatDate = (date: Date): string => {
     const options: Intl.DateTimeFormatOptions = {
@@ -179,6 +182,10 @@ const SelectedPosts = ({ params, loading, setLoading }: SelectedPostsProps) => {
     setSelectedTweets(negativeTweetsArray[0].tweets.slice(0, 10));
   }, [negativeTweets]);
 
+  const handleReply = (tweet: TweetData) => {
+    setSelectedTweet(tweet);
+    setShowResponse(true);
+  };
 
   return (
     <>
@@ -223,7 +230,12 @@ const SelectedPosts = ({ params, loading, setLoading }: SelectedPostsProps) => {
                 <div className={`${styles.headerBox} ${styles.filler} `}></div>
                 {selectedTweets.map((tweet, i) => (
                   <div key={i} className={`${styles.buttonsDiv}`}>
-                    <button className={styles.butt}>Reply</button>
+                    <button
+                      className={styles.butt}
+                      onClick={() => handleReply(tweet)}
+                    >
+                      Reply
+                    </button>
                   </div>
                 ))}
               </div>
@@ -372,6 +384,7 @@ const SelectedPosts = ({ params, loading, setLoading }: SelectedPostsProps) => {
           )}
         </div>
       </div>
+      {showResponse && <Response tweet={selectedTweet!} />}
     </>
   );
 };

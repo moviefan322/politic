@@ -1,20 +1,29 @@
 import { useState, useEffect } from "react";
+import Loading from "@/components/loading";
 import runChatGPT from "@/utils/runChatGpt";
+import { TweetData } from "@/types/TweetData";
 
-const Response = () => {
+interface ResponseProps {
+  tweet: TweetData;
+}
+
+const Response = ({ tweet }: ResponseProps) => {
   const [response, setResponse] = useState("");
+  const [loading, setLoading] = useState<boolean>(false);
   const [formattedResponse, setFormattedResponse] = useState<string[]>([]);
   const [error, setError] = useState("");
 
   useEffect(() => {
+    setLoading(true);
     runChatGPT(
-      "Write 10 tweets positively responding to this: 'Eric Adams is the worst mayor of all time, he's a racist and a bigot and hates black people'"
+      `Write 10 tweets positively responding to this: ${tweet.content}`
     )
       .then((result) => {
-        setResponse(result.split("\n\n"));
+        setResponse(result.split(/(?=\d\.)/));
       })
       .catch((err) => {
         setError(err.message);
+        setLoading(false);
       });
   }, []);
 
@@ -25,26 +34,29 @@ const Response = () => {
         cleanResponse.push(tweet.slice(3));
       }
       setFormattedResponse(cleanResponse);
+      setLoading(false);
     }
   }, [response]);
 
+  if (loading) {
+    return <Loading />;
+  }
+
   if (response.length > 0) {
-    console.log(response);
-    console.log(formattedResponse);
+    console.log("response:", response);
+    console.log("form:", formattedResponse);
 
     return (
       <div>
         {formattedResponse.length > 0 && (
-          <div>
+          <>
             {formattedResponse.map((tweet, i) => (
-              <>
-                <div key={i}>
-                  <h5>Response #{i + 1}</h5>
-                  <p>{tweet}</p>
-                </div>
-              </>
+              <div key={i}>
+                <h5>Response #{i + 1}</h5>
+                <p>{tweet}</p>
+              </div>
             ))}
-          </div>
+          </>
         )}
       </div>
     );

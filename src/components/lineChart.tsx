@@ -362,18 +362,18 @@ const LineChart = ({ params, setLoading, loading }: LineChartProps) => {
     setIsChartReady(true);
   }, [likedTweets, negativeTweets, likedNegativeTweets, allTweets]);
 
+  console.log(svgRef);
+
   return (
     <div className="chart">
       <svg ref={svgRef} width={svgWidth} height={svgHeight}></svg>
 
-      {isChartReady && (
-        <div className={styles.socials}>
-          <FaFacebookF />
-          <FaTwitter className={styles.twitter} />
-          <FaInstagram />
-          <FaYoutube />
-        </div>
-      )}
+      <div className={styles.socials}>
+        <FaFacebookF />
+        <FaTwitter className={styles.twitter} />
+        <FaInstagram />
+        <FaYoutube />
+      </div>
     </div>
   );
 };
