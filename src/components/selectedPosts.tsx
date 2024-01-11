@@ -314,7 +314,12 @@ const SelectedPosts = ({ params, loading, setLoading }: SelectedPostsProps) => {
                 <div className={`${styles.headerBox} ${styles.filler} `}></div>
                 {selectedTweets.map((tweet, i) => (
                   <div key={i} className={`${styles.buttonsDiv}`}>
-                    <button className={styles.butt}>Reply</button>
+                    <button
+                      className={styles.butt}
+                      onClick={() => handleReply(tweet)}
+                    >
+                      Reply
+                    </button>
                   </div>
                 ))}
               </div>
