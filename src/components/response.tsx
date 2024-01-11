@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Loading from "@/components/loading";
 import runChatGPT from "@/utils/runChatGpt";
 import { TweetData } from "@/types/TweetData";
+import styles from "@/components/response.module.css";
 
 interface ResponseProps {
   tweet: TweetData;
@@ -47,13 +48,13 @@ const Response = ({ tweet }: ResponseProps) => {
     console.log("form:", formattedResponse);
 
     return (
-      <div>
+      <div className="d-flex flex-column justify-content-center">
         {formattedResponse.length > 0 && (
           <>
             {formattedResponse.map((tweet, i) => (
-              <div key={i}>
+              <div key={i} className={`chart w-75 ${styles.chart}`}>
                 <h5>Response #{i + 1}</h5>
-                <p>{tweet}</p>
+                <p>{tweet.replace(/"/g, '')}</p>
               </div>
             ))}
           </>
