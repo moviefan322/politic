@@ -2,6 +2,7 @@ import React, { use, useEffect, useState } from "react";
 import * as d3 from "d3";
 import { TweetData } from "../types/TweetData";
 import IParams from "@/types/Params";
+import ILoading from "@/types/ILoading";
 import styles from "./topAccounts.module.css";
 import { FaFacebookF } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa";
@@ -11,6 +12,8 @@ import Loading from "./loading";
 
 interface TopAccountsProps {
   params: IParams;
+  loading: ILoading;
+  setLoading: React.Dispatch<React.SetStateAction<ILoading>>;
 }
 
 interface TweetDataByUser {
@@ -30,9 +33,8 @@ interface TopAccounts {
   tweets: TweetData[];
 }
 
-const TopAccounts = ({ params }: TopAccountsProps) => {
+const TopAccounts = ({ params, loading, setLoading }: TopAccountsProps) => {
   const [data, setData] = useState<TweetData[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
   const [tweetsByUser, setTweetsByUser] = useState<{
     [key: string]: TweetDataByUser;
   }>({});
@@ -42,7 +44,7 @@ const TopAccounts = ({ params }: TopAccountsProps) => {
   const [topAccounts, setTopAccounts] = useState<TopAccounts[]>([]);
 
   useEffect(() => {
-    setLoading(true);
+    setLoading({ ...loading, topAccounts: true });
     d3.csv(`data/${params.candidate}_${params.platform}_data.csv`).then((d) => {
       let typedData: d3.DSVRowString<string>[] = d;
 
@@ -83,7 +85,7 @@ const TopAccounts = ({ params }: TopAccountsProps) => {
         .filter((tweet): tweet is TweetData => tweet !== null);
 
       setData(modifiedData);
-      setLoading(false);
+      setLoading({ ...loading, topAccounts: false });
     });
   }, [params]);
 
@@ -143,10 +145,6 @@ const TopAccounts = ({ params }: TopAccountsProps) => {
     setTopAccounts(sortedTweetsByUser.slice(0, 10));
   }, [tweetsByUserWithSentiment]);
 
-  if (loading) {
-    return <Loading />;
-  }
-
   return (
     <>
       <div
@@ -201,7 +199,7 @@ const TopAccounts = ({ params }: TopAccountsProps) => {
             </div>
             <div className={`col-2 offset-1 m-1 ${styles.headerContainer}`}>
               <div className={`${styles.headerBox}`}>
-                <h6 >Total Likes</h6>
+                <h6>Total Likes</h6>
               </div>
               {topAccounts.map((account, i) => (
                 <div

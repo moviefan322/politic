@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import runChatGPT from "@/utils/runChatGpt";
 
-const Test = () => {
+const Response = () => {
   const [response, setResponse] = useState("");
   const [formattedResponse, setFormattedResponse] = useState<string[]>([]);
   const [error, setError] = useState("");
@@ -51,4 +51,4 @@ const Test = () => {
   }
 };
 
-export default Test;
+export default Response;

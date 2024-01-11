@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, SetStateAction } from "react";
 import * as d3 from "d3";
 import { FaFacebookF } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa";
@@ -7,6 +7,7 @@ import { FaYoutube } from "react-icons/fa";
 import styles from "./lineChart.module.css";
 import { TweetData, TweetsByDate } from "../types/TweetData";
 import IParams from "@/types/Params";
+import ILoading from "@/types/ILoading";
 import Loading from "./loading";
 
 interface LineFunction {
@@ -15,12 +16,13 @@ interface LineFunction {
 
 interface LineChartProps {
   params: IParams;
+  setLoading: React.Dispatch<SetStateAction<ILoading>>;
+  loading: ILoading;
 }
 
-const Candidates = ({ params }: LineChartProps) => {
+const LineChart = ({ params, setLoading, loading }: LineChartProps) => {
   const [data, setData] = useState<TweetData[]>();
   const [isChartReady, setIsChartReady] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(true);
   const [negativeTweets, setNegativeTweets] = useState<TweetsByDate>();
   const [likedTweets, setLikedTweets] = useState<TweetsByDate>();
   const [likedNegativeTweets, setLikedNegativeTweets] =
@@ -33,7 +35,7 @@ const Candidates = ({ params }: LineChartProps) => {
 
   // Load and organize data
   useEffect(() => {
-    setLoading(true);
+    setLoading({ ...loading, lineChart: true });
     d3.csv(`data/${params.candidate}_${params.platform}_data.csv`).then((d) => {
       let typedData: d3.DSVRowString<string>[] = d;
       if (params.keywords.length > 0) {
@@ -72,7 +74,7 @@ const Candidates = ({ params }: LineChartProps) => {
         .filter((tweet): tweet is TweetData => tweet !== null);
 
       setData(modifiedData);
-      setLoading(false);
+      setLoading({ ...loading, lineChart: false });
     });
   }, [params]);
 
@@ -360,22 +362,20 @@ const Candidates = ({ params }: LineChartProps) => {
     setIsChartReady(true);
   }, [likedTweets, negativeTweets, likedNegativeTweets, allTweets]);
 
-  if (loading || !isChartReady) {
-    return <Loading />;
-  }
-
   return (
     <div className="chart">
       <svg ref={svgRef} width={svgWidth} height={svgHeight}></svg>
 
-      <div className={styles.socials}>
-        <FaFacebookF />
-        <FaTwitter className={styles.twitter} />
-        <FaInstagram />
-        <FaYoutube />
-      </div>
+      {isChartReady && (
+        <div className={styles.socials}>
+          <FaFacebookF />
+          <FaTwitter className={styles.twitter} />
+          <FaInstagram />
+          <FaYoutube />
+        </div>
+      )}
     </div>
   );
 };
 
-export default Candidates;
+export default LineChart;

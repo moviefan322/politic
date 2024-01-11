@@ -3,13 +3,22 @@ import Navbar from "@/components/navbar";
 import Sidebar from "@/components/sidebar";
 import styles from "@/pages/index.module.css";
 import Params from "@/components/params";
-import Candidates from "@/components/lineChart";
+import LineChart from "@/components/lineChart";
 import HistogramChart from "@/components/histogram";
 import TopAccounts from "@/components/topAccounts";
-import IParams from "@/types/Params";
 import SelectedPosts from "@/components/selectedPosts";
+import Loading from "@/components/loading";
+import IParams from "@/types/Params";
+import ILoading from "../types/ILoading";
 
 const Index = () => {
+  const [loading, setLoading] = useState<ILoading>({
+    lineChart: false,
+    histogram: false,
+    topAccounts: false,
+    selectedPosts: false,
+  });
+
   const [params, setParams] = useState<IParams>({
     country: "",
     candidate: "",
@@ -25,6 +34,10 @@ const Index = () => {
 
   return (
     <>
+      {(loading.lineChart ||
+        loading.histogram ||
+        loading.topAccounts ||
+        loading.selectedPosts) && <Loading />}
       <div className={styles.top}>
         <div className={styles.nav}>
           <Navbar />
@@ -36,10 +49,26 @@ const Index = () => {
         {params.showChart && (
           <div className={styles.candidates}>
             <>
-              <Candidates params={params} />
-              <HistogramChart params={params} />
-              <TopAccounts params={params} />
-              <SelectedPosts params={params} />
+              <LineChart
+                params={params}
+                setLoading={setLoading}
+                loading={loading}
+              />
+              <HistogramChart
+                params={params}
+                setLoading={setLoading}
+                loading={loading}
+              />
+              <TopAccounts
+                params={params}
+                setLoading={setLoading}
+                loading={loading}
+              />
+              <SelectedPosts
+                params={params}
+                setLoading={setLoading}
+                loading={loading}
+              />
             </>
           </div>
         )}

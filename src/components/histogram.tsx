@@ -7,15 +7,21 @@ import styles from "./histogram.module.css";
 import { TweetData, TweetsByDate } from "../types/TweetData";
 import * as d3 from "d3";
 import IParams from "@/types/Params";
+import ILoading from "@/types/ILoading";
 import Loading from "./loading";
 
 interface HistogramChartProps {
   params: IParams;
+  setLoading: React.Dispatch<React.SetStateAction<ILoading>>;
+  loading: ILoading;
 }
 
-const HistogramChart = ({ params }: HistogramChartProps) => {
+const HistogramChart = ({
+  params,
+  setLoading,
+  loading,
+}: HistogramChartProps) => {
   const [data, setData] = useState<TweetData[]>();
-  const [loading, setLoading] = useState<boolean>(true);
   const [isChartReady, setIsChartReady] = useState<boolean>(false);
   const [dateRange, setDateRange] = useState<[Date, Date]>();
   const [totalTweets, setTotalTweets] = useState<number>(0);
@@ -34,7 +40,7 @@ const HistogramChart = ({ params }: HistogramChartProps) => {
   const svgHeight = 600;
 
   useEffect(() => {
-    setLoading(true);
+    setLoading({ ...loading, histogram: true });
     d3.csv(`data/${params.candidate}_twitter_data.csv`).then((d) => {
       let typedData: d3.DSVRowString<string>[] = d;
 
@@ -76,7 +82,7 @@ const HistogramChart = ({ params }: HistogramChartProps) => {
 
       setData(modifiedData);
       setTotalTweets(modifiedData.length);
-      setLoading(false);
+      setLoading({ ...loading, histogram: false });
     });
   }, [params]);
 
@@ -310,9 +316,6 @@ const HistogramChart = ({ params }: HistogramChartProps) => {
     setIsChartReady(true);
   }, [sentimentData]);
 
-  if (loading || !isChartReady) {
-    return <Loading />;
-  }
 
   return (
     <div className="chart">

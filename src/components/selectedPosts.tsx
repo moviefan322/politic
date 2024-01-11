@@ -1,24 +1,26 @@
 import React, { useEffect, useState } from "react";
 import * as d3 from "d3";
-import { TweetData } from "../types/TweetData";
-import IParams from "@/types/Params";
-import styles from "./selectedPosts.module.css";
+import Loading from "./loading";
+import { TweetsByDate } from "../types/TweetData";
 import { FaFacebookF } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
 import { FaYoutube } from "react-icons/fa";
 import { FaChevronCircleLeft } from "react-icons/fa";
 import { FaChevronCircleRight } from "react-icons/fa";
-import Loading from "./loading";
-import { TweetsByDate } from "../types/TweetData";
+import IParams from "@/types/Params";
+import ILoading from "@/types/ILoading";
+import { TweetData } from "../types/TweetData";
+import styles from "./selectedPosts.module.css";
 
 interface SelectedPostsProps {
   params: IParams;
+  loading: ILoading;
+  setLoading: React.Dispatch<React.SetStateAction<ILoading>>;
 }
 
-const SelectedPosts = ({ params }: SelectedPostsProps) => {
+const SelectedPosts = ({ params, loading, setLoading }: SelectedPostsProps) => {
   const [data, setData] = useState<TweetData[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
   const [negativeTweets, setNegativeTweets] = useState<TweetsByDate>({});
   const [likedTweets, setLikedTweets] = useState<TweetsByDate>({});
   const [likedNegativeTweets, setLikedNegativeTweets] = useState<TweetsByDate>(
@@ -49,7 +51,7 @@ const SelectedPosts = ({ params }: SelectedPostsProps) => {
   };
 
   useEffect(() => {
-    setLoading(true);
+    setLoading({ ...loading, selectedPosts: true });
     d3.csv(`data/${params.candidate}_${params.platform}_data.csv`).then((d) => {
       let typedData: d3.DSVRowString<string>[] = d;
 
@@ -94,7 +96,7 @@ const SelectedPosts = ({ params }: SelectedPostsProps) => {
         .filter((tweet): tweet is TweetData => tweet !== null);
 
       setData(modifiedData);
-      setLoading(false);
+      setLoading({ ...loading, selectedPosts: false });
     });
   }, [params]);
 
@@ -174,17 +176,9 @@ const SelectedPosts = ({ params }: SelectedPostsProps) => {
       (a, b) => b.date.getTime() - a.date.getTime()
     );
 
-    console.log(negativeTweetsArray[0].tweets.slice(0, 10));
     setSelectedTweets(negativeTweetsArray[0].tweets.slice(0, 10));
   }, [negativeTweets]);
 
-  console.log(negativeTweets);
-
-  if (loading) {
-    return <Loading />;
-  }
-
-  console.log(selectedTweets);
 
   return (
     <>
