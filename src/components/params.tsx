@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "@/components/params.module.css";
 import { FaAngleDown } from "react-icons/fa";
 import { InputMask } from "primereact/inputmask";
@@ -12,7 +12,7 @@ interface ParamsProps {
 const Params = ({ setParams, params }: ParamsProps) => {
   const [keywordChecked, setKeywordChecked] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState("United States");
-  const [selectedCandidate, setSelectedCandidate] = useState("Eric Adams");
+  const [selectedCandidate, setSelectedCandidate] = useState("");
   const [selectedPlatform, setSelectedPlatform] = useState("Twitter");
   const [negTweetCutoffValue, setNegTweetCutoffValue] = useState(50);
   const [posTweetCutoffValue, setPosTweetCutoffValue] = useState(50);
@@ -21,7 +21,8 @@ const Params = ({ setParams, params }: ParamsProps) => {
   const [showDropdown1, setShowDropdown1] = useState(false);
   const [showDropdown2, setShowDropdown2] = useState(false);
   const [showDropdown3, setShowDropdown3] = useState(false);
-  const candidates = [
+
+  const candidatesUnitedStates = [
     "Eric Adams",
     "Shaun Donovan",
     "Kathryn Garcia",
@@ -29,15 +30,27 @@ const Params = ({ setParams, params }: ParamsProps) => {
     "Dianne Morales",
     "Scott Stringer",
     "Maya Wiley",
+  ];
+  const candidatesIndia = [
     "D. K. Shivakumar",
+    "Narendra Modi",
+    "Rahul Gandhi",
+    "Droupadi Murmu",
+    "Jagdeep Dhankhar",
+    "Om Birla",
+    "Mamata Banerjee",
   ];
-  const countries = [
-    "United States",
-    "India",
-    "United Kingdom",
-    "Canada",
-    "Australia",
+
+  const candidatesUnitedKingdom = [
+    "Boris Johnson",
+    "Keir Starmer",
+    "Ed Davey",
+    "Nicola Sturgeon",
+    "Adam Price",
+    "Mark Drakeford",
+    "Arlene Foster",
   ];
+  const countries = ["United States", "India", "United Kingdom"];
   const platforms = ["Twitter", "Youtube", "Facebook", "Instagram"];
 
   const handleKeywordCheckboxChange = () => {
@@ -100,6 +113,24 @@ const Params = ({ setParams, params }: ParamsProps) => {
     setShowDropdown3(false);
   };
 
+  const getCandidatesForCountry = (country: string) => {
+    const formattedCountry = country.split(" ").join("");
+    switch (formattedCountry) {
+      case "UnitedStates":
+        return candidatesUnitedStates;
+      case "India":
+        return candidatesIndia;
+      case "UnitedKingdom":
+        return candidatesUnitedKingdom;
+    }
+  };
+
+  useEffect(() => {
+    setSelectedCandidate(getCandidatesForCountry(selectedCountry)![0]);
+  }, [selectedCountry]);
+
+  console.log(params);
+
   return (
     <div className={styles.params}>
       <div className="row">
@@ -143,7 +174,7 @@ const Params = ({ setParams, params }: ParamsProps) => {
             </button>
             {showDropdown2 && (
               <div className={styles.dropDown}>
-                {candidates.map((candidate) => (
+                {getCandidatesForCountry(selectedCountry)!.map((candidate) => (
                   <p
                     key={candidate}
                     onClick={() => handleSelectCandidate(candidate)}

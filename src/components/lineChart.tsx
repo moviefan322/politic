@@ -363,8 +363,6 @@ const LineChart = ({ params, setLoading, loading, chartWidth }: LineChartProps) 
     setIsChartReady(true);
   }, [likedTweets, negativeTweets, likedNegativeTweets, allTweets]);
 
-  console.log(svgRef);
-
   return (
     <div className="chart">
       <svg ref={svgRef} width={svgWidth} height={svgHeight}></svg>

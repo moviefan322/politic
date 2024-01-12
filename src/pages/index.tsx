@@ -21,7 +21,7 @@ const Index = () => {
   });
 
   const [params, setParams] = useState<IParams>({
-    country: "",
+    country: "United States",
     candidate: "",
     platform: "",
     keywords: [],
@@ -33,7 +33,6 @@ const Index = () => {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      console.log(window.innerWidth); // Access window here
       setChartWidth(window.innerWidth * 0.75);
     }
   }, []);

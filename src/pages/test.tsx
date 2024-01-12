@@ -29,8 +29,6 @@ const Test = () => {
   }, [response]);
 
   if (response.length > 0) {
-    console.log(response);
-    console.log(formattedResponse);
 
     return (
       <div>

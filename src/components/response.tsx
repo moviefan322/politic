@@ -44,8 +44,6 @@ const Response = ({ tweet }: ResponseProps) => {
   }
 
   if (response.length > 0) {
-    console.log("response:", response);
-    console.log("form:", formattedResponse);
 
     return (
       <div className="d-flex flex-column justify-content-center">
