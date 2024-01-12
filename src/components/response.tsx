@@ -26,7 +26,7 @@ const Response = ({ tweet }: ResponseProps) => {
         setError(err.message);
         setLoading(false);
       });
-  }, []);
+  }, [tweet]);
 
   useEffect(() => {
     if (response) {

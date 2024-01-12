@@ -8,7 +8,6 @@ import styles from "./lineChart.module.css";
 import { TweetData, TweetsByDate } from "../types/TweetData";
 import IParams from "@/types/Params";
 import ILoading from "@/types/ILoading";
-import Loading from "./loading";
 
 interface LineFunction {
   (data: { date: Date; count: number }[]): string | null;
@@ -23,7 +22,6 @@ interface LineChartProps {
 
 const LineChart = ({ params, setLoading, loading, chartWidth }: LineChartProps) => {
   const [data, setData] = useState<TweetData[]>();
-  const [isChartReady, setIsChartReady] = useState<boolean>(false);
   const [negativeTweets, setNegativeTweets] = useState<TweetsByDate>();
   const [likedTweets, setLikedTweets] = useState<TweetsByDate>();
   const [likedNegativeTweets, setLikedNegativeTweets] =
@@ -359,8 +357,6 @@ const LineChart = ({ params, setLoading, loading, chartWidth }: LineChartProps) 
     drawLine(likedNegativeTweets!, "blue", "3, 3");
     drawLine(likedTweets!, "green", "5, 5");
     drawLine(negativeTweets!, "red", "8,8");
-
-    setIsChartReady(true);
   }, [likedTweets, negativeTweets, likedNegativeTweets, allTweets]);
 
   return (

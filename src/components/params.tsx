@@ -129,7 +129,6 @@ const Params = ({ setParams, params }: ParamsProps) => {
     setSelectedCandidate(getCandidatesForCountry(selectedCountry)![0]);
   }, [selectedCountry]);
 
-  console.log(params);
 
   return (
     <div className={styles.params}>

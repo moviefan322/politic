@@ -53,6 +53,7 @@ const SelectedPosts = ({ params, loading, setLoading }: SelectedPostsProps) => {
   };
 
   useEffect(() => {
+    setShowResponse(false);
     setLoading({ ...loading, selectedPosts: true });
     d3.csv(`data/${params.candidate}_${params.platform}_data.csv`).then((d) => {
       let typedData: d3.DSVRowString<string>[] = d;
