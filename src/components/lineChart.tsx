@@ -21,12 +21,7 @@ interface LineChartProps {
   chartWidth: number;
 }
 
-const LineChart = ({
-  params,
-  setLoading,
-  loading,
-  chartWidth,
-}: LineChartProps) => {
+const LineChart = ({ params, setLoading, loading, chartWidth }: LineChartProps) => {
   const [data, setData] = useState<TweetData[]>();
   const [isChartReady, setIsChartReady] = useState<boolean>(false);
   const [negativeTweets, setNegativeTweets] = useState<TweetsByDate>();

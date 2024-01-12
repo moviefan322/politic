@@ -4,11 +4,10 @@ import { FaTwitter } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
 import { FaYoutube } from "react-icons/fa";
 import styles from "./histogram.module.css";
-import { TweetData, TweetsByDate } from "../types/TweetData";
+import { TweetData } from "../types/TweetData";
 import * as d3 from "d3";
 import IParams from "@/types/Params";
 import ILoading from "@/types/ILoading";
-import Loading from "./loading";
 
 interface HistogramChartProps {
   params: IParams;

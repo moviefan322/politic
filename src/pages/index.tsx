@@ -12,6 +12,7 @@ import IParams from "@/types/Params";
 import ILoading from "../types/ILoading";
 
 const Index = () => {
+  const [chartWidth, setChartWidth] = useState<number>(0);
   const [loading, setLoading] = useState<ILoading>({
     lineChart: false,
     histogram: false,
@@ -30,8 +31,6 @@ const Index = () => {
     showChart: false,
   });
 
-  const [chartWidth, setChartWidth] = useState<number>(0);
-
   useEffect(() => {
     if (typeof window !== "undefined") {
       console.log(window.innerWidth); // Access window here
@@ -45,15 +44,18 @@ const Index = () => {
         loading.histogram ||
         loading.topAccounts ||
         loading.selectedPosts) && <Loading />}
-    <div className={styles.top}>
+      <div className={styles.top}>
         <div className={styles.nav}>
           <Navbar />
           <Sidebar />
         </div>
-        <Params setParams={setParams} params={params}  />
+        <Params setParams={setParams} params={params} />
       </div>
       {/* {params.showChart && <hr className="mt-5"/>} */}
-      <div className={`my-5 mb-5 ${styles.analysis}`} style={params.showChart ? { borderTop: "1px solid gray" } : {}}>
+      <div
+        className={`my-5 mb-5 ${styles.analysis}`}
+        style={params.showChart ? { borderTop: "1px solid gray" } : {}}
+      >
         {params.showChart && (
           <div className={styles.candidates}>
             <>
