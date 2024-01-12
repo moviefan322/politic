@@ -8,7 +8,6 @@ import { FaFacebookF } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
 import { FaYoutube } from "react-icons/fa";
-import Loading from "./loading";
 
 interface TopAccountsProps {
   params: IParams;
@@ -35,6 +34,7 @@ interface TopAccounts {
 
 const TopAccounts = ({ params, loading, setLoading }: TopAccountsProps) => {
   const [data, setData] = useState<TweetData[]>([]);
+  const [error, setError] = useState<string>("");
   const [tweetsByUser, setTweetsByUser] = useState<{
     [key: string]: TweetDataByUser;
   }>({});
@@ -43,50 +43,56 @@ const TopAccounts = ({ params, loading, setLoading }: TopAccountsProps) => {
   }>({});
   const [topAccounts, setTopAccounts] = useState<TopAccounts[]>([]);
 
+  // Load and organize data
   useEffect(() => {
     setLoading({ ...loading, topAccounts: true });
-    d3.csv(`data/${params.candidate}_${params.platform}_data.csv`).then((d) => {
-      let typedData: d3.DSVRowString<string>[] = d;
+    d3.csv(`data/${params.candidate}_${params.platform}_data.csv`)
+      .then((d) => {
+        let typedData: d3.DSVRowString<string>[] = d;
+        if (params.keywords.length > 0) {
+          typedData = typedData.filter((tweet) =>
+            params.keywords.some((keyword) => tweet.Content.includes(keyword))
+          );
+        }
+        const modifiedData: TweetData[] = typedData
+          .map((tweet) => {
+            if (tweet.date) {
+              return {
+                content: tweet.Content,
+                externalLinkContent: [tweet["External Link Content"]],
+                externalLinks: [tweet["External links"]],
+                mentionedUsers: [tweet["Mentioned Users"]], // Wrap the value in an array
+                translatedContent: tweet["Translated content"],
+                tweetID: tweet["Tweet ID"],
+                likes: +tweet.Likes || 0,
+                negativeSentiment: +tweet["Negative sentiment"] || 0,
+                neutralSentiment: +tweet["Neutral sentiment"] || 0,
+                positiveSentiment: +tweet["Positive sentiment"] || 0,
+                quoteTweets: +tweet["Quote tweets"] || 0,
+                replies: +tweet.Replies || 0,
+                retweets: +tweet.Retweets || 0,
+                views: +tweet.Views || 0,
+                url: tweet.URL,
+                user: tweet.User,
+                verifiedStatus: tweet["Verified status"],
+                date: new Date(tweet.date),
+                media: tweet.media,
+              };
+            } else {
+              return null;
+            }
+          })
+          .filter((tweet): tweet is TweetData => tweet !== null);
 
-      if (params.keywords.length > 0) {
-        typedData = typedData.filter((tweet) =>
-          params.keywords.some((keyword) => tweet.Content.includes(keyword))
-        );
-      }
-
-      const modifiedData: TweetData[] = typedData
-        .map((tweet) => {
-          if (tweet.date) {
-            return {
-              content: tweet.Content,
-              externalLinkContent: [tweet["External Link Content"]],
-              externalLinks: [tweet["External links"]],
-              mentionedUsers: [tweet["Mentioned Users"]], // Wrap the value in an array
-              translatedContent: tweet["Translated content"],
-              tweetID: tweet["Tweet ID"],
-              likes: +tweet.Likes || 0,
-              negativeSentiment: +tweet["Negative sentiment"] || 0,
-              neutralSentiment: +tweet["Neutral sentiment"] || 0,
-              positiveSentiment: +tweet["Positive sentiment"] || 0,
-              quoteTweets: +tweet["Quote tweets"] || 0,
-              replies: +tweet.Replies || 0,
-              retweets: +tweet.Retweets || 0,
-              views: +tweet.Views || 0,
-              url: tweet.URL,
-              user: tweet.User,
-              verifiedStatus: tweet["Verified status"],
-              date: new Date(tweet.date),
-              media: tweet.media,
-            };
-          } else {
-            return null;
-          }
-        })
-        .filter((tweet): tweet is TweetData => tweet !== null);
-
-      setData(modifiedData);
-      setLoading({ ...loading, topAccounts: false });
-    });
+        setData(modifiedData);
+      })
+      .catch((err) => {
+        console.error(err);
+        setError(err.message);
+      })
+      .finally(() => {
+        setLoading({ ...loading, topAccounts: false });
+      });
   }, [params]);
 
   useEffect(() => {
@@ -144,6 +150,8 @@ const TopAccounts = ({ params, loading, setLoading }: TopAccountsProps) => {
 
     setTopAccounts(sortedTweetsByUser.slice(0, 10));
   }, [tweetsByUserWithSentiment]);
+
+  if (error) return;
 
   return (
     <>

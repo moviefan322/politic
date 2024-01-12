@@ -8,6 +8,7 @@ import styles from "./lineChart.module.css";
 import { TweetData, TweetsByDate } from "../types/TweetData";
 import IParams from "@/types/Params";
 import ILoading from "@/types/ILoading";
+import Error from "@/components/error";
 
 interface LineFunction {
   (data: { date: Date; count: number }[]): string | null;
@@ -20,8 +21,14 @@ interface LineChartProps {
   chartWidth: number;
 }
 
-const LineChart = ({ params, setLoading, loading, chartWidth }: LineChartProps) => {
+const LineChart = ({
+  params,
+  setLoading,
+  loading,
+  chartWidth,
+}: LineChartProps) => {
   const [data, setData] = useState<TweetData[]>();
+  const [error, setError] = useState<string>();
   const [negativeTweets, setNegativeTweets] = useState<TweetsByDate>();
   const [likedTweets, setLikedTweets] = useState<TweetsByDate>();
   const [likedNegativeTweets, setLikedNegativeTweets] =
@@ -35,46 +42,53 @@ const LineChart = ({ params, setLoading, loading, chartWidth }: LineChartProps) 
   // Load and organize data
   useEffect(() => {
     setLoading({ ...loading, lineChart: true });
-    d3.csv(`data/${params.candidate}_${params.platform}_data.csv`).then((d) => {
-      let typedData: d3.DSVRowString<string>[] = d;
-      if (params.keywords.length > 0) {
-        typedData = typedData.filter((tweet) =>
-          params.keywords.some((keyword) => tweet.Content.includes(keyword))
-        );
-      }
-      const modifiedData: TweetData[] = typedData
-        .map((tweet) => {
-          if (tweet.date) {
-            return {
-              content: tweet.Content,
-              externalLinkContent: [tweet["External Link Content"]],
-              externalLinks: [tweet["External links"]],
-              mentionedUsers: [tweet["Mentioned Users"]], // Wrap the value in an array
-              translatedContent: tweet["Translated content"],
-              tweetID: tweet["Tweet ID"],
-              likes: +tweet.Likes || 0,
-              negativeSentiment: +tweet["Negative sentiment"] || 0,
-              neutralSentiment: +tweet["Neutral sentiment"] || 0,
-              positiveSentiment: +tweet["Positive sentiment"] || 0,
-              quoteTweets: +tweet["Quote tweets"] || 0,
-              replies: +tweet.Replies || 0,
-              retweets: +tweet.Retweets || 0,
-              views: +tweet.Views || 0,
-              url: tweet.URL,
-              user: tweet.User,
-              verifiedStatus: tweet["Verified status"],
-              date: new Date(tweet.date),
-              media: tweet.media,
-            };
-          } else {
-            return null;
-          }
-        })
-        .filter((tweet): tweet is TweetData => tweet !== null);
+    d3.csv(`data/${params.candidate}_${params.platform}_data.csv`)
+      .then((d) => {
+        let typedData: d3.DSVRowString<string>[] = d;
+        if (params.keywords.length > 0) {
+          typedData = typedData.filter((tweet) =>
+            params.keywords.some((keyword) => tweet.Content.includes(keyword))
+          );
+        }
+        const modifiedData: TweetData[] = typedData
+          .map((tweet) => {
+            if (tweet.date) {
+              return {
+                content: tweet.Content,
+                externalLinkContent: [tweet["External Link Content"]],
+                externalLinks: [tweet["External links"]],
+                mentionedUsers: [tweet["Mentioned Users"]], // Wrap the value in an array
+                translatedContent: tweet["Translated content"],
+                tweetID: tweet["Tweet ID"],
+                likes: +tweet.Likes || 0,
+                negativeSentiment: +tweet["Negative sentiment"] || 0,
+                neutralSentiment: +tweet["Neutral sentiment"] || 0,
+                positiveSentiment: +tweet["Positive sentiment"] || 0,
+                quoteTweets: +tweet["Quote tweets"] || 0,
+                replies: +tweet.Replies || 0,
+                retweets: +tweet.Retweets || 0,
+                views: +tweet.Views || 0,
+                url: tweet.URL,
+                user: tweet.User,
+                verifiedStatus: tweet["Verified status"],
+                date: new Date(tweet.date),
+                media: tweet.media,
+              };
+            } else {
+              return null;
+            }
+          })
+          .filter((tweet): tweet is TweetData => tweet !== null);
 
-      setData(modifiedData);
-      setLoading({ ...loading, lineChart: false });
-    });
+        setData(modifiedData);
+      })
+      .catch((err) => {
+        console.error(err);
+        setError(err.message);
+      })
+      .finally(() => {
+        setLoading({ ...loading, lineChart: false });
+      });
   }, [params]);
 
   // Organize data by date and sentiment
@@ -358,6 +372,10 @@ const LineChart = ({ params, setLoading, loading, chartWidth }: LineChartProps) 
     drawLine(likedTweets!, "green", "5, 5");
     drawLine(negativeTweets!, "red", "8,8");
   }, [likedTweets, negativeTweets, likedNegativeTweets, allTweets]);
+
+  if (error) {
+    return <Error error={error} />;
+  }
 
   return (
     <div className="chart">

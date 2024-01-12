@@ -27,3 +27,31 @@ body {
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
   border-radius: 30px;
 }
+
+.error {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.error h1 {
+  color: red;
+  margin-bottom: 4rem;
+  border: red 8px dashed;
+  padding: 2rem;
+}
+
+
+.error h5 {
+  text-align: center;
+}
+
+.warning {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  color: red;
+  width: 100%;
+}
