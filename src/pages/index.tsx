@@ -45,15 +45,15 @@ const Index = () => {
         loading.histogram ||
         loading.topAccounts ||
         loading.selectedPosts) && <Loading />}
-      <div className={styles.top}>
+    <div className={styles.top}>
         <div className={styles.nav}>
           <Navbar />
           <Sidebar />
         </div>
-        <Params setParams={setParams} params={params} />
+        <Params setParams={setParams} params={params}  />
       </div>
-      {params.showChart && <hr className="mt-5"/>}
-      <div className={`my-5 mb-5 ${styles.analysis}`}>
+      {/* {params.showChart && <hr className="mt-5"/>} */}
+      <div className={`my-5 mb-5 ${styles.analysis}`} style={params.showChart ? { borderTop: "1px solid gray" } : {}}>
         {params.showChart && (
           <div className={styles.candidates}>
             <>

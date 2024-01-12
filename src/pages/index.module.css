@@ -8,6 +8,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background-color: var(--color-primary);
 }
 
 .analysis {
@@ -19,7 +20,6 @@
 }
 
 .top {
-  background-color: var(--color-primary);
   height: 40vh;
 }
 
