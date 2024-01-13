@@ -18,7 +18,7 @@ const Error = ({ error }: ErrorProps) => {
         This is a demo. For the time being, the only candidates that will fetch
         results are Eric Adams and D.K. Shivakumar, and only on Twitter. We
         apologize for the limited functionality of the application at the
-        present time, but the production application will be have comprehensive
+        present time, but rest assured- the production application will be have comprehensive
         data sets for all candidates.
       </h5>
     </div>
