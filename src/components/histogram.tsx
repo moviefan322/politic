@@ -129,7 +129,7 @@ const HistogramChart = ({
   // Create the chart
   const svg = d3.select(svgRef.current);
 
-  const MARGIN = { LEFT: 80, RIGHT: 20, TOP: 150, BOTTOM: 30 };
+  const MARGIN = { LEFT: 80, RIGHT: 20, TOP: 150, BOTTOM: 40 };
   const WIDTH = svgWidth - MARGIN.LEFT - MARGIN.RIGHT;
   const HEIGHT = svgHeight - MARGIN.TOP - MARGIN.BOTTOM;
 
@@ -252,11 +252,21 @@ const HistogramChart = ({
     g.append("text")
       .attr("class", "y axis-label")
       .attr("x", -(HEIGHT / 2))
-      .attr("y", -60)
+      .attr("y", -45)
       .attr("font-size", "20px")
       .attr("text-anchor", "middle")
       .attr("transform", "rotate(-90)")
       .text("Frequency of Sentiment")
+      .style("fill", "blue");
+
+    // X Axis label
+    g.append("text")
+      .attr("class", "x axis-label")
+      .attr("x", WIDTH / 2)
+      .attr("y", HEIGHT + 35)
+      .attr("font-size", "20px")
+      .attr("text-anchor", "middle")
+      .text("Sentiment Score")
       .style("fill", "blue");
   };
 

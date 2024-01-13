@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import * as d3 from "d3";
-import styles from "@/components/ericAdamsTest.module.css";
+import styles from "@/tests/ericAdamsTest.module.css";
 import { TweetData } from "@/types/TweetData";
 
 const EricAdamsTest = () => {
   const [seconds, setSeconds] = useState(0);
   const [error, setError] = useState<string | null>(null);
   const [min, setMin] = useState<number>(0);
+  const [color, setColor] = useState<string>("");
   const [startTimer, setStartTimer] = useState(false);
   const [GPTResponse, setGPTResponse] = useState<TweetData[] | null>(null);
   const [randomTweet, setRandomTweet] = useState<string | null>(null);
@@ -75,6 +76,7 @@ const EricAdamsTest = () => {
 
           setGPTResponse(modifiedData);
           setStartTimer(false);
+          setColor("green");
         })
         .catch((err) => {
           setError(err.message);
@@ -106,6 +108,7 @@ const EricAdamsTest = () => {
   }, [seconds]);
 
   const handleStart = () => {
+    setColor("yellow");
     setStartTimer(true);
   };
 
@@ -122,7 +125,10 @@ const EricAdamsTest = () => {
   };
 
   return (
-    <div className="gpt-test d-flex flex-row border border-4 border-dark my-5 align-items-center">
+    <div
+      className="gpt-test d-flex flex-row border border-4 border-dark my-5 align-items-center"
+      style={{ backgroundColor: color }}
+    >
       <div className="text col-4 m-3 border border-dark fw-bold fs-3 text-center bg-white">
         <div>Test Eric Adams:</div>
         <div className="text-center fs-1">

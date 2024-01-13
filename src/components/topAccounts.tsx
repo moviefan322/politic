@@ -180,13 +180,8 @@ const TopAccounts = ({ params, loading, setLoading }: TopAccountsProps) => {
                 <h6>Account Name</h6>
               </div>
               {topAccounts.map((account, i) => (
-                <div
-                  className="col-12 bg-white border border-1 border-secondary"
-                  key={i}
-                >
-                  <p className={`${styles.user}`} style={{ width: "100%" }}>
-                    {account.user}
-                  </p>
+                <div key={i}>
+                  <p className={`${styles.item}`}>{account.user}</p>
                 </div>
               ))}
             </div>
@@ -195,13 +190,8 @@ const TopAccounts = ({ params, loading, setLoading }: TopAccountsProps) => {
                 <h6># of Tweets</h6>
               </div>
               {topAccounts.map((account, i) => (
-                <div
-                  className="col-12 bg-white border border-1 border-secondary"
-                  key={i}
-                >
-                  <p className={styles.item} style={{ width: "100%" }}>
-                    {account.numTweets}
-                  </p>
+                <div key={i}>
+                  <p className={styles.item}>{account.numTweets}</p>
                 </div>
               ))}
             </div>
@@ -210,13 +200,8 @@ const TopAccounts = ({ params, loading, setLoading }: TopAccountsProps) => {
                 <h6>Total Likes</h6>
               </div>
               {topAccounts.map((account, i) => (
-                <div
-                  className="col-12 bg-white border border-1 border-secondary"
-                  key={i}
-                >
-                  <p className={styles.item} style={{ width: "100%" }}>
-                    {account.totalLikes}
-                  </p>
+                <div key={i}>
+                  <p className={styles.item}>{account.totalLikes}</p>
                 </div>
               ))}
             </div>
@@ -225,13 +210,8 @@ const TopAccounts = ({ params, loading, setLoading }: TopAccountsProps) => {
                 <h6>Total Views</h6>
               </div>
               {topAccounts.map((account, i) => (
-                <div
-                  className="col-12 bg-white border border-1 border-secondary"
-                  key={i}
-                >
-                  <p className={styles.item} style={{ width: "100%" }}>
-                    {account.totalViews}
-                  </p>
+                <div key={i}>
+                  <p className={styles.item}>{account.totalViews}</p>
                 </div>
               ))}
             </div>
@@ -240,13 +220,8 @@ const TopAccounts = ({ params, loading, setLoading }: TopAccountsProps) => {
                 <h6>Avg Sentiment</h6>
               </div>
               {topAccounts.map((account, i) => (
-                <div
-                  className="col-12 bg-white border border-1 border-secondary"
-                  key={i}
-                >
-                  <p className={styles.item} style={{ width: "100%" }}>
-                    {account.avgNegSentiment}
-                  </p>
+                <div key={i}>
+                  <p className={styles.item}>{account.avgNegSentiment}</p>
                 </div>
               ))}
             </div>

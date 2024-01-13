@@ -259,7 +259,7 @@ const SelectedPosts = ({ params, loading, setLoading }: SelectedPostsProps) => {
                 ))}
               </div>
 
-              <div className="col-2">
+              <div className="col-3">
                 <div className={`${styles.headerBox}`}>
                   <h6>URL</h6>
                 </div>
@@ -272,7 +272,7 @@ const SelectedPosts = ({ params, loading, setLoading }: SelectedPostsProps) => {
                   </div>
                 ))}
               </div>
-              <div className="col-2">
+              <div className="col-4">
                 <div className={`${styles.headerBox}`}>
                   <h6>Post Content</h6>
                 </div>
@@ -287,7 +287,7 @@ const SelectedPosts = ({ params, loading, setLoading }: SelectedPostsProps) => {
                   </div>
                 ))}
               </div>
-              <div className="col-2">
+              <div className="col-1">
                 <div className={`${styles.headerBox}`}>
                   <h6>Positive Sentiment</h6>
                 </div>
@@ -297,7 +297,7 @@ const SelectedPosts = ({ params, loading, setLoading }: SelectedPostsProps) => {
                   </div>
                 ))}
               </div>
-              <div className="col-2">
+              <div className="col-1">
                 <div className={`${styles.headerBox}`}>
                   <h6>Netural Sentiment</h6>
                 </div>
@@ -307,7 +307,7 @@ const SelectedPosts = ({ params, loading, setLoading }: SelectedPostsProps) => {
                   </div>
                 ))}
               </div>
-              <div className="col-2">
+              <div className="col-1">
                 <div className={`${styles.headerBox}`}>
                   <h6>Negative Sentiment</h6>
                 </div>

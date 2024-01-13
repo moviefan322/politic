@@ -91,6 +91,8 @@ const Index = () => {
       });
   }, [params]);
 
+  console.log(params)
+
   return (
     <>
       {(loading.lineChart ||

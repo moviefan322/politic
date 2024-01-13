@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import testGPT from "@/utils/gptTest";
-import styles from "@/components/gptTestComp.module.css";
+import styles from "@/tests/gptTestComp.module.css";
 
 const GptTestComp = () => {
   const [seconds, setSeconds] = useState(0);
   const [min, setMin] = useState<number>(0);
   const [startTimer, setStartTimer] = useState(false);
   const [GPTResponse, setGPTResponse] = useState<string | null>(null);
+  const [color, setColor] = useState<string>("");
 
   useEffect(() => {
     let interval: string | number | NodeJS.Timeout | null | undefined = null;
@@ -26,6 +27,7 @@ const GptTestComp = () => {
         testGPT().then((result) => {
           setGPTResponse(result);
           setStartTimer(false);
+          setColor("green");
         });
       } catch (err: any) {
         setGPTResponse(`Error: ${err.message}`);
@@ -47,6 +49,7 @@ const GptTestComp = () => {
 
   const handleStart = () => {
     setStartTimer(true);
+    setColor("yellow");
   };
 
   const handleStop = () => {
@@ -62,7 +65,10 @@ const GptTestComp = () => {
   };
 
   return (
-    <div className="gpt-test d-flex flex-row border border-4 border-dark my-5 align-items-center">
+    <div
+      className="gpt-test d-flex flex-row border border-4 border-dark my-5 align-items-center"
+      style={{ backgroundColor: color }}
+    >
       <div className="text col-4 m-3 border border-dark fw-bold fs-3 text-center bg-white">
         <div>Test GPT response:</div>
         <div className="text-center fs-1">

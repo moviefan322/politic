@@ -9,6 +9,7 @@ import { TweetData, TweetsByDate } from "../types/TweetData";
 import IParams from "@/types/Params";
 import ILoading from "@/types/ILoading";
 import Error from "@/components/error";
+import { set } from "mongoose";
 
 interface LineFunction {
   (data: { date: Date; count: number }[]): string | null;
@@ -250,19 +251,19 @@ const LineChart = ({
       .style("font-size", "12px")
       .attr("fill", "blue");
 
-    if (dateRange) {
-      g.append("text")
-        .text(
-          `${dateRange[0].toISOString().slice(0, 10)} - ${dateRange[1]
-            .toISOString()
-            .slice(0, 10)}`
-        )
-        .attr("text-anchor", "start")
-        .attr("x", 675)
-        .attr("y", -57)
-        .style("font-size", "12px")
-        .attr("fill", "blue");
-    }
+    // if (dateRange) {
+    //   g.append("text")
+    //     .text(
+    //       `${dateRange[0].toISOString().slice(0, 10)} - ${dateRange[1]
+    //         .toISOString()
+    //         .slice(0, 10)}`
+    //     )
+    //     .attr("text-anchor", "start")
+    //     .attr("x", 675)
+    //     .attr("y", -57)
+    //     .style("font-size", "12px")
+    //     .attr("fill", "blue");
+    // }
   };
 
   // Set up the chart
@@ -374,6 +375,7 @@ const LineChart = ({
   }, [likedTweets, negativeTweets, likedNegativeTweets, allTweets]);
 
   if (error) {
+    setError(error);
     return <Error error={error} />;
   }
 

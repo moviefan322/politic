@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import * as d3 from "d3";
-import styles from "@/components/ericAdamsTest.module.css";
+import styles from "@/tests/ericAdamsTest.module.css";
 import { TweetData } from "@/types/TweetData";
+import { start } from "repl";
 
 const DkShivaKumarTest = () => {
-  const [seconds, setSeconds] = useState(0);
+  const [seconds, setSeconds] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [min, setMin] = useState<number>(0);
+  const [color, setColor] = useState<string>("");
   const [startTimer, setStartTimer] = useState(false);
   const [GPTResponse, setGPTResponse] = useState<TweetData[] | null>(null);
   const [randomTweet, setRandomTweet] = useState<string | null>(null);
@@ -25,7 +27,13 @@ const DkShivaKumarTest = () => {
     let interval: string | number | NodeJS.Timeout | null | undefined = null;
     if (startTimer) {
       interval = setInterval(() => {
-        setSeconds((prevSeconds) => prevSeconds + 1);
+        if (!seconds) {
+          setSeconds(0);
+        } else {
+          setSeconds((prevSeconds) =>
+            prevSeconds !== null ? prevSeconds + 1 : null
+          );
+        }
       }, 100);
     } else if (!startTimer && seconds !== 0) {
       clearInterval(interval as unknown as number);
@@ -75,6 +83,7 @@ const DkShivaKumarTest = () => {
 
           setGPTResponse(modifiedData);
           setStartTimer(false);
+          setColor("green");
         })
         .catch((err) => {
           setError(err.message);
@@ -106,6 +115,7 @@ const DkShivaKumarTest = () => {
   }, [seconds]);
 
   const handleStart = () => {
+    setColor("yellow");
     setStartTimer(true);
   };
 
@@ -122,13 +132,16 @@ const DkShivaKumarTest = () => {
   };
 
   return (
-    <div className="gpt-test d-flex flex-row border border-4 border-dark my-5 align-items-center">
+    <div
+      className="gpt-test d-flex flex-row border border-4 border-dark my-5 align-items-center"
+      style={{ backgroundColor: color }}
+    >
       <div className="text col-4 m-3 border border-dark fw-bold fs-3 text-center bg-white">
         <div>Test D.K. Shivakumar:</div>
         <div className="text-center fs-1">
           {!startTimer && !GPTResponse ? (
             <>
-              {min}:{formatSeconds(seconds)}
+              {min}:{formatSeconds(seconds ? seconds : 0)}
               <button
                 className="btn btn-lg btn-success fs-3 m-3"
                 onClick={handleStart}
@@ -138,7 +151,7 @@ const DkShivaKumarTest = () => {
             </>
           ) : (
             <>
-              {min}:{formatSeconds(seconds)}
+              {min}:{formatSeconds(seconds ? seconds : 0)}
             </>
           )}
         </div>
