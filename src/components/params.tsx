@@ -7,9 +7,10 @@ import IParams from "@/types/Params";
 interface ParamsProps {
   setParams: React.Dispatch<React.SetStateAction<IParams>>;
   params: IParams;
+  setError: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
-const Params = ({ setParams, params }: ParamsProps) => {
+const Params = ({ setParams, params, setError }: ParamsProps) => {
   const [keywordChecked, setKeywordChecked] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState("United States");
   const [selectedCandidate, setSelectedCandidate] = useState("");
@@ -70,6 +71,7 @@ const Params = ({ setParams, params }: ParamsProps) => {
   };
 
   const handleRunAnalysis = () => {
+    setError(null);
     setParams({
       country: selectedCountry,
       candidate: selectedCandidate
@@ -128,7 +130,6 @@ const Params = ({ setParams, params }: ParamsProps) => {
   useEffect(() => {
     setSelectedCandidate(getCandidatesForCountry(selectedCountry)![0]);
   }, [selectedCountry]);
-
 
   return (
     <div className={styles.params}>

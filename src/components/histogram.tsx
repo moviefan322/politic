@@ -1,11 +1,10 @@
 import React, { useEffect, useState, useRef } from "react";
-import Error from "@/components/error";
 import { FaFacebookF } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
 import { FaYoutube } from "react-icons/fa";
 import styles from "./histogram.module.css";
-import { TweetData } from "../types/TweetData";
+import { TweetData, TweetsByDate } from "../types/TweetData";
 import * as d3 from "d3";
 import IParams from "@/types/Params";
 import ILoading from "@/types/ILoading";
@@ -24,7 +23,8 @@ const HistogramChart = ({
   chartWidth,
 }: HistogramChartProps) => {
   const [data, setData] = useState<TweetData[]>();
-  const [error, setError] = useState<string>();
+  const [error, setError] = useState<string | null>(null);
+  const [isChartReady, setIsChartReady] = useState<boolean>(false);
   const [dateRange, setDateRange] = useState<[Date, Date]>();
   const [totalTweets, setTotalTweets] = useState<number>(0);
   const [sentimentData, setSentimentData] = useState<{
@@ -41,17 +41,18 @@ const HistogramChart = ({
   const svgWidth = chartWidth;
   const svgHeight = 600;
 
-  // Load and organize data
   useEffect(() => {
     setLoading({ ...loading, histogram: true });
-    d3.csv(`data/${params.candidate}_${params.platform}_data.csv`)
+    d3.csv(`data/${params.candidate}_twitter_data.csv`)
       .then((d) => {
         let typedData: d3.DSVRowString<string>[] = d;
+
         if (params.keywords.length > 0) {
           typedData = typedData.filter((tweet) =>
             params.keywords.some((keyword) => tweet.Content.includes(keyword))
           );
         }
+
         const modifiedData: TweetData[] = typedData
           .map((tweet) => {
             if (tweet.date) {
@@ -83,13 +84,15 @@ const HistogramChart = ({
           .filter((tweet): tweet is TweetData => tweet !== null);
 
         setData(modifiedData);
+        setTotalTweets(modifiedData.length);
+        setLoading({ ...loading, histogram: false });
       })
       .catch((err) => {
         console.error(err);
         setError(err.message);
       })
       .finally(() => {
-        setLoading({ ...loading, histogram: false });
+        setLoading({ ...loading, lineChart: false });
       });
   }, [params]);
 
@@ -180,7 +183,7 @@ const HistogramChart = ({
       .attr("fill", "blue");
 
     g.append("rect")
-      .attr("x", 305)
+      .attr("x", 315)
       .attr("y", -85)
       .attr("width", 20)
       .attr("height", 10)
@@ -190,7 +193,7 @@ const HistogramChart = ({
     g.append("text")
       .text("Negative Sentiment")
       .attr("text-anchor", "start")
-      .attr("x", 335)
+      .attr("x", 345)
       .attr("y", -77)
       .style("font-size", "12px")
       .attr("fill", "blue");
@@ -319,9 +322,13 @@ const HistogramChart = ({
     drawRectangles(sentimentData.positive, "green", "positive");
     drawRectangles(sentimentData.neutral, "gray", "neutral");
     drawRectangles(sentimentData.negative, "red", "negative");
+
+    setIsChartReady(true);
   }, [sentimentData]);
 
-  if (error) return;
+  if (error) {
+    return;
+  }
 
   return (
     <div className="chart">
