@@ -68,7 +68,7 @@
   background-color: white;
   color: var(--bs-secondary);
   margin-right: 4px;
-  height: 70px;
+  height: 80px;
   overflow: scroll;
   font-size: 12px;
   padding: 0.5rem;
@@ -87,7 +87,7 @@
   text-align: center;
   background-color: white;
   margin-right: 4px;
-  height: 70px;
+  height: 80px;
   font-size: 12px;
   padding: 0.5rem;
 }
@@ -110,7 +110,7 @@
 }
 
 .content {
-  padding-top: 0.5rem;
+  padding-top: 0;
 }
 
 .pageButton {

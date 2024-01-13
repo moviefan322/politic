@@ -35,7 +35,7 @@ const SelectedPosts = ({ params, loading, setLoading }: SelectedPostsProps) => {
 
   const formatDate = (date: Date): string => {
     const options: Intl.DateTimeFormatOptions = {
-      year: "numeric",
+      year: "2-digit",
       month: "2-digit",
       day: "2-digit",
       hour: "2-digit",
@@ -253,7 +253,7 @@ const SelectedPosts = ({ params, loading, setLoading }: SelectedPostsProps) => {
                   </h6>
                 </div>
                 {selectedTweets.map((tweet, i) => (
-                  <div key={i} className={`${styles.box}`}>
+                  <div key={i} className={`${styles.box} text-small px-3`}>
                     {formatDate(tweet.date)}
                   </div>
                 ))}
@@ -264,7 +264,10 @@ const SelectedPosts = ({ params, loading, setLoading }: SelectedPostsProps) => {
                   <h6>URL</h6>
                 </div>
                 {selectedTweets.map((tweet, i) => (
-                  <div key={i} className={`${styles.box} ${styles.url}`}>
+                  <div
+                    key={i}
+                    className={`${styles.box} ${styles.url} d-block pt-4`}
+                  >
                     {tweet.url}
                   </div>
                 ))}
@@ -274,7 +277,10 @@ const SelectedPosts = ({ params, loading, setLoading }: SelectedPostsProps) => {
                   <h6>Post Content</h6>
                 </div>
                 {selectedTweets.map((tweet, i) => (
-                  <div key={i} className={`${styles.box} ${styles.content}`}>
+                  <div
+                    key={i}
+                    className={`${styles.box} ${styles.content} d-block`}
+                  >
                     <p> </p>
                     <p> </p>
                     {tweet.content}
