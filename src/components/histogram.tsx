@@ -85,14 +85,13 @@ const HistogramChart = ({
 
         setData(modifiedData);
         setTotalTweets(modifiedData.length);
-        setLoading({ ...loading, histogram: false });
       })
       .catch((err) => {
         console.error(err);
         setError(err.message);
       })
       .finally(() => {
-        setLoading({ ...loading, lineChart: false });
+        setLoading({ ...loading, histogram: false });
       });
   }, [params]);
 

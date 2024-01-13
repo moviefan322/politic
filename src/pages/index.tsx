@@ -88,7 +88,7 @@ const Index = () => {
       .catch((err) => {
         console.error(err);
         setError(err.message);
-      })
+      });
   }, [params]);
 
   return (
