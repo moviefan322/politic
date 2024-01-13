@@ -43,7 +43,7 @@ const DkShivaKumarTest = () => {
 
   useEffect(() => {
     if (startTimer) {
-      d3.csv(`data/d_k_shivakumar_twitter_data.csv`)
+      d3.csv(`data2/d_k_shivakumar_twitter_data.csv`)
         .then((d) => {
           let typedData: d3.DSVRowString<string>[] = d;
           if (params.keywords.length > 0) {

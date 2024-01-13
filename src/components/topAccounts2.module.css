@@ -1,0 +1,58 @@
+.chart {
+  width: 100%;
+  display: flex;
+}
+
+.socials {
+  display: flex;
+}
+
+.socials svg {
+  margin: 0 10px;
+  cursor: pointer;
+  color: rgb(134, 134, 245);
+}
+
+.twitter {
+  color: rgb(0, 0, 222) !important;
+}
+
+.headerBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bs-primary);
+  border: 2px solid var(--bs-secondary);
+  margin: auto;
+  color: var(--bs-secondary);
+  margin-bottom: 4px;
+  margin-right: 4px;
+  height: 80px;
+  padding: 0.5rem;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border: 2px solid var(--bs-secondary);
+  margin: auto;
+  color: var(--bs-secondary);
+  margin-bottom: 4px;
+  margin-right: 4px;
+  height: 80px;
+  padding: 0.5rem;
+}
+
+.headerBox h6,
+.headerBox2 h6,
+.headerBox3 h6 {
+  margin: 0;
+}
+
+.item p {
+  margin: 0;
+}

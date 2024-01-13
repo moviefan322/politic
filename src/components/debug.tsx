@@ -53,7 +53,7 @@ const Debug = () => {
 
   // Load and organize data
   useEffect(() => {
-    d3.csv("data/d_k_shivakumar_twitter_data.csv").then((d) => {
+    d3.csv("data2/d_k_shivakumar_twitter_data.csv").then((d) => {
       console.log(d);
       const modifiedData: TweetData[] = d
         .map((tweet) => {

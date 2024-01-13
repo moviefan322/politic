@@ -46,7 +46,7 @@ const TopAccounts = ({ params, loading, setLoading }: TopAccountsProps) => {
   // Load and organize data
   useEffect(() => {
     setLoading({ ...loading, topAccounts: true });
-    d3.csv(`data/${params.candidate}_${params.platform}_data.csv`)
+    d3.csv(`data2/${params.candidate}_${params.platform}_data.csv`)
       .then((d) => {
         let typedData: d3.DSVRowString<string>[] = d;
         if (params.keywords.length > 0) {

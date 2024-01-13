@@ -36,7 +36,7 @@ const EricAdamsTest = () => {
 
   useEffect(() => {
     if (startTimer) {
-      d3.csv(`data/eric_adams_twitter_data.csv`)
+      d3.csv(`data2/eric_adams_twitter_data.csv`)
         .then((d) => {
           let typedData: d3.DSVRowString<string>[] = d;
           if (params.keywords.length > 0) {

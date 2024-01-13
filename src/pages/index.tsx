@@ -1,4 +1,4 @@
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as d3 from "d3";
 import Navbar from "@/components/navbar";
 import Sidebar from "@/components/sidebar";
@@ -45,7 +45,7 @@ const Index = () => {
   // Fetch data/check for errors
   useEffect(() => {
     if (!params.showChart) return;
-    d3.csv(`data/${params.candidate}_${params.platform}_data.csv`)
+    d3.csv(`data2/${params.candidate}_${params.platform}_data.csv`)
       .then((d) => {
         let typedData: d3.DSVRowString<string>[] = d;
         if (params.keywords.length > 0) {
@@ -91,7 +91,7 @@ const Index = () => {
       });
   }, [params]);
 
-  console.log(params)
+  console.log(params);
 
   return (
     <>
@@ -106,7 +106,6 @@ const Index = () => {
         </div>
         <Params setParams={setParams} params={params} setError={setError} />
       </div>
-      {/* {params.showChart && <hr className="mt-5"/>} */}
       <div
         className={`my-5 mb-5 ${styles.analysis}`}
         style={params.showChart ? { borderTop: "1px solid gray" } : {}}

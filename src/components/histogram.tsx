@@ -43,7 +43,7 @@ const HistogramChart = ({
 
   useEffect(() => {
     setLoading({ ...loading, histogram: true });
-    d3.csv(`data/${params.candidate}_twitter_data.csv`)
+    d3.csv(`data2/${params.candidate}_twitter_data.csv`)
       .then((d) => {
         let typedData: d3.DSVRowString<string>[] = d;
 
