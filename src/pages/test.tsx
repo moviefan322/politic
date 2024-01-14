@@ -3,7 +3,7 @@ import testGPT from "@/utils/gptTest";
 import styles from "@/pages/test.module.css";
 import EricAdamsTest from "@/tests/ericAdamsTest";
 import DkShivaKumarTest from "@/tests/dkShivakumarTest";
-
+import GptTestComp from "@/tests/gptTestComp";
 
 const Test = () => {
   const [seconds, setSeconds] = useState(0);
