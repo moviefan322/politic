@@ -9,7 +9,6 @@ import { TweetData, TweetsByDate } from "../types/TweetData";
 import IParams from "@/types/Params";
 import ILoading from "@/types/ILoading";
 import Error from "@/components/error";
-import { set } from "mongoose";
 
 interface LineFunction {
   (data: { date: Date; count: number }[]): string | null;
