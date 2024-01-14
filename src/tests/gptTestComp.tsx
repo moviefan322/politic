@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import testGPT from "@/utils/gptTest";
-import styles from "@/tests/gptTestComp.module.css";
 
 const GptTestComp = () => {
   const [seconds, setSeconds] = useState(0);
@@ -89,9 +88,7 @@ const GptTestComp = () => {
           )}
         </div>
       </div>
-      <div className={`border border-dark bg-dark ${styles.response}`}>
-        {GPTResponse}
-      </div>
+      <div className={`border border-dark bg-dark response`}>{GPTResponse}</div>
     </div>
   );
 };
