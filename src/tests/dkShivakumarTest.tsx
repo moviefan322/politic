@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import * as d3 from "d3";
 import styles from "@/tests/ericAdamsTest.module.css";
 import { TweetData } from "@/types/TweetData";
-import { start } from "repl";
 
 const DkShivaKumarTest = () => {
   const [seconds, setSeconds] = useState<number | null>(null);
