@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import testGPT from "@/utils/gptTest";
 import styles from "@/pages/test.module.css";
-import GptTestComp from "@/tests/GptTestComp";
 import EricAdamsTest from "@/tests/ericAdamsTest";
 import DkShivaKumarTest from "@/tests/dkShivakumarTest";
-import LineChartTest from "@/tests/lineChartTest";
+import GptTestComp from "@/tests/gptTestComp";
 
 const Test = () => {
   const [seconds, setSeconds] = useState(0);
@@ -60,7 +59,6 @@ const Test = () => {
         <EricAdamsTest />
         <DkShivaKumarTest />
         {/* <LineChartTest /> */}
-        
       </div>
     </div>
   );
