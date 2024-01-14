@@ -10,6 +10,7 @@ import TopAccounts from "@/components/topAccounts";
 import SelectedPosts from "@/components/selectedPosts";
 import Loading from "@/components/loading";
 import Error from "@/components/error";
+import MobileNote from "@/components/mobileNote";
 import IParams from "@/types/Params";
 import ILoading from "../types/ILoading";
 import { TweetData } from "@/types/TweetData";
@@ -17,6 +18,7 @@ import { TweetData } from "@/types/TweetData";
 const Index = () => {
   const [chartWidth, setChartWidth] = useState<number>(0);
   const [data, setData] = useState<TweetData[]>([]);
+  const [mobileFlag, setMobileFlag] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<ILoading>({
     lineChart: false,
@@ -39,6 +41,9 @@ const Index = () => {
   useEffect(() => {
     if (typeof window !== "undefined") {
       setChartWidth(window.innerWidth * 0.75);
+      if (window.innerWidth < 1200) {
+        setMobileFlag(true);
+      }
     }
   }, []);
 
@@ -91,7 +96,9 @@ const Index = () => {
       });
   }, [params]);
 
-  console.log(params);
+  if (mobileFlag) {
+    return <MobileNote />;
+  }
 
   return (
     <>
