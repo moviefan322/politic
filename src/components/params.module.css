@@ -15,6 +15,7 @@
 }
 
 .box {
+  position: relative;
   border-radius: 9.88px;
   box-shadow: 2px 4px 4px 0px rgba(0, 0, 0, 0.25);
   background-color: #ffffff;
@@ -39,7 +40,9 @@
 }
 
 .boxIcon {
-  position: relative;
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
   float: right;
   border: none;
   background-color: transparent;
@@ -63,10 +66,10 @@
 }
 
 .dropDown {
-  position: relative;
-  padding-left: 1rem;
-  margin-top: 1rem;
-  display: block;
+  position: absolute;
+  left: 0;
+  width: 100%;
+  padding: 0 2rem;
   background-color: #fff; /* Add a background color for better visibility */
   border-radius: 9.88px;
   box-shadow: 2px 4px 4px 0px rgba(0, 0, 0, 0.25);
