@@ -4,7 +4,8 @@
 }
 
 .dateInput {
-  width: 250px !important;
+  width: 190px !important;
+  font-size: 12px;
 }
 
 .dinputDiv {
@@ -20,11 +21,11 @@
   box-shadow: 2px 4px 4px 0px rgba(0, 0, 0, 0.25);
   background-color: #ffffff;
   padding: 1rem;
-  max-height: 18vh;
+  max-height: 15vh;
 }
 
 .boxHeader {
-  font-size: 26px;
+  font-size: 20px;
   font-weight: 400;
   line-height: 39px;
   letter-spacing: 0em;
@@ -32,7 +33,7 @@
 }
 
 .boxSelected {
-  font-size: 30px;
+  font-size: 25px;
   font-weight: 700;
   line-height: 45px;
   letter-spacing: 0em;
@@ -47,7 +48,7 @@
   border: none;
   background-color: transparent;
   color: var(--bs-secondary);
-  z-index: 100;
+  z-index: 10;
 }
 
 .runAnal {
@@ -68,10 +69,14 @@
 .dropDown {
   position: absolute;
   left: 0;
+  top: 95%;
   width: 100%;
   padding: 0 2rem;
+  padding-top: 1rem;
   background-color: #fff; /* Add a background color for better visibility */
   border-radius: 9.88px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
   box-shadow: 2px 4px 4px 0px rgba(0, 0, 0, 0.25);
   z-index: 1;
 }

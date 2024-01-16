@@ -214,17 +214,7 @@ const Params = ({ setParams, params, setError }: ParamsProps) => {
         </div>
       </div>
       <div className="row mt-4 text-secondary">
-        <div className="d-flex flex-column align-items-center justify-content-end col-3 mb-5">
-          <input
-            type="checkbox"
-            id="keyword"
-            name="keyword"
-            checked={keywordChecked}
-            onChange={handleKeywordCheckboxChange}
-          />
-          <label className="text-secondary" htmlFor="keyword">
-            Keyword Search
-          </label>
+        <div className="d-flex flex-column align-items-center justify-content-end col-2 offset-1 mb-3">
           <input
             className="text-center"
             type="text"
@@ -235,6 +225,18 @@ const Params = ({ setParams, params, setError }: ParamsProps) => {
             value={keywords}
             onChange={handleKeywordChange}
           />
+          <div className="div d-flex flox-row">
+            <input
+              type="checkbox"
+              id="keyword"
+              name="keyword"
+              checked={keywordChecked}
+              onChange={handleKeywordCheckboxChange}
+            />{" "}
+            <label className="text-secondary ms-3" htmlFor="keyword">
+              Keyword Search
+            </label>
+          </div>
         </div>
         <div className="col-3">
           <div className="d-flex flex-row justify-content-between">
@@ -272,7 +274,7 @@ const Params = ({ setParams, params, setError }: ParamsProps) => {
           />
           <p className="text-center">% Cutoff of Positive Tweets</p>
         </div>
-        <div className="col-3">
+        <div className="col-3 d-flex flex-column justify-content-center align-items-end">
           <div className={`mx-auto w-50 ${styles.dinputDiv}`}>
             <InputMask
               className={`text-center mx-auto ${styles.dateInput}`}
@@ -282,6 +284,7 @@ const Params = ({ setParams, params, setError }: ParamsProps) => {
               onChange={(event: any) => setDateRange(event.target.value)}
               mask="99/99/9999 - 99/99/9999"
               slotChar="mm/dd/yyyy - mm/dd/yyyy"
+              disabled={true}
             />
           </div>
 
