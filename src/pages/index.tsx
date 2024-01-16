@@ -113,10 +113,11 @@ const Index = () => {
         </div>
         <Params setParams={setParams} params={params} setError={setError} />
       </div>
-      <div
-        className={`my-5 mb-5 ${styles.analysis}`}
-        style={params.showChart ? { borderTop: "1px solid gray" } : {}}
-      >
+      <div className={`my-5 mb-5 ${styles.analysis}`}>
+        <div
+          className={styles.borderLine}
+          style={params.showChart ? { borderTop: "1px solid gray" } : {}}
+        ></div>
         {error && <Error error={error} />}
         {params.showChart && !error && (
           <div className={styles.candidates}>
