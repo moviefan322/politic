@@ -19,6 +19,7 @@ interface LineChartProps {
   setLoading: React.Dispatch<SetStateAction<ILoading>>;
   loading: ILoading;
   chartWidth: number;
+  chartHeight: number;
 }
 
 const LineChart = ({
@@ -26,6 +27,7 @@ const LineChart = ({
   setLoading,
   loading,
   chartWidth,
+  chartHeight,
 }: LineChartProps) => {
   const [data, setData] = useState<TweetData[]>();
   const [error, setError] = useState<string>();
@@ -37,7 +39,7 @@ const LineChart = ({
   const [allTweets, setAllTweets] = useState<TweetsByDate>();
   const svgRef = useRef<SVGSVGElement>(null);
   const svgWidth = chartWidth;
-  const svgHeight = 600;
+  const svgHeight = chartHeight;
 
   // Load and organize data
   useEffect(() => {
@@ -163,7 +165,7 @@ const LineChart = ({
   // Create the chart
   const svg = d3.select(svgRef.current);
 
-  const MARGIN = { LEFT: 80, RIGHT: 20, TOP: 150, BOTTOM: 30 };
+  const MARGIN = { LEFT: 80, RIGHT: 20, TOP: 100, BOTTOM: 30 };
   const WIDTH = svgWidth - MARGIN.LEFT - MARGIN.RIGHT;
   const HEIGHT = svgHeight - MARGIN.TOP - MARGIN.BOTTOM;
 

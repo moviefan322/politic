@@ -17,6 +17,7 @@ import { TweetData } from "@/types/TweetData";
 
 const Index = () => {
   const [chartWidth, setChartWidth] = useState<number>(0);
+  const [chartHeight, setChartHeight] = useState<number>(0);
   const [data, setData] = useState<TweetData[]>([]);
   const [mobileFlag, setMobileFlag] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -41,6 +42,7 @@ const Index = () => {
   useEffect(() => {
     if (typeof window !== "undefined") {
       setChartWidth(window.innerWidth * 0.75);
+      setChartHeight(window.innerHeight * 0.5);
       if (window.innerWidth < 1200) {
         setMobileFlag(true);
       }
@@ -113,7 +115,7 @@ const Index = () => {
         </div>
         <Params setParams={setParams} params={params} setError={setError} />
       </div>
-      <div className={`my-5 mb-5 ${styles.analysis}`}>
+      <div className={`${styles.analysis}`}>
         <div
           className={styles.borderLine}
           style={params.showChart ? { borderTop: "1px solid gray" } : {}}
@@ -127,6 +129,7 @@ const Index = () => {
                 setLoading={setLoading}
                 loading={loading}
                 chartWidth={chartWidth}
+                chartHeight={chartHeight}
               />
               <HistogramChart
                 params={params}

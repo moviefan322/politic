@@ -9,18 +9,20 @@
   align-items: center;
   justify-content: center;
   background-color: var(--color-primary);
+  margin-bottom: 5rem;
 }
 
 .analysis {
+  margin-top: 3rem;
   height: 55vh;
   overflow-y: scroll;
   overflow-x: hidden;
-  margin-bottom: 200px;
   width: 100vw;
 }
 
 .top {
   height: 40vh;
+  padding-bottom: 3rem;
 }
 
 .filler {
