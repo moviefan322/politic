@@ -1,6 +1,6 @@
 .socials {
-  position: relative;
-  top: -535px;
+  position: absolute;
+  top: 2rem;
   left: 75%;
 }
 

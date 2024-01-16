@@ -136,6 +136,7 @@ const Index = () => {
                 setLoading={setLoading}
                 loading={loading}
                 chartWidth={chartWidth}
+                chartHeight={chartHeight}
               />
               <TopAccounts
                 params={params}

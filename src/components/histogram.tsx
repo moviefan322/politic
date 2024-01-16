@@ -14,6 +14,7 @@ interface HistogramChartProps {
   setLoading: React.Dispatch<React.SetStateAction<ILoading>>;
   loading: ILoading;
   chartWidth: number;
+  chartHeight: number;
 }
 
 const HistogramChart = ({
@@ -21,6 +22,7 @@ const HistogramChart = ({
   setLoading,
   loading,
   chartWidth,
+  chartHeight,
 }: HistogramChartProps) => {
   const [data, setData] = useState<TweetData[]>();
   const [error, setError] = useState<string | null>(null);
@@ -39,7 +41,7 @@ const HistogramChart = ({
 
   const svgRef = useRef<SVGSVGElement>(null);
   const svgWidth = chartWidth;
-  const svgHeight = 600;
+  const svgHeight = chartHeight;
 
   useEffect(() => {
     setLoading({ ...loading, histogram: true });
@@ -129,7 +131,7 @@ const HistogramChart = ({
   // Create the chart
   const svg = d3.select(svgRef.current);
 
-  const MARGIN = { LEFT: 80, RIGHT: 20, TOP: 150, BOTTOM: 40 };
+  const MARGIN = { LEFT: 80, RIGHT: 20, TOP: 110, BOTTOM: 40 };
   const WIDTH = svgWidth - MARGIN.LEFT - MARGIN.RIGHT;
   const HEIGHT = svgHeight - MARGIN.TOP - MARGIN.BOTTOM;
 
