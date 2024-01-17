@@ -106,8 +106,9 @@ const Dates = () => {
       </div>
 
       <div className="mx-3">
-        Full code:
-        <Link href=""></Link>
+        <Link href="https://github.com/moviefan322/moviefan322.github.io/blob/main/codesnip.txt">
+          View Source Code
+        </Link>
       </div>
     </>
   );
