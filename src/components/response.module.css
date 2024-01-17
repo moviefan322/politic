@@ -14,15 +14,19 @@
 
 .metadata {
   position: sticky;
-  top: 0%;
-  margin: 2rem auto;
+  padding-top: 1rem;
+  top: 47.4vh;
+  margin: 2rem 0;
   color: var(--bs-secondary);
   background-color: var(--bs-primary);
+  width: 103%;
+  z-index: 3;
 }
 
 .borderLine {
   border-bottom: 1px solid gray;
-  width: 100%;
+  width: 102%;
+  margin-left: -1%;
 }
 
 .butt {

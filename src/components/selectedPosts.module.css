@@ -2,7 +2,6 @@
   background-color: white;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
   border-radius: 30px;
-  overflow-x: hidden;
   width: 80%;
 }
 
@@ -20,8 +19,12 @@
 
 .socials {
   position: absolute;
-  top: 1rem;
-  left: 75%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.twitter {
+  color: rgb(0, 0, 222) !important;
 }
 
 .socials svg {
