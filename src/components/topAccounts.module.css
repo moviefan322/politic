@@ -1,6 +1,6 @@
 .topAccounts {
   width: 80%;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
 }
 
 .chart {
@@ -12,7 +12,9 @@
 .socials {
   position: absolute;
   top: 2rem;
-  left: 75%;
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 2rem;
 }
 
 .socials svg {
