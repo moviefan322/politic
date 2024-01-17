@@ -50,13 +50,16 @@ const Response = ({ tweet }: ResponseProps) => {
       >
         {tweet && (
           <div className={`row ${styles.metadata}`}>
-            <div className="col-12 offset-1">
-              <div className="ms-2">
+            <div className="col-12">
+              <div>
                 <h6>Post Metadata:</h6>
               </div>
               <div className="d-flex flex-row">
                 <h6 className="ms-5 col-2">Account Name: {tweet.user}</h6>
                 <h6 className="ms-5 col-6">Post Content: {tweet.content}</h6>
+                <button className={`col-1 offset-1 ${styles.butt}`}>
+                  Modify
+                </button>
               </div>
               <div className={styles.borderLine}></div>
             </div>
@@ -66,7 +69,7 @@ const Response = ({ tweet }: ResponseProps) => {
         {formattedResponse.length > 0 && (
           <>
             {formattedResponse.map((tweet, i) => (
-              <div key={i} className={`chart w-75 ${styles.chart}`}>
+              <div key={i} className={`chart w-100 ${styles.chart}`}>
                 <h5>Response #{i + 1}</h5>
                 <p>{tweet.replace(/"/g, "")}</p>
               </div>
