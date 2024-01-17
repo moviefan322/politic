@@ -1,13 +1,18 @@
 .chart {
   width: 100%;
   display: flex;
+  position: relative;
 }
 
 .socials {
-  display: flex;
+  position: absolute;
+  top: 2rem;
+  left: 75%;
 }
 
 .socials svg {
+  width: 30px;
+  height: 30px;
   margin: 0 10px;
   cursor: pointer;
   color: rgb(134, 134, 245);
@@ -26,9 +31,9 @@
   border: 2px solid var(--bs-secondary);
   margin: auto;
   color: var(--bs-secondary);
-  margin-bottom: 4px;
-  margin-right: 4px;
-  height: 80px;
+  margin-bottom: 0.8rem;
+  margin-right: 0.4rem;
+  height: 5rem;
   padding: 0.5rem;
 }
 
@@ -41,9 +46,9 @@
   border: 2px solid var(--bs-secondary);
   margin: auto;
   color: var(--bs-secondary);
-  margin-bottom: 4px;
-  margin-right: 4px;
-  height: 80px;
+  margin-bottom: 0.8rem;
+  margin-right: 0.4rem;
+  height: 5rem;
   padding: 0.5rem;
 }
 
@@ -51,8 +56,9 @@
 .headerBox2 h6,
 .headerBox3 h6 {
   margin: 0;
+  font-size: 0.8rem;
 }
 
-.item p {
-  margin: 0;
+.item {
+  font-size: 0.8rem;
 }

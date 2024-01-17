@@ -159,17 +159,17 @@ const TopAccounts = ({ params, loading, setLoading }: TopAccountsProps) => {
         className={`py-5 w-75 d-flex flex-column align-items-center justify-content-center chart`}
       >
         <div className="w-100 row mb-5">
-          <p className="fw-bold text-secondary fs-3 col-5 ms-3">
+          <p className="fw-bold text-secondary fs-4 col-5 ms-3">
             Top 10 Accounts for Negative Posts
           </p>
-          <div className={`col-3 offset-2 ${styles.socials}`}>
-            <FaFacebookF style={{ width: "50px", height: "50px" }} />
+          <div className={`${styles.socials}`}>
+            <FaFacebookF style={{ width: "30px", height: "30px" }} />
             <FaTwitter
               className={styles.twitter}
-              style={{ width: "50px", height: "50px" }}
+              style={{ width: "30px", height: "30px" }}
             />
-            <FaInstagram style={{ width: "50px", height: "50px" }} />
-            <FaYoutube style={{ width: "50px", height: "50px" }} />
+            <FaInstagram style={{ width: "30px", height: "30px" }} />
+            <FaYoutube style={{ width: "30px", height: "30px" }} />
           </div>
         </div>
 

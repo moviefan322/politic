@@ -131,7 +131,7 @@ const HistogramChart = ({
   // Create the chart
   const svg = d3.select(svgRef.current);
 
-  const MARGIN = { LEFT: 80, RIGHT: 20, TOP: 110, BOTTOM: 40 };
+  const MARGIN = { LEFT: 80, RIGHT: 20, TOP: 110, BOTTOM: 50 };
   const WIDTH = svgWidth - MARGIN.LEFT - MARGIN.RIGHT;
   const HEIGHT = svgHeight - MARGIN.TOP - MARGIN.BOTTOM;
 
@@ -149,7 +149,7 @@ const HistogramChart = ({
       .attr("x", -35)
       .attr("y", -50)
       .style("font-size", "25px")
-      .attr("fill", "blue");
+      .attr("fill", "var(--bs-secondary)");
 
     g.append("rect")
       .attr("x", 165)
@@ -165,7 +165,7 @@ const HistogramChart = ({
       .attr("x", 195)
       .attr("y", -77)
       .style("font-size", "12px")
-      .attr("fill", "blue");
+      .attr("fill", "var(--bs-secondary)");
 
     g.append("rect")
       .attr("x", 165)
@@ -181,7 +181,7 @@ const HistogramChart = ({
       .attr("x", 195)
       .attr("y", -57)
       .style("font-size", "12px")
-      .attr("fill", "blue");
+      .attr("fill", "var(--bs-secondary)");
 
     g.append("rect")
       .attr("x", 315)
@@ -197,7 +197,7 @@ const HistogramChart = ({
       .attr("x", 345)
       .attr("y", -77)
       .style("font-size", "12px")
-      .attr("fill", "blue");
+      .attr("fill", "var(--bs-secondary)");
 
     if (dateRange) {
       g.append("text")
@@ -210,7 +210,7 @@ const HistogramChart = ({
         .attr("x", 675)
         .attr("y", -57)
         .style("font-size", "12px")
-        .attr("fill", "blue");
+        .attr("fill", "var(--bs-secondary)");
     }
   };
 
@@ -240,16 +240,6 @@ const HistogramChart = ({
     // Y axis
     g.append("g").attr("class", "y-axis");
 
-    // X axis label
-    g.append("text")
-      .attr("class", "x axis-label")
-      .attr("x", WIDTH / 2)
-      .attr("y", HEIGHT + 60)
-      .attr("font-size", "20px")
-      .attr("text-anchor", "middle")
-      .text("Sentiment Score")
-      .style("fill", "blue");
-
     // Y axis label
     g.append("text")
       .attr("class", "y axis-label")
@@ -259,7 +249,7 @@ const HistogramChart = ({
       .attr("text-anchor", "middle")
       .attr("transform", "rotate(-90)")
       .text("Frequency of Sentiment")
-      .style("fill", "blue");
+      .style("fill", "var(--bs-secondary)");
 
     // X Axis label
     g.append("text")
@@ -269,7 +259,7 @@ const HistogramChart = ({
       .attr("font-size", "20px")
       .attr("text-anchor", "middle")
       .text("Sentiment Score")
-      .style("fill", "blue");
+      .style("fill", "var(--bs-secondary)");
   };
 
   const drawRectangles = (data: number[], color: string, className: string) => {

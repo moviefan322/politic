@@ -183,7 +183,7 @@ const LineChart = ({
       .attr("x", -35)
       .attr("y", -50)
       .style("font-size", "25px")
-      .attr("fill", "blue");
+      .attr("fill", "var(--bs-secondary)");
 
     g.append("line")
       .attr("x1", 160)
@@ -199,7 +199,7 @@ const LineChart = ({
       .attr("x", 195)
       .attr("y", -77)
       .style("font-size", "12px")
-      .attr("fill", "blue");
+      .attr("fill", "var(--bs-secondary)");
 
     g.append("line")
       .attr("x1", 160)
@@ -216,7 +216,7 @@ const LineChart = ({
       .attr("x", 195)
       .attr("y", -57)
       .style("font-size", "12px")
-      .attr("fill", "blue");
+      .attr("fill", "var(--bs-secondary)");
 
     g.append("line")
       .attr("x1", 290)
@@ -233,14 +233,14 @@ const LineChart = ({
       .attr("x", 325)
       .attr("y", -77)
       .style("font-size", "12px")
-      .attr("fill", "blue");
+      .attr("fill", "var(--bs-secondary)");
 
     g.append("line")
       .attr("x1", 290)
       .attr("y1", -60)
       .attr("x2", 320)
       .attr("y2", -60)
-      .attr("stroke", "blue")
+      .attr("stroke", "var(--bs-secondary)")
       .attr("stroke-width", 2)
       .attr("stroke-dasharray", "3,3");
 
@@ -250,7 +250,7 @@ const LineChart = ({
       .attr("x", 325)
       .attr("y", -57)
       .style("font-size", "12px")
-      .attr("fill", "blue");
+      .attr("fill", "var(--bs-secondary)");
 
     // if (dateRange) {
     //   g.append("text")
@@ -263,7 +263,7 @@ const LineChart = ({
     //     .attr("x", 675)
     //     .attr("y", -57)
     //     .style("font-size", "12px")
-    //     .attr("fill", "blue");
+    //     .attr("fill", "var(--bs-secondary)");
     // }
   };
 
@@ -296,7 +296,7 @@ const LineChart = ({
       .attr("text-anchor", "middle")
       .attr("transform", "rotate(-90)")
       .text("# of tweets")
-      .style("fill", "blue");
+      .style("fill", "var(--bs-secondary)");
   };
 
   const drawLineChart = (
@@ -370,7 +370,7 @@ const LineChart = ({
     setUpChart();
     writeLegend();
     drawLine(allTweets!, "black", "none");
-    drawLine(likedNegativeTweets!, "blue", "3, 3");
+    drawLine(likedNegativeTweets!, "var(--bs-secondary)", "3, 3");
     drawLine(likedTweets!, "green", "5, 5");
     drawLine(negativeTweets!, "red", "8,8");
   }, [likedTweets, negativeTweets, likedNegativeTweets, allTweets]);

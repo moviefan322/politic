@@ -135,7 +135,14 @@ const Params = ({ setParams, params, setError }: ParamsProps) => {
     <div className={styles.params}>
       <div className="row">
         <div className="col-3 offset-3 d-flex flex-column text-secondary">
-          <div className={styles.box}>
+          <div
+            className={styles.box}
+            style={
+              showDropdown1
+                ? { borderBottomLeftRadius: "0", borderBottomRightRadius: "0" }
+                : {}
+            }
+          >
             <p className={styles.boxHeader}>Country</p>
             <p className={styles.boxSelected}>{selectedCountry}</p>
             <div className={styles.dropDownContainer}>
@@ -163,7 +170,14 @@ const Params = ({ setParams, params, setError }: ParamsProps) => {
           </div>
         </div>
         <div className="col-3 d-flex flex-column text-secondary">
-          <div className={styles.box}>
+          <div
+            className={styles.box}
+            style={
+              showDropdown2
+                ? { borderBottomLeftRadius: "0", borderBottomRightRadius: "0" }
+                : {}
+            }
+          >
             <p className={styles.boxHeader}>Candidate</p>
             <p className={styles.boxSelected}>{selectedCandidate}</p>
             <button
@@ -188,7 +202,14 @@ const Params = ({ setParams, params, setError }: ParamsProps) => {
           </div>
         </div>
         <div className="col-3 d-flex flex-column text-secondary">
-          <div className={styles.box}>
+          <div
+            className={styles.box}
+            style={
+              showDropdown3
+                ? { borderBottomLeftRadius: "0", borderBottomRightRadius: "0" }
+                : {}
+            }
+          >
             <p className={styles.boxHeader}>Platform</p>
             <p className={styles.boxSelected}>{selectedPlatform}</p>
             <button
