@@ -197,19 +197,19 @@ const SelectedPosts = ({ params, loading, setLoading }: SelectedPostsProps) => {
         className={`py-5 w-75 d-flex flex-column align-items-center justify-content-center ${styles.container}`}
       >
         <div className={`w-100 row mb-5 ${styles.chartHead}`}>
-          <p className="fw-bold text-secondary fs-2 col-5 ms-5">
+          <p className="fw-bold text-secondary fs-4 col-5 ms-5">
             Individual Posts
           </p>
-          <div className={`col-3 offset-1 ${styles.socials}`}>
-            <FaFacebookF style={{ width: "50px", height: "50px" }} />
+          <div className={`${styles.socials}`}>
+            <FaFacebookF style={{ width: "30px", height: "30px" }} />
             <FaTwitter
               className={styles.twitter}
-              style={{ width: "50px", height: "50px" }}
+              style={{ width: "30px", height: "30px" }}
             />
-            <FaInstagram style={{ width: "50px", height: "50px" }} />
-            <FaYoutube style={{ width: "50px", height: "50px" }} />
+            <FaInstagram style={{ width: "30px", height: "30px" }} />
+            <FaYoutube style={{ width: "30px", height: "30px" }} />
           </div>
-          <div className="col-1 offset-1 d-flex flex-direction-row">
+          <div className="col-1 d-flex flex-direction-row">
             <button
               className={`btn btn-outline-secondary ${styles.pageButton}`}
               onClick={() => setShowPage1(true)}
@@ -228,23 +228,22 @@ const SelectedPosts = ({ params, loading, setLoading }: SelectedPostsProps) => {
         </div>
 
         <div className={`${styles.chart}`}>
-          {showPage1 ? (
-            <div className="row d-flex ">
-              <div className={`${styles.buttGroup} col-1`}>
-                <div className={`${styles.headerBox} ${styles.filler} `}></div>
-                {selectedTweets.map((tweet, i) => (
-                  <div key={i} className={`${styles.buttonsDiv}`}>
-                    <button
-                      className={styles.butt}
-                      onClick={() => handleReply(tweet)}
-                    >
-                      Reply
-                    </button>
-                  </div>
-                ))}
+          <div className={`${styles.buttGroup} col-1`}>
+            <div className={`${styles.headerBox} ${styles.filler} `}></div>
+            {selectedTweets.map((tweet, i) => (
+              <div key={i} className={`${styles.buttonsDiv}`}>
+                <button
+                  className={styles.butt}
+                  onClick={() => handleReply(tweet)}
+                >
+                  Reply
+                </button>
               </div>
-
-              <div className="col-1">
+            ))}
+          </div>
+          {showPage1 ? (
+            <div className="row d-flex">
+              <div className={styles.column}>
                 <div className={`${styles.headerBox}`}>
                   <h6>
                     Date/
@@ -259,7 +258,7 @@ const SelectedPosts = ({ params, loading, setLoading }: SelectedPostsProps) => {
                 ))}
               </div>
 
-              <div className="col-3">
+              <div className="col-2">
                 <div className={`${styles.headerBox}`}>
                   <h6>URL</h6>
                 </div>
@@ -287,7 +286,7 @@ const SelectedPosts = ({ params, loading, setLoading }: SelectedPostsProps) => {
                   </div>
                 ))}
               </div>
-              <div className="col-1">
+              <div className={styles.column}>
                 <div className={`${styles.headerBox}`}>
                   <h6>Positive Sentiment</h6>
                 </div>
@@ -297,7 +296,7 @@ const SelectedPosts = ({ params, loading, setLoading }: SelectedPostsProps) => {
                   </div>
                 ))}
               </div>
-              <div className="col-1">
+              <div className={styles.column}>
                 <div className={`${styles.headerBox}`}>
                   <h6>Netural Sentiment</h6>
                 </div>
@@ -307,7 +306,7 @@ const SelectedPosts = ({ params, loading, setLoading }: SelectedPostsProps) => {
                   </div>
                 ))}
               </div>
-              <div className="col-1">
+              <div className={styles.column}>
                 <div className={`${styles.headerBox}`}>
                   <h6>Negative Sentiment</h6>
                 </div>
@@ -320,19 +319,6 @@ const SelectedPosts = ({ params, loading, setLoading }: SelectedPostsProps) => {
             </div>
           ) : (
             <>
-              <div className={`${styles.buttGroup} col-1`}>
-                <div className={`${styles.headerBox} ${styles.filler} `}></div>
-                {selectedTweets.map((tweet, i) => (
-                  <div key={i} className={`${styles.buttonsDiv}`}>
-                    <button
-                      className={styles.butt}
-                      onClick={() => handleReply(tweet)}
-                    >
-                      Reply
-                    </button>
-                  </div>
-                ))}
-              </div>
               <div className="row d-flex ">
                 <div className="col-2">
                   <div className={`${styles.headerBox}`}>

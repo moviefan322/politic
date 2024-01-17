@@ -18,25 +18,27 @@
   left: 0;
 }
 
-.socials {
-  display: flex;
-}
-
 .chart {
+  width: 100%;
   display: flex;
-  flex-direction: row;
+  position: relative;
   padding: 2rem;
 }
 
+.socials {
+  position: absolute;
+  top: 1rem;
+  left: 75%;
+}
+
 .socials svg {
+  width: 30px;
+  height: 30px;
   margin: 0 10px;
   cursor: pointer;
   color: rgb(134, 134, 245);
 }
 
-.twitter {
-  color: rgb(0, 0, 222) !important;
-}
 .headerBox {
   display: flex;
   flex-direction: column;
@@ -47,9 +49,9 @@
   border: 2px solid var(--bs-secondary);
   margin: auto;
   color: var(--bs-secondary);
-  margin-bottom: 4px;
-  margin-right: 4px;
-  height: 80px;
+  margin-bottom: 0.5rem;
+  margin-right: 0.2rem;
+  height: 5rem;
   padding: 0.5rem;
 }
 
@@ -57,6 +59,7 @@
 .headerBox2 h6,
 .headerBox3 h6 {
   margin: 0;
+  font-size: 0.7rem;
 }
 
 .box {
@@ -68,11 +71,12 @@
   border: 1px solid var(--bs-secondary);
   background-color: white;
   color: var(--bs-secondary);
-  margin-right: 4px;
-  height: 80px;
+  margin-bottom: 0.5rem;
+  margin-right: 0.2rem;
+  height: 5rem;
   overflow: scroll;
-  font-size: 12px;
-  padding: 0.5rem;
+  font-size: 0.6rem;
+  padding: 0rem;
 }
 
 .filler {
@@ -87,8 +91,9 @@
   justify-content: center;
   text-align: center;
   background-color: white;
-  margin-right: 4px;
-  height: 80px;
+  margin-bottom: 0.5rem;
+  margin-right: 0.2rem;
+  height: 5rem;
   font-size: 12px;
   padding: 0.5rem;
 }
@@ -122,4 +127,8 @@
   float: right;
   margin-right: 1rem;
   font-size: 30px;
+}
+
+.column {
+  width: 12.33333333% !important;
 }
