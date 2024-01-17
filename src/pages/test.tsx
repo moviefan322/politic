@@ -58,7 +58,6 @@ const Test = () => {
         <GptTestComp />
         <EricAdamsTest />
         <DkShivaKumarTest />
-        {/* <LineChartTest /> */}
       </div>
     </div>
   );
