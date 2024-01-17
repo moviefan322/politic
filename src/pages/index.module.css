@@ -1,6 +1,23 @@
+.index {
+  position: relative;
+}
+
 .nav {
+  position: sticky;
+  top: 0;
   margin-right: 0;
   width: 100%;
+  z-index: 11;
+}
+
+.top {
+  position: sticky;
+  top: 0;
+  z-index: 8;
+}
+
+.params {
+  background-color: var(--bs-primary);
 }
 
 .candidates {
@@ -12,15 +29,10 @@
 }
 
 .analysis {
-  height: 52vh;
   overflow-y: scroll;
   overflow-x: hidden;
   width: 100%;
   margin: auto;
-}
-
-.top {
-  height: 48vh;
 }
 
 .filler {
@@ -28,7 +40,6 @@
 }
 
 .borderLine {
-  position: sticky;
   top: 0;
   margin: auto;
   width: 80%;

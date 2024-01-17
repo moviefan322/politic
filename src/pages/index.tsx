@@ -102,59 +102,70 @@ const Index = () => {
     return <MobileNote />;
   }
 
-  console.log(data)
+  console.log(loading);
 
   return (
     <>
-      {(loading.lineChart ||
-        loading.histogram ||
-        loading.topAccounts ||
-        loading.selectedPosts) && <Loading />}
-      <div className={styles.top}>
-        <div className={styles.nav}>
-          <Navbar />
-          <Sidebar />
-        </div>
-        <Params setParams={setParams} params={params} setError={setError} data={data} />
+      <div className={styles.loading}>
+        {(loading.lineChart ||
+          loading.histogram ||
+          loading.topAccounts ||
+          loading.selectedPosts) && <Loading />}
       </div>
-      <div className={`${styles.analysis}`}>
-        <div
-          className={styles.borderLine}
-          style={params.showChart ? { borderTop: "1px solid gray" } : {}}
-        ></div>
-        {error && <Error error={error} />}
-        {params.showChart && !error && (
-          <div className={styles.candidates}>
-            <>
-              <LineChart
-                params={params}
-                setLoading={setLoading}
-                loading={loading}
-                chartWidth={chartWidth}
-                chartHeight={chartHeight}
-              />
-              <HistogramChart
-                params={params}
-                setLoading={setLoading}
-                loading={loading}
-                chartWidth={chartWidth}
-                chartHeight={chartHeight}
-              />
-              <TopAccounts
-                params={params}
-                setLoading={setLoading}
-                loading={loading}
-              />
-              <SelectedPosts
-                params={params}
-                setLoading={setLoading}
-                loading={loading}
-              />
-            </>
+      <div className={styles.index}>
+        <div className={styles.top}>
+          <div className={styles.nav}>
+            <Navbar />
+            <Sidebar />
           </div>
-        )}
+          <div className={styles.params}>
+            <Params
+              setParams={setParams}
+              params={params}
+              setError={setError}
+              data={data}
+            />
+          </div>
+          <div
+            className={styles.borderLine}
+            style={params.showChart ? { borderTop: "1px solid gray" } : {}}
+          ></div>
+        </div>
+        <div className={`${styles.analysis}`}>
+          {error && <Error error={error} />}
+          {params.showChart && !error && (
+            <div className={styles.candidates}>
+              <>
+                <LineChart
+                  params={params}
+                  setLoading={setLoading}
+                  loading={loading}
+                  chartWidth={chartWidth}
+                  chartHeight={chartHeight}
+                />
+                <HistogramChart
+                  params={params}
+                  setLoading={setLoading}
+                  loading={loading}
+                  chartWidth={chartWidth}
+                  chartHeight={chartHeight}
+                />
+                <TopAccounts
+                  params={params}
+                  setLoading={setLoading}
+                  loading={loading}
+                />
+                <SelectedPosts
+                  params={params}
+                  setLoading={setLoading}
+                  loading={loading}
+                />
+              </>
+            </div>
+          )}
 
-        <div className={styles.filler}></div>
+          <div className={styles.filler}></div>
+        </div>
       </div>
     </>
   );

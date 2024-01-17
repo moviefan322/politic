@@ -1,5 +1,5 @@
 .overlay {
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   height: 33vh;
@@ -15,6 +15,6 @@
 }
 
 .loading {
-color: white;
-margin: auto;
+  color: white;
+  margin: auto;
 }
