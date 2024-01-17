@@ -18,7 +18,7 @@ import { TweetData } from "@/types/TweetData";
 const Index = () => {
   const [chartWidth, setChartWidth] = useState<number>(0);
   const [chartHeight, setChartHeight] = useState<number>(0);
-  const [data, setData] = useState<TweetData[]>([]);
+  const [data, setData] = useState<TweetData[] | null>(null);
   const [mobileFlag, setMobileFlag] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<ILoading>({
@@ -42,7 +42,7 @@ const Index = () => {
   useEffect(() => {
     if (typeof window !== "undefined") {
       setChartWidth(window.innerWidth * 0.75);
-      setChartHeight(window.innerHeight * 0.5);
+      setChartHeight(window.innerHeight * 0.45);
       if (window.innerWidth < 1200) {
         setMobileFlag(true);
       }
@@ -102,6 +102,8 @@ const Index = () => {
     return <MobileNote />;
   }
 
+  console.log(data)
+
   return (
     <>
       {(loading.lineChart ||
@@ -113,7 +115,7 @@ const Index = () => {
           <Navbar />
           <Sidebar />
         </div>
-        <Params setParams={setParams} params={params} setError={setError} />
+        <Params setParams={setParams} params={params} setError={setError} data={data} />
       </div>
       <div className={`${styles.analysis}`}>
         <div

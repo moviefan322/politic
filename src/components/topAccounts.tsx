@@ -159,7 +159,7 @@ const TopAccounts = ({ params, loading, setLoading }: TopAccountsProps) => {
         className={`py-5 w-75 d-flex flex-column align-items-center justify-content-center chart`}
       >
         <div className="w-100 row mb-5">
-          <p className="fw-bold text-secondary fs-4 col-5 ms-3">
+          <p className="fw-bold text-secondary fs-4 col-6 ms-3">
             Top 10 Accounts for Negative Posts
           </p>
           <div className={`${styles.socials}`}>

@@ -9,24 +9,20 @@
   align-items: center;
   justify-content: center;
   background-color: var(--color-primary);
-  margin-bottom: 5rem;
 }
 
 .analysis {
-  margin-top: 3rem;
-  height: 55vh;
+  height: 52vh;
   overflow-y: scroll;
   overflow-x: hidden;
-  width: 100vw;
 }
 
 .top {
-  height: 40vh;
-  padding-bottom: 3rem;
+  height: 48vh;
 }
 
 .filler {
-  height: 10vh;
+  height: 3rem;
 }
 
 .borderLine {
@@ -35,4 +31,12 @@
   margin: auto;
   width: 80%;
   z-index: 2;
+}
+
+.summary {
+  margin-left: 7rem;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: center;
 }

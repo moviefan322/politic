@@ -8,9 +8,10 @@ interface ParamsProps {
   setParams: React.Dispatch<React.SetStateAction<IParams>>;
   params: IParams;
   setError: React.Dispatch<React.SetStateAction<string | null>>;
+  data: any;
 }
 
-const Params = ({ setParams, params, setError }: ParamsProps) => {
+const Params = ({ setParams, params, setError, data }: ParamsProps) => {
   const [keywordChecked, setKeywordChecked] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState("United States");
   const [selectedCandidate, setSelectedCandidate] = useState("");
@@ -308,7 +309,18 @@ const Params = ({ setParams, params, setError }: ParamsProps) => {
               disabled={true}
             />
           </div>
-
+        </div>
+      </div>
+      <div className="row text-secondary d-flex flex-row">
+        <div className="col-4 offset-1 d-flex flex-column">
+          {data && (
+            <div className="ms-2 mt-3">
+              <h6>Summary:</h6>
+              <h6 className="ms-5">Total Posts: {data.length.toLocaleString()}</h6>
+            </div>
+          )}
+        </div>
+        <div className="col-3 offset-4 d-flex flex-column">
           <button onClick={handleRunAnalysis} className={styles.runAnal}>
             Run Analysis
           </button>
