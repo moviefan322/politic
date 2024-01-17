@@ -385,7 +385,7 @@ const SelectedPosts = ({ params, loading, setLoading }: SelectedPostsProps) => {
           )}
         </div>
       </div>
-      {showResponse && <Response tweet={selectedTweet!} />}
+      <div className=''>{showResponse && <Response tweet={selectedTweet!} />}</div>
     </>
   );
 };

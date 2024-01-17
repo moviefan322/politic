@@ -44,15 +44,31 @@ const Response = ({ tweet }: ResponseProps) => {
   }
 
   if (response.length > 0) {
-
     return (
-      <div className="d-flex flex-column justify-content-center">
+      <div
+        className={`d-flex flex-column justify-content-center ${styles.response}`}
+      >
+        {tweet && (
+          <div className={`row ${styles.metadata}`}>
+            <div className="col-12 offset-1">
+              <div className="ms-2">
+                <h6>Post Metadata:</h6>
+              </div>
+              <div className="d-flex flex-row">
+                <h6 className="ms-5 col-2">Account Name: {tweet.user}</h6>
+                <h6 className="ms-5 col-6">Post Content: {tweet.content}</h6>
+              </div>
+              <div className={styles.borderLine}></div>
+            </div>
+          </div>
+        )}
+
         {formattedResponse.length > 0 && (
           <>
             {formattedResponse.map((tweet, i) => (
               <div key={i} className={`chart w-75 ${styles.chart}`}>
                 <h5>Response #{i + 1}</h5>
-                <p>{tweet.replace(/"/g, '')}</p>
+                <p>{tweet.replace(/"/g, "")}</p>
               </div>
             ))}
           </>

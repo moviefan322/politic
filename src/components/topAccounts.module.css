@@ -1,5 +1,6 @@
 .topAccounts {
   width: 80%;
+  overflow-x: hidden;
 }
 
 .chart {

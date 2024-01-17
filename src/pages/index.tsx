@@ -105,7 +105,7 @@ const Index = () => {
   console.log(loading);
 
   return (
-    <>
+    <div className=''>
       <div className={styles.loading}>
         {(loading.lineChart ||
           loading.histogram ||
@@ -167,7 +167,7 @@ const Index = () => {
           <div className={styles.filler}></div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
