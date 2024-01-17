@@ -314,7 +314,7 @@ const Params = ({ setParams, params, setError, data }: ParamsProps) => {
       <div className="row text-secondary d-flex flex-row">
         <div className="col-4 offset-1 d-flex flex-column">
           {data && (
-            <div className="ms-2 mt-3">
+            <div className="ms-2">
               <h6>Summary:</h6>
               <h6 className="ms-5">Total Posts: {data.length.toLocaleString()}</h6>
             </div>

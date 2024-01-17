@@ -194,7 +194,7 @@ const SelectedPosts = ({ params, loading, setLoading }: SelectedPostsProps) => {
   return (
     <>
       <div
-        className={`py-5 w-75 d-flex flex-column align-items-center justify-content-center ${styles.container}`}
+        className={`py-5 d-flex flex-column align-items-center justify-content-center ${styles.topAccounts}`}
       >
         <div className={`w-100 row mb-5 ${styles.chartHead}`}>
           <p className="fw-bold text-secondary fs-4 col-5 ms-5">
@@ -227,7 +227,7 @@ const SelectedPosts = ({ params, loading, setLoading }: SelectedPostsProps) => {
           </div>
         </div>
 
-        <div className={`${styles.chart}`}>
+        <div className={`${styles.chart} ${styles.selectedPosts}`}>
           <div className={`${styles.buttGroup} col-1`}>
             <div className={`${styles.headerBox} ${styles.filler} `}></div>
             {selectedTweets.map((tweet, i) => (

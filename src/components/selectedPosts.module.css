@@ -1,16 +1,9 @@
-.container {
+.topAccounts {
   background-color: white;
-  margin: 2rem 2rem;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
   border-radius: 30px;
   overflow-x: scroll;
-}
-
-.chartContainer {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
+  width: 80%;
 }
 
 .chartHead {

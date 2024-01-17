@@ -156,7 +156,7 @@ const TopAccounts = ({ params, loading, setLoading }: TopAccountsProps) => {
   return (
     <>
       <div
-        className={`py-5 w-75 d-flex flex-column align-items-center justify-content-center chart`}
+        className={`py-5 d-flex flex-column align-items-center justify-content-center chart ${styles.topAccounts}`}
       >
         <div className="w-100 row mb-5">
           <p className="fw-bold text-secondary fs-4 col-6 ms-3">

@@ -41,7 +41,7 @@ const Index = () => {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      setChartWidth(window.innerWidth * 0.75);
+      setChartWidth(window.innerWidth * 0.8);
       setChartHeight(window.innerHeight * 0.45);
       if (window.innerWidth < 1200) {
         setMobileFlag(true);
