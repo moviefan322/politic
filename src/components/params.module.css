@@ -56,9 +56,8 @@
   color: white;
   border-radius: 2rem;
   padding: 0.3rem 1rem;
-  float: right;
-  margin-right: 1rem;
-  margin-top: 1rem;
+  margin: 0 auto;
+  width: 50%;
 }
 
 .dropdownContainer {
