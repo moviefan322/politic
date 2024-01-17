@@ -105,11 +105,12 @@ const Dates = () => {
         </div>
       </div>
 
-      <div className="mx-3">
-        <Link href="https://github.com/moviefan322/moviefan322.github.io/blob/main/codesnip.txt">
-          View Source Code
-        </Link>
-      </div>
+      <Link
+        className={styles.link}
+        href="https://github.com/moviefan322/moviefan322.github.io/blob/main/codesnip.txt"
+      >
+        View Source Code
+      </Link>
     </>
   );
 };

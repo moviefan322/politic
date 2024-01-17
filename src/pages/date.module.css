@@ -28,3 +28,14 @@
   margin: 0 auto;
   max-height: 2.5rem;
 }
+
+.link {
+  display: flex;
+  justify-content: center;
+  padding-top: 2rem;
+  color: var(--bs-secondary);
+  font-weight: bolder;
+  font-size: 1rem;
+  margin: auto;
+  max-height: 2.5rem;
+}
